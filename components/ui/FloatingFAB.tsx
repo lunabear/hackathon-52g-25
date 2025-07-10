@@ -42,16 +42,21 @@ export default function FloatingFAB() {
       {/* 플로팅 버튼 */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-8 right-8 z-50 group transition-all duration-300 hover:scale-110"
+        className="fixed bottom-8 right-6 z-50 group transition-all duration-300 hover:scale-110"
         aria-label="자주 묻는 질문"
       >
-        {/* 미소 FAQ 캐릭터 */}
-        <div className="w-14 h-14 md:w-16 md:h-16">
-          <img 
-            src="/assets/miso/miso-faq.png" 
-            alt="FAQ" 
-            className="w-full h-full object-contain drop-shadow-2xl"
-          />
+        <div className="text-center">
+          {/* 미소 FAQ 캐릭터 */}
+          <div className="w-20 h-20 md:w-24 md:h-24">
+            <img 
+              src="/assets/miso/miso-dance.gif" 
+              alt="FAQ" 
+              className="w-full h-full object-contain drop-shadow-2xl"
+            />
+          </div>
+          <span className="text-xs md:text-sm font-semibold text-gray-700 mt-1 block">
+            Ask MISO!
+          </span>
         </div>
       </button>
 
