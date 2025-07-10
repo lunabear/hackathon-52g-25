@@ -1,370 +1,362 @@
 'use client'
 
-import { useRef } from 'react'
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import SimpleWordSwitcher from '@/components/ui/SimpleWordSwitcher'
 
-export default function Hero() {
-  const containerRef = useRef(null)
-  const { scrollY } = useScroll()
-  
-  // 패럴랙스 효과
-  const y1 = useTransform(scrollY, [0, 500], [0, 80])
-  const y2 = useTransform(scrollY, [0, 500], [0, -60])
-  const y3 = useTransform(scrollY, [0, 500], [0, 40])
-  const opacity = useTransform(scrollY, [0, 300], [1, 0])
+const switchWords = ['GenAI', 'Everyone', 'Innovation', 'Future', 'Together', 'Vibe']
 
-  const switchWords = ['GenAI', 'Everyone', 'Innovation', 'Future', 'Together', 'PLAI']
+export default function Hero() {
+  
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  })
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const targetDate = new Date('2025-08-06T23:59:59+09:00') // 한국 시간 8월 6일 자정
+      const now = new Date()
+      const difference = targetDate.getTime() - now.getTime()
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+        setTimeLeft({ days, hours, minutes, seconds })
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+      }
+    }
+
+    calculateTimeLeft()
+    const timer = setInterval(calculateTimeLeft, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   return (
-    <section ref={containerRef} className="relative min-h-screen overflow-hidden">
-      {/* 깔끔한 그라데이션 배경 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#F0F7FF] via-[#E3F2FD] to-[#BBDEFB]" />
-      
-      {/* 심플한 그리드 패턴 */}
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.03]" />
-      
-      {/* 축구장 배경 - 하단에 배치 */}
-      <div className="absolute bottom-0 left-0 right-0 h-[40%] z-0">
-        <Image 
-          src="/assets/symbols/축구장.png" 
-          alt="" 
-          fill
-          className="object-cover object-top opacity-70"
-        />
+    <div className="relative overflow-x-hidden">
+      {/* 완전히 고정된 배경 섹션 - 전체 페이지 커버 */}
+      <div className="fixed inset-0 overflow-hidden z-0">
+        {/* 깔끔한 그라데이션 배경 */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F0F7FF] via-[#E3F2FD] to-[#BBDEFB]" />
+        
+        {/* 심플한 그리드 패턴 */}
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.03]" />
+        
+        {/* 축구장 배경 - 하단에 배치 */}
+        <div className="absolute bottom-0 left-0 right-0 h-[40%]">
+          <Image 
+            src="/assets/symbols/축구장.png" 
+            alt="" 
+            fill
+            className="object-cover object-top opacity-70"
+          />
+        </div>
+        
+        {/* 3D 요소들 - 완전 고정 */}
+        <div className="absolute top-[20%] left-[5%] sm:left-[10%] w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40">
+          <Image 
+            src="/assets/symbols/도형1.png" 
+            alt="" 
+            width={160} 
+            height={160}
+            className="opacity-70 w-full h-full object-contain"
+          />
+        </div>
+        
+        <motion.div 
+          animate={{ rotate: [-5, 5, -5] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[8%] left-[40%] sm:left-[45%] w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
+        >
+          <Image 
+            src="/assets/symbols/깃발.png" 
+            alt="" 
+            width={96} 
+            height={96}
+            className="opacity-60 w-full h-full object-contain"
+          />
+        </motion.div>
+        
+        <motion.div 
+          animate={{ rotate: 360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[30%] left-[10%] sm:left-[15%] w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28"
+        >
+          <Image 
+            src="/assets/symbols/축구공.png" 
+            alt="" 
+            width={112} 
+            height={112}
+            className="opacity-50 w-full h-full object-contain"
+          />
+        </motion.div>
+        
+        <div className="absolute top-[10%] right-[5%] sm:right-[8%] w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40">
+          <Image 
+            src="/assets/symbols/트로피.png" 
+            alt="" 
+            width={160} 
+            height={160}
+            className="opacity-60 w-full h-full object-contain"
+          />
+        </div>
+        
+        <motion.div 
+          animate={{ rotate: 360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[25%] right-[5%] sm:right-[10%] w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32"
+        >
+          <Image 
+            src="/assets/symbols/호루라기.png" 
+            alt="" 
+            width={128} 
+            height={128}
+            className="opacity-50 w-full h-full object-contain"
+          />
+        </motion.div>
+        
+        <div className="absolute top-[35%] right-[10%] sm:right-[15%] w-24 h-16 sm:w-28 sm:h-20 md:w-36 md:h-24">
+          <Image 
+            src="/assets/symbols/도형11.png" 
+            alt="" 
+            width={144} 
+            height={96}
+            className="opacity-60 w-full h-full object-contain"
+          />
+        </div>
+        
+        {/* 작은 장식 도형들 */}
+        <motion.div 
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[30%] left-[20%] sm:left-[25%] w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+        >
+          <Image 
+            src="/assets/symbols/도형4.png" 
+            alt="" 
+            width={48} 
+            height={48}
+            className="opacity-40 w-full h-full object-contain"
+          />
+        </motion.div>
+        
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[50%] right-[25%] sm:right-[30%] w-8 h-8 sm:w-10 sm:h-10"
+        >
+          <Image 
+            src="/assets/symbols/도형4.png" 
+            alt="" 
+            width={40} 
+            height={40}
+            className="opacity-30 w-full h-full object-contain"
+          />
+        </motion.div>
+        
+        <div className="absolute top-[15%] right-[30%] sm:right-[35%] w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
+          <Image 
+            src="/assets/symbols/도형5.png" 
+            alt="" 
+            width={64} 
+            height={64}
+            className="opacity-30 w-full h-full object-contain"
+          />
+        </div>
+        
+        <motion.div 
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[40%] left-[25%] sm:left-[30%] w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14"
+        >
+          <Image 
+            src="/assets/symbols/도형7.png" 
+            alt="" 
+            width={56} 
+            height={56}
+            className="opacity-40 w-full h-full object-contain"
+          />
+        </motion.div>
+        
+        <div className="absolute top-[45%] left-[2%] sm:left-[5%] w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20">
+          <Image 
+            src="/assets/symbols/도형3.png" 
+            alt="" 
+            width={80} 
+            height={80}
+            className="opacity-35 w-full h-full object-contain"
+          />
+        </div>
+        
+        <motion.div 
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 3, repeat: Infinity }}
+          className="absolute top-[60%] right-[2%] sm:right-[5%] w-10 h-10 sm:w-12 sm:h-12"
+        >
+          <Image 
+            src="/assets/symbols/도형6.png" 
+            alt="" 
+            width={48} 
+            height={48}
+            className="opacity-40 w-full h-full object-contain"
+          />
+        </motion.div>
+
+        {/* 로고 - 완전히 고정 */}
+        <div className="absolute top-4 left-4 sm:top-8 sm:left-8 flex items-center gap-4 z-50">
+          <Image src="/assets/symbols/52g로고.png" alt="52g" width={50} height={25} className="h-5 sm:h-7 w-auto opacity-80" />
+        </div>
+        
+        <div className="absolute top-4 right-4 sm:top-8 sm:right-8 z-50">
+          <Image src="/assets/symbols/GS로고.png" alt="GS" width={70} height={35} className="h-7 sm:h-9 w-auto opacity-80" />
+        </div>
       </div>
-      
-      {/* 3D 요소들 - 단순화 */}
-      {/* 초록색 도형 - 왼쪽 중앙 */}
-      <motion.div 
-        style={{ y: y1 }}
-        className="absolute top-[20%] left-[10%] w-40 h-40 z-10"
-      >
-        <Image 
-          src="/assets/symbols/도형1.png" 
-          alt="" 
-          width={160} 
-          height={160}
-          className="opacity-70"
-        />
-      </motion.div>
-      
-      {/* 파란색 깃발 - 상단 중앙 */}
-      <motion.div 
-        style={{ y: y2 }}
-        animate={{ rotate: [-5, 5, -5] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[8%] left-[45%] w-24 h-24 z-10"
-      >
-        <Image 
-          src="/assets/symbols/깃발.png" 
-          alt="" 
-          width={96} 
-          height={96}
-          className="opacity-60"
-        />
-      </motion.div>
-      
-      <motion.div 
-        style={{ y: y2 }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-[30%] left-[15%] w-28 h-28 z-10"
-      >
-        <Image 
-          src="/assets/symbols/축구공.png" 
-          alt="" 
-          width={112} 
-          height={112}
-          className="opacity-50"
-        />
-      </motion.div>
-      
-      <motion.div 
-        style={{ y: y3 }}
-        className="absolute top-[10%] right-[8%] w-40 h-40 z-10"
-      >
-        <Image 
-          src="/assets/symbols/트로피.png" 
-          alt="" 
-          width={160} 
-          height={160}
-          className="opacity-60"
-        />
-      </motion.div>
-      
-      {/* 호루라기 - 오른쪽 하단 */}
-      <motion.div 
-        style={{ y: y1 }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-[25%] right-[10%] w-32 h-32 z-10"
-      >
-        <Image 
-          src="/assets/symbols/호루라기.png" 
-          alt="" 
-          width={128} 
-          height={128}
-          className="opacity-50"
-        />
-      </motion.div>
-      
-      {/* 빨간색/주황색 도형 - 오른쪽 중앙 */}
-      <motion.div 
-        style={{ y: y2 }}
-        className="absolute top-[35%] right-[15%] w-36 h-24 z-10"
-      >
-        <Image 
-          src="/assets/symbols/도형11.png" 
-          alt="" 
-          width={144} 
-          height={96}
-          className="opacity-60"
-        />
-      </motion.div>
-      
-      {/* 작은 장식 도형들 */}
-      {/* 별 모양들 */}
-      <motion.div 
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[30%] left-[25%] w-12 h-12 z-10"
-      >
-        <Image 
-          src="/assets/symbols/도형4.png" 
-          alt="" 
-          width={48} 
-          height={48}
-          className="opacity-40"
-        />
-      </motion.div>
-      
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[50%] right-[30%] w-10 h-10 z-10"
-      >
-        <Image 
-          src="/assets/symbols/도형4.png" 
-          alt="" 
-          width={40} 
-          height={40}
-          className="opacity-30"
-        />
-      </motion.div>
-      
-      {/* 원형 도형들 */}
-      <motion.div 
-        style={{ y: y3 }}
-        className="absolute top-[15%] right-[35%] w-16 h-16 z-10"
-      >
-        <Image 
-          src="/assets/symbols/도형5.png" 
-          alt="" 
-          width={64} 
-          height={64}
-          className="opacity-30"
-        />
-      </motion.div>
-      
-      <motion.div 
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[40%] left-[30%] w-14 h-14 z-10"
-      >
-        <Image 
-          src="/assets/symbols/도형7.png" 
-          alt="" 
-          width={56} 
-          height={56}
-          className="opacity-40"
-        />
-      </motion.div>
-      
-      {/* 삼각형 도형 */}
-      <motion.div 
-        style={{ y: y1 }}
-        className="absolute top-[45%] left-[5%] w-20 h-20 z-10"
-      >
-        <Image 
-          src="/assets/symbols/도형3.png" 
-          alt="" 
-          width={80} 
-          height={80}
-          className="opacity-35"
-        />
-      </motion.div>
-      
-      {/* 추가 작은 도형들 */}
-      <motion.div 
-        animate={{ opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 3, repeat: Infinity }}
-        className="absolute top-[60%] right-[5%] w-12 h-12 z-10"
-      >
-        <Image 
-          src="/assets/symbols/도형6.png" 
-          alt="" 
-          width={48} 
-          height={48}
-          className="opacity-40"
-        />
-      </motion.div>
-      
-      {/* 메인 콘텐츠 */}
-      <div className="relative z-20 min-h-screen flex flex-col items-center justify-center px-4">
-        {/* 로고 */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="absolute top-8 left-8 flex items-center gap-4"
-        >
-          <Image src="/assets/symbols/52g로고.png" alt="52g" width={50} height={25} className="h-7 w-auto opacity-80" />
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="absolute top-8 right-8"
-        >
-          <Image src="/assets/symbols/GS로고.png" alt="GS" width={70} height={35} className="h-9 w-auto opacity-80" />
-        </motion.div>
-        
-        {/* 메인 타이틀 */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          style={{ opacity }}
-          className="text-center relative"
-        >
-          {/* 상단 텍스트 */}
-          <motion.p 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-2xl md:text-3xl font-semibold text-gray-700 tracking-tight mb-16"
-          >
-            제4회 GS그룹 해커톤
-          </motion.p>
-          
-          {/* 메인 타이틀 그룹 */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-20"
-          >
-            {/* PLAI 타이틀 */}
-            <h1 className="relative mb-12">
-              <motion.span 
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="block text-[10rem] md:text-[12rem] lg:text-[14rem] font-black leading-[0.8] tracking-tighter"
-                style={{
-                  background: 'linear-gradient(180deg, #1a1a1a 0%, #4a4a4a 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  textShadow: '0 10px 30px rgba(0,0,0,0.1)'
-                }}
-              >
-                PLAI
-              </motion.span>
-              
-            </h1>
-            
-            {/* with 텍스트 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="flex items-center justify-center gap-6 text-4xl md:text-5xl lg:text-6xl"
+
+      {/* 스크롤 가능한 콘텐츠 */}
+      <div className="relative z-20 overflow-x-hidden">
+        {/* 첫 번째 섹션 - 메인 히어로 */}
+        <section className="h-screen flex items-center justify-center px-4 overflow-x-hidden">
+          <div className="text-center relative w-full max-w-4xl mx-auto">
+            {/* 상단 텍스트 */}
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-700 tracking-tight mb-16"
             >
-              <span className="font-light text-gray-600 italic">with</span>
-              <div className="relative">
-                <SimpleWordSwitcher 
-                  words={switchWords}
-                  className="font-black tracking-tight"
-                />
-                {/* 미니멀한 포인트 */}
-                <motion.span
-                  initial={{ width: 0 }}
-                  animate={{ width: '100%' }}
-                  transition={{ duration: 0.8, delay: 1 }}
-                  className="absolute bottom-0 left-0 h-[3px] bg-[#FF5500] origin-left"
-                />
+              제4회 GS그룹 해커톤
+            </motion.p>
+            
+            {/* 메인 타이틀 그룹 */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mb-20"
+            >
+              {/* PLAI 타이틀 */}
+              <h1 className="relative mb-12 inline-block">
+                <span 
+                  className="block text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[14rem] xl:text-[16rem] font-black leading-[0.8] tracking-tighter"
+                  style={{
+                    background: 'linear-gradient(180deg, #1a1a1a 0%, #4a4a4a 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    textShadow: '0 10px 30px rgba(0,0,0,0.1)'
+                  }}
+                >
+                  PLAI
+                </span>
+                
+                {/* 미소 캐릭터 - I의 오른쪽에 배치 */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="absolute block"
+                  style={{ 
+                    right: '-30%',
+                    bottom: '-8%',
+                    width: '50%',
+                    height: '50%'
+                  }}
+                >
+                  <Image 
+                    src="/assets/miso/miso-play.png" 
+                    alt="Miso character" 
+                    width={200} 
+                    height={200}
+                    className="w-full h-full object-contain object-bottom"
+                    priority
+                  />
+                </motion.div>
+              </h1>
+              
+              {/* with 텍스트 */}
+              <div 
+                className="flex items-center justify-center gap-3 sm:gap-4 md:gap-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl"
+              >
+                <span className="font-light text-gray-600 italic">with</span>
+                <div className="relative">
+                  <SimpleWordSwitcher 
+                    words={switchWords}
+                    className="font-black tracking-tight"
+                  />
+                  {/* 미니멀한 포인트 */}
+                  <motion.span
+                    initial={{ width: 0 }}
+                    animate={{ width: '100%' }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="absolute bottom-0 left-0 h-[3px] bg-[#FF5500] origin-left"
+                  />
+                </div>
               </div>
             </motion.div>
-          </motion.div>
-          
-          
-          {/* 부가 설명 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
-            className="max-w-2xl mx-auto mb-12"
-            style={{ marginTop: '60px' }}
-          >
-            <p className="text-xl md:text-2xl text-gray-600 font-light" style={{ lineHeight: '2' }}>
-              우리가 함께 PLAI하면, <span className="font-semibold text-gray-800">그곳이 바로 플레이그라운드</span>
-            </p>
-          </motion.div>
-        </motion.div>
-        
-        {/* CTA 버튼 영역 */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.3 }}
-          className="absolute bottom-20 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="flex flex-col items-center gap-6">
-            {/* 메인 CTA 버튼 */}
-            <motion.a
-              href="https://form.typeform.com/to/GX5MGuZ9"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative inline-flex items-center gap-3 px-12 py-6 bg-[#FF5500] text-white rounded-full font-bold text-xl transition-all hover:bg-[#FF4400] shadow-2xl"
-              style={{
-                boxShadow: '0 20px 40px rgba(255, 85, 0, 0.3)'
-              }}
-            >
-              <span>지금 신청하기</span>
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="text-2xl"
-              >
-                →
-              </motion.span>
-              
-              {/* 버튼 광택 효과 */}
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                animate={{ x: [-200, 200] }}
-                transition={{ duration: 3, repeat: Infinity, repeatDelay: 1 }}
-                style={{ clipPath: 'inset(0 round 9999px)' }}
-              />
-            </motion.a>
             
-            {/* 부가 정보 */}
-            <motion.p
+            {/* 부가 설명 */}
+            <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.7 }}
-              transition={{ duration: 0.8, delay: 1.5 }}
-              className="text-sm text-gray-600"
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="max-w-2xl mx-auto"
+              style={{ marginTop: '60px' }}
             >
-              참가 신청 마감: 8월 6일(수)
-            </motion.p>
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 font-light px-4" style={{ lineHeight: '2' }}>
+                우리가 함께 PLAI하면, <span className="font-semibold text-gray-800">그곳이 바로 플레이그라운드</span>
+              </p>
+            </motion.div>
+
+            {/* CTA 버튼 영역 */}
+            <div style={{ marginTop: '60px', position: 'relative', zIndex: 30 }} className="sm:mt-24 md:mt-32">
+              <div className="flex items-center justify-center">
+                <a
+                  href="https://form.typeform.com/to/GX5MGuZ9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative"
+                >
+                  <div className="relative transform transition-all duration-300 group-hover:-translate-y-1">
+                    <div className="absolute inset-0 bg-gray-200 rounded-2xl transform translate-y-1 group-hover:translate-y-2 transition-transform" />
+                    <div className="relative bg-white rounded-2xl font-semibold text-gray-800 text-base border border-gray-100 overflow-hidden transition-all duration-300 group-hover:shadow-xl" style={{ padding: '20px 40px', minWidth: '180px' }}>
+                      <span className="relative z-10 block text-center">참가 신청</span>
+                      <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-pink-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute top-1/2 -translate-y-1/2 right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                          <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              
+              {/* 카운트다운 타이머 */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="mt-6 text-center"
+              >
+                <div className="inline-flex items-center gap-2 text-sm text-gray-500">
+                  <span>모집 마감까지</span>
+                  <span className="text-gray-800 font-medium">
+                    {timeLeft.days}일 {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
+                  </span>
+                </div>
+              </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </section>
+
       </div>
-    </section>
+    </div>
   )
 }

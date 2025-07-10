@@ -10,12 +10,12 @@ export default function SimpleWordSwitcher({
   className?: string 
 }) {
   const [displayText, setDisplayText] = useState(words[0])
-  const indexRef = useRef(0)
+  const currentIndexRef = useRef(0)
   
   useEffect(() => {
-    const animateText = () => {
-      indexRef.current = (indexRef.current + 1) % words.length
-      const targetWord = words[indexRef.current]
+    const animateToNextWord = () => {
+      currentIndexRef.current = (currentIndexRef.current + 1) % words.length
+      const targetWord = words[currentIndexRef.current]
       const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%'
       
       let iteration = 0
@@ -41,9 +41,9 @@ export default function SimpleWordSwitcher({
       }, 30)
     }
     
-    const mainInterval = setInterval(animateText, 2500)
+    const interval = setInterval(animateToNextWord, 2500)
     
-    return () => clearInterval(mainInterval)
+    return () => clearInterval(interval)
   }, [words])
   
   return (
