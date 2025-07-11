@@ -225,15 +225,8 @@ export default function Hero() {
         {/* 첫 번째 섹션 - 메인 히어로 */}
         <section className="h-screen flex items-center justify-center px-4 overflow-x-hidden">
           <div className="text-center relative w-full max-w-4xl mx-auto">
-            {/* 상단 텍스트 */}
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 tracking-tight mb-16"
-            >
-              제4회 GS그룹 해커톤
-            </motion.p>
+            {/* 상단 공간 유지 */}
+            <div className="mb-16" />
             
             {/* 메인 타이틀 그룹 */}
             <motion.div
@@ -247,7 +240,7 @@ export default function Hero() {
                 <img 
                   src="/assets/PLAI-logo.png"
                   alt="PLAI"
-                  className="block w-[20rem] sm:w-[25rem] md:w-[30rem] lg:w-[35rem] xl:w-[40rem] h-auto"
+                  className="block w-[18rem] sm:w-[23rem] md:w-[28rem] lg:w-[33rem] xl:w-[38rem] h-auto"
                   style={{
                     filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.1))'
                   }}
