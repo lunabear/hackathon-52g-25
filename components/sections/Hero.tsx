@@ -230,7 +230,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-700 tracking-tight mb-16"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 tracking-tight mb-16"
             >
               제4회 GS그룹 해커톤
             </motion.p>
@@ -244,26 +244,23 @@ export default function Hero() {
             >
               {/* PLAI 타이틀 */}
               <h1 className="relative mb-12 inline-block">
-                <span 
-                  className="block text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[14rem] xl:text-[16rem] font-black leading-[0.8] tracking-tighter"
+                <img 
+                  src="/assets/PLAI-logo.png"
+                  alt="PLAI"
+                  className="block w-[20rem] sm:w-[25rem] md:w-[30rem] lg:w-[35rem] xl:w-[40rem] h-auto"
                   style={{
-                    background: 'linear-gradient(180deg, #1a1a1a 0%, #4a4a4a 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    textShadow: '0 10px 30px rgba(0,0,0,0.1)'
+                    filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.1))'
                   }}
-                >
-                  PLAI
-                </span>
+                />
                 
                 {/* 미소 캐릭터 - I의 오른쪽에 배치 */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="absolute block"
+                  className="absolute block z-10"
                   style={{ 
-                    right: '-30%',
+                    right: '-23%',
                     bottom: '-8%',
                     width: '50%',
                     height: '50%'
@@ -274,7 +271,10 @@ export default function Hero() {
                     alt="Miso character" 
                     width={200} 
                     height={200}
-                    className="w-full h-full object-contain object-bottom"
+                    className="w-full h-full object-contain object-bottom drop-shadow-2xl"
+                    style={{
+                      filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.15)) drop-shadow(0 10px 20px rgba(0,0,0,0.1))'
+                    }}
                     priority
                   />
                 </motion.div>
@@ -282,9 +282,9 @@ export default function Hero() {
               
               {/* with 텍스트 */}
               <div 
-                className="flex items-center justify-center gap-3 sm:gap-4 md:gap-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl"
+                className="flex items-center justify-center gap-3 sm:gap-4 md:gap-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl"
               >
-                <span className="font-light text-gray-600 italic">with</span>
+                <span className="font-medium text-gray-700 italic">with</span>
                 <div className="relative">
                   <SimpleWordSwitcher 
                     words={switchWords}
@@ -309,8 +309,8 @@ export default function Hero() {
               className="max-w-2xl mx-auto"
               style={{ marginTop: '60px' }}
             >
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 font-light px-4" style={{ lineHeight: '2' }}>
-                우리가 함께 PLAI하면, <span className="font-semibold text-gray-800">그곳이 바로 플레이그라운드</span>
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 font-medium px-4" style={{ lineHeight: '2' }}>
+                우리가 함께 PLAI하면, <span className="font-bold text-gray-900">그곳이 바로 플레이그라운드</span>
               </p>
             </motion.div>
 
@@ -323,12 +323,12 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   className="group relative"
                 >
-                  <div className="relative transform transition-all duration-300 group-hover:-translate-y-1">
-                    <div className="absolute inset-0 bg-gray-200 rounded-2xl transform translate-y-1 group-hover:translate-y-2 transition-transform" />
-                    <div className="relative bg-white rounded-2xl font-semibold text-gray-800 text-base border border-gray-100 overflow-hidden transition-all duration-300 group-hover:shadow-xl" style={{ padding: '20px 40px', minWidth: '180px' }}>
-                      <span className="relative z-10 block text-center">참가 신청</span>
-                      <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-pink-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute top-1/2 -translate-y-1/2 right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                  <div className="relative transform -translate-y-2 transition-all duration-150 group-hover:translate-y-0 group-active:translate-y-1">
+                    <div className="absolute inset-0 bg-gray-200 rounded-2xl transform translate-y-3 group-hover:translate-y-1 group-active:translate-y-0 transition-transform duration-150" />
+                    <div className="relative bg-white rounded-2xl font-bold text-gray-900 text-base border border-gray-100 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '20px 40px', minWidth: '180px' }}>
+                      <span className="relative z-10 block text-center">참가 신청 하기</span>
+                      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      <div className="absolute top-1/2 -translate-y-1/2 right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-200">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                           <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
@@ -345,9 +345,9 @@ export default function Hero() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="mt-6 text-center"
               >
-                <div className="inline-flex items-center gap-2 text-sm text-gray-500">
-                  <span>모집 마감까지</span>
-                  <span className="text-gray-800 font-medium">
+                <div className="inline-flex items-center gap-2 text-sm">
+                  <span className="text-gray-600 font-semibold">모집 마감까지</span>
+                  <span className="text-gray-900 font-black">
                     {timeLeft.days}일 {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
                   </span>
                 </div>
@@ -355,6 +355,35 @@ export default function Hero() {
             </div>
           </div>
         </section>
+
+        {/* 스크롤 인디케이터 - 화살표 */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none"
+              className="text-gray-600"
+            >
+              <path 
+                d="M7 13L12 18L17 13" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
+          </motion.div>
+        </motion.div>
 
       </div>
     </div>

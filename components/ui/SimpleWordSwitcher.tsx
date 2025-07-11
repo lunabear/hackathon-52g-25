@@ -47,7 +47,7 @@ export default function SimpleWordSwitcher({
   }, [words])
   
   return (
-    <span className={`inline-block font-bold text-[#FF5500] ${className}`}>
+    <span className={`inline-block font-black text-[#FF5500] ${className}`}>
       {displayText}
     </span>
   )
