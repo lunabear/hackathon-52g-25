@@ -8,7 +8,7 @@ export default function MisoJourney() {
         {/* 섹션 라벨 */}
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-slate-100 to-slate-200 rounded-full mb-6 shadow-sm">
           <div className="w-2 h-2 bg-slate-600 rounded-full"></div>
-          <span className="text-xs font-semibold text-slate-700 tracking-wider uppercase">MISO's Story</span>
+          <span className="text-xs font-semibold text-slate-700 tracking-wider uppercase">MISO&apos;s Story</span>
         </div>
         
         {/* 메인 타이틀 */}
@@ -58,10 +58,10 @@ export default function MisoJourney() {
             {/* 스토리 내용 */}
             <div className="text-center space-y-6">
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                "혁신적인 아이디어가 있는데..."
+                &ldquo;혁신적인 아이디어가 있는데...&rdquo;
               </p>
               <p className="text-base md:text-lg text-slate-500 italic">
-                "아이디어만 있어도 뭔가 만들 수 있을까?"
+                &ldquo;아이디어만 있어도 뭔가 만들 수 있을까?&rdquo;
               </p>
             </div>
           </div>
@@ -94,10 +94,10 @@ export default function MisoJourney() {
             {/* 스토리 내용 */}
             <div className="text-center space-y-6">
               <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
-                "AI가 내 아이디어를 실현해준다니!"
+                &ldquo;AI가 내 아이디어를 실현해준다니!&rdquo;
               </p>
               <p className="text-base md:text-lg text-blue-600 italic font-medium">
-                "내 아이디어를 현실로 만들 수 있겠어!"
+                &ldquo;내 아이디어를 현실로 만들 수 있겠어!&rdquo;
               </p>
             </div>
           </div>
@@ -130,10 +130,10 @@ export default function MisoJourney() {
             {/* 스토리 내용 */}
             <div className="text-center space-y-6">
               <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
-                "이제 해커톤에 도전해볼 시간!"
+                &ldquo;이제 해커톤에 도전해볼 시간!&rdquo;
               </p>
               <p className="text-base md:text-lg text-emerald-600 italic font-semibold">
-                "이제 정말 자신감이 생겼어!"
+                &ldquo;이제 정말 자신감이 생겼어!&rdquo;
               </p>
             </div>
           </div>
