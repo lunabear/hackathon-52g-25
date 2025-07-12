@@ -240,7 +240,7 @@ export default function Hero() {
                 <img 
                   src="/assets/PLAI-logo.png"
                   alt="PLAI"
-                  className="block w-[18rem] sm:w-[23rem] md:w-[28rem] lg:w-[33rem] xl:w-[38rem] h-auto"
+                  className="block w-[14rem] sm:w-[18rem] md:w-[22rem] lg:w-[26rem] xl:w-[28rem] h-auto"
                   style={{
                     filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.1))'
                   }}
@@ -253,10 +253,10 @@ export default function Hero() {
                   transition={{ duration: 0.5, delay: 0.3 }}
                   className="absolute block z-10"
                   style={{ 
-                    right: '-23%',
-                    bottom: '-8%',
-                    width: '50%',
-                    height: '50%'
+                    right: '-18%',
+                    bottom: '-5%',
+                    width: '45%',
+                    height: '45%'
                   }}
                 >
                   <Image 
@@ -275,7 +275,7 @@ export default function Hero() {
               
               {/* with 텍스트 */}
               <div 
-                className="flex items-center justify-center gap-3 sm:gap-4 md:gap-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl"
+                className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
               >
                 <span className="font-medium text-gray-700 italic">with</span>
                 <div className="relative">
@@ -302,7 +302,7 @@ export default function Hero() {
               className="max-w-2xl mx-auto"
               style={{ marginTop: '60px' }}
             >
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 font-medium px-4" style={{ lineHeight: '2' }}>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 font-medium px-4" style={{ lineHeight: '1.8' }}>
                 우리가 함께 PLAI하면, <span className="font-bold text-gray-900">그곳이 바로 플레이그라운드</span>
               </p>
             </motion.div>
@@ -318,13 +318,11 @@ export default function Hero() {
                 >
                   <div className="relative transform -translate-y-2 transition-all duration-150 group-hover:translate-y-0 group-active:translate-y-1">
                     <div className="absolute inset-0 bg-gray-200 rounded-2xl transform translate-y-3 group-hover:translate-y-1 group-active:translate-y-0 transition-transform duration-150" />
-                    <div className="relative bg-white rounded-2xl font-bold text-gray-900 text-base border border-gray-100 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '20px 40px', minWidth: '180px' }}>
+                    <div className="relative bg-white rounded-2xl font-bold text-gray-900 text-sm sm:text-base border border-gray-100 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '16px 32px', minWidth: '160px' }}>
                       <span className="relative z-10 block text-center">참가 신청 하기</span>
                       <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                       <div className="absolute top-1/2 -translate-y-1/2 right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-200">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                          <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
+                        <span className="text-lg">➡️</span>
                       </div>
                     </div>
                   </div>
@@ -338,7 +336,7 @@ export default function Hero() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="mt-6 text-center"
               >
-                <div className="inline-flex items-center gap-2 text-sm">
+                <div className="inline-flex items-center gap-2 text-xs sm:text-sm">
                   <span className="text-gray-600 font-semibold">모집 마감까지</span>
                   <span className="text-gray-900 font-black">
                     {timeLeft.days}일 {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
