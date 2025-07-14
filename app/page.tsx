@@ -4,6 +4,7 @@ import HackathonGuide from '@/components/sections/HackathonGuide'
 import ParticipationSteps from '@/components/sections/ParticipationSteps'
 import HackathonJourney from '@/components/sections/HackathonJourney'
 import ParticipantBenefits from '@/components/sections/ParticipantBenefits'
+import ImageCycler from '@/components/ui/ImageCycler'
 
 export default function Home() {
   return (
@@ -23,13 +24,7 @@ export default function Home() {
             <div className="relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-black"></div>
               {/* 미소 팀 배경 이미지 */}
-              <div className="absolute inset-0 opacity-20">
-                <img 
-                  src="/assets/miso/miso-team.png"
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <ImageCycler />
               <div className="relative z-10 text-center py-10 md:py-12 px-6 md:px-8">
                 
                 {/* 상단 라벨 */}

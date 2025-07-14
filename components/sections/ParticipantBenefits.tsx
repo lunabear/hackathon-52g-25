@@ -176,7 +176,7 @@ export default function ParticipantBenefits() {
             
             {/* 왼쪽: MISO 캐릭터 */}
             <div className="flex-shrink-0">
-              <div className="relative w-40 h-40 md:w-48 md:h-48 lg:w-56 lg:h-56">
+              <div className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
                 <img 
                   src="/assets/miso/miso-together.png" 
                   alt="MISO Character" 
@@ -228,9 +228,9 @@ export default function ParticipantBenefits() {
             </div>
           </div>
         </div>
-          
-        {/* 브랜드 메시지 */}
-        <div className="mt-10 md:mt-12 pt-10 md:pt-12 border-t border-slate-100/50">
+        
+        {/* 브랜드 메시지 - 박스 밖으로 이동 */}
+        <div className="mt-10 md:mt-12">
           <p className="text-slate-400 text-sm md:text-base font-normal tracking-wide">
             함께 PLAI하면, 그곳이 바로 <span className="font-semibold text-slate-600">플레이그라운드</span>
           </p>

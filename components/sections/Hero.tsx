@@ -321,9 +321,6 @@ export default function Hero() {
                     <div className="relative bg-white rounded-2xl font-bold text-gray-900 text-sm sm:text-base border border-gray-100 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '16px 32px', minWidth: '160px' }}>
                       <span className="relative z-10 block text-center">참가 신청 하기</span>
                       <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                      <div className="absolute top-1/2 -translate-y-1/2 right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-200">
-                        <span className="text-lg">➡️</span>
-                      </div>
                     </div>
                   </div>
                 </a>
