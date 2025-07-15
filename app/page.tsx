@@ -4,6 +4,7 @@ import HackathonGuide from '@/components/sections/HackathonGuide'
 import ParticipationSteps from '@/components/sections/ParticipationSteps'
 import HackathonJourney from '@/components/sections/HackathonJourney'
 import ParticipantBenefits from '@/components/sections/ParticipantBenefits'
+import FAQ from '@/components/sections/FAQ'
 import ImageCycler from '@/components/ui/ImageCycler'
 
 export default function Home() {
@@ -51,7 +52,10 @@ export default function Home() {
                       <div className="h-px w-8 bg-gradient-to-l from-transparent to-orange-500/50"></div>
                     </div>
                     <p className="text-base md:text-lg lg:text-xl font-medium text-white/90">
-                      GenAI로 GS현장과 고객 경험에 변화를 일으킬 아이디어
+                      Make it WOW, Make it WORK!
+                    </p>
+                    <p className="text-sm md:text-base lg:text-lg text-white/80 mt-2">
+                      세상을 놀라게 하거나 GS현장을 변화시킬 아이디어를 GenAI로 직접 만들어 보세요!
                     </p>
                   </div>
                 </div>
@@ -81,6 +85,11 @@ export default function Home() {
               <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-16 md:mb-20"></div>
               
               <ParticipantBenefits />
+              
+              {/* 구분선 */}
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-16 md:mb-20"></div>
+              
+              <FAQ />
             </div>
           </div>
         </div>

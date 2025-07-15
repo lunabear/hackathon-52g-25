@@ -96,19 +96,19 @@ export default function HackathonJourney() {
             </div>
           </div>
 
-          {/* 데모데이 */}
+          {/* 챔피언스리그 */}
           <div className="group text-center">
             <div className="bg-gradient-to-br from-purple-50/90 to-indigo-50/90 backdrop-blur-sm rounded-2xl p-6 md:p-7 border-2 border-purple-200/60 hover:border-purple-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-[200px] flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">🏆</span>
                 </div>
-                <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-3">데모데이</h4>
+                <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-3">챔피언스리그</h4>
               </div>
               <div>
                 <p className="text-purple-700 font-bold text-sm md:text-base mb-1">9.29(월)</p>
                 <p className="text-purple-600 text-xs mb-1">GS역삼타워</p>
-                <p className="text-purple-500 text-xs font-medium">스폰서십 기회</p>
+                <p className="text-purple-500 text-xs font-medium">아이디어 현실화</p>
               </div>
             </div>
           </div>

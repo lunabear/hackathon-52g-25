@@ -28,24 +28,26 @@ export default function ParticipantBenefits() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
             
             {/* 특전 1 - AI 학습 플랫폼 */}
-            <div className="group relative bg-gradient-to-br from-white to-purple-50/30 backdrop-blur-sm rounded-3xl p-8 md:p-10 border-2 border-purple-200/60 hover:border-purple-300 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+            <div className="group relative bg-gradient-to-br from-white to-purple-50/30 backdrop-blur-sm rounded-3xl p-8 md:p-10 border-2 border-purple-200/60 hover:border-purple-300 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 flex flex-col h-full">
               
-              {/* 아이콘 */}
-              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
-                <span className="text-2xl">📚</span>
+              <div className="flex-grow">
+                {/* 아이콘 */}
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                  <span className="text-2xl">📚</span>
+                </div>
+                
+                {/* 제목 */}
+                <h4 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
+                  AI 학습 플랫폼
+                </h4>
+                
+                {/* 설명 */}
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                  V0, MISO와 바이브 코딩 활용법부터 실전 프로젝트까지
+                </p>
               </div>
               
-              {/* 제목 */}
-              <h4 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
-                AI 학습 플랫폼
-              </h4>
-              
-              {/* 설명 */}
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
-                V0, MISO 활용법부터 실전 프로젝트까지
-              </p>
-              
-              {/* 세부 혜택 */}
+              {/* 세부 혜택 - 하단 고정 */}
               <ul className="space-y-2 text-left">
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-purple-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -63,30 +65,32 @@ export default function ParticipantBenefits() {
                   <svg className="w-5 h-5 text-purple-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-sm text-gray-700">AI 도구 무제한 사용권</span>
+                  <span className="text-sm text-gray-700">V0, MISO 툴 무제한 사용권</span>
                 </li>
               </ul>
             </div>
 
             {/* 특전 2 - 네트워킹 & 멘토링 */}
-            <div className="group relative bg-gradient-to-br from-white to-blue-50/30 backdrop-blur-sm rounded-3xl p-8 md:p-10 border-2 border-blue-200/60 hover:border-blue-300 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+            <div className="group relative bg-gradient-to-br from-white to-blue-50/30 backdrop-blur-sm rounded-3xl p-8 md:p-10 border-2 border-blue-200/60 hover:border-blue-300 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 flex flex-col h-full">
               
-              {/* 아이콘 */}
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
-                <span className="text-2xl">🔗</span>
+              <div className="flex-grow">
+                {/* 아이콘 */}
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                  <span className="text-2xl">🔗</span>
+                </div>
+                
+                {/* 제목 */}
+                <h4 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
+                  전문가 네트워킹
+                </h4>
+                
+                {/* 설명 */}
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                  GS그룹 AI 전문가와 함께하는 성장 기회
+                </p>
               </div>
               
-              {/* 제목 */}
-              <h4 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
-                전문가 네트워킹
-              </h4>
-              
-              {/* 설명 */}
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
-                GS그룹 AI 전문가와 함께하는 성장 기회
-              </p>
-              
-              {/* 세부 혜택 */}
+              {/* 세부 혜택 - 하단 고정 */}
               <ul className="space-y-2 text-left">
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -98,7 +102,7 @@ export default function ParticipantBenefits() {
                   <svg className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-sm text-gray-700">해커톤 한정판 굿즈 패키지</span>
+                  <span className="text-sm text-gray-700">FC서울 콜라보 굿즈 패키지</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -110,31 +114,32 @@ export default function ParticipantBenefits() {
             </div>
 
             {/* 특전 3 - 사업화 기회 */}
-            <div className="group relative bg-gradient-to-br from-white to-emerald-50/30 backdrop-blur-sm rounded-3xl p-8 md:p-10 border-2 border-emerald-200/60 hover:border-emerald-300 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+            <div className="group relative bg-gradient-to-br from-white to-emerald-50/30 backdrop-blur-sm rounded-3xl p-8 md:p-10 border-2 border-emerald-200/60 hover:border-emerald-300 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 flex flex-col h-full">
               
-              
-              {/* 아이콘 */}
-              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
-                <span className="text-2xl">🏆</span>
+              <div className="flex-grow">
+                {/* 아이콘 */}
+                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+                  <span className="text-2xl">🏆</span>
+                </div>
+                
+                {/* 제목 */}
+                <h4 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
+                  사업화 & 투자 연계
+                </h4>
+                
+                {/* 설명 */}
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                  아이디어를 현실로, 챔피언스리그 진출 시 50만원 상당 상품
+                </p>
               </div>
               
-              {/* 제목 */}
-              <h4 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
-                사업화 & 투자 연계
-              </h4>
-              
-              {/* 설명 */}
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
-                아이디어를 현실로, 최대 50만원 상금
-              </p>
-              
-              {/* 세부 혜택 */}
+              {/* 세부 혜택 - 하단 고정 */}
               <ul className="space-y-2 text-left">
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-sm text-gray-700">데모데이 진출 시 50만원 상품</span>
+                  <span className="text-sm text-gray-700">챔피언스리그 진출 시 50만원 상당 상품</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -222,7 +227,7 @@ export default function ParticipantBenefits() {
                 
                 {/* 주석 형태의 안내 문구 */}
                 <p className="text-xs text-slate-500 mt-3 max-w-sm mx-auto lg:mx-0">
-                  * 팀 출전 시에도 모든 팀원이 개별 신청서를 제출해야 합니다
+                  * 팀 출전을 하더라도 모든 팀원이 신청서를 제출해야 합니다
                 </p>
               </div>
             </div>
