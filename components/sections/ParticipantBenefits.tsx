@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export default function ParticipantBenefits() {
   return (
     <div style={{ fontFamily: 'Pretendard Variable, Pretendard, -apple-system, sans-serif' }}>
@@ -182,9 +184,11 @@ export default function ParticipantBenefits() {
             {/* 왼쪽: MISO 캐릭터 */}
             <div className="flex-shrink-0">
               <div className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
-                <img 
+                <Image 
                   src="/assets/miso/miso-together.png" 
                   alt="MISO Character" 
+                  width={320}
+                  height={320}
                   className="w-full h-full object-contain drop-shadow-2xl"
                 />
                 {/* 캐릭터 주변 장식 */}

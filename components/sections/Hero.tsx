@@ -288,9 +288,11 @@ export default function Hero() {
             >
               {/* PLAI 타이틀 */}
               <h1 className="relative mb-12 inline-block">
-                <img 
+                <Image 
                   src="/assets/PLAI-logo.png"
                   alt="PLAI"
+                  width={448}
+                  height={160}
                   className="block w-[14rem] sm:w-[18rem] md:w-[22rem] lg:w-[26rem] xl:w-[28rem] h-auto"
                   style={{
                     filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.1))'

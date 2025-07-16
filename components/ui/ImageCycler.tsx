@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 const images = [
   '/assets/miso/miso-team.gif',
@@ -24,11 +25,13 @@ export default function ImageCycler() {
     <div className="absolute inset-0 opacity-20">
       <div className="relative w-full h-full">
         {images.map((src, index) => (
-          <img
+          <Image
             key={`${src}-${index}`}
             src={`${src}?t=${index}`} // 캐시 방지로 각 GIF 재시작
             alt=""
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[2000ms] ease-in-out ${
+            fill
+            sizes="100vw"
+            className={`object-cover transition-all duration-[2000ms] ease-in-out ${
               index === currentIndex 
                 ? 'opacity-100 scale-100' 
                 : 'opacity-0 scale-105'
