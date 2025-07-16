@@ -389,7 +389,7 @@ export default function MisoJourney() {
                         <h5 className="font-semibold text-slate-900 mb-2 sm:mb-3 text-sm sm:text-base">말로 설명하기</h5>
                         <div className="bg-white/80 rounded-xl p-3 sm:p-4 mb-3 sm:mb-4">
                           <p className="text-xs sm:text-sm text-slate-600 italic">
-                            "로그인 버튼이 있는 페이지를 만들어줘"
+                            &ldquo;로그인 버튼이 있는 페이지를 만들어줘&rdquo;
                           </p>
                         </div>
                         <p className="text-xs text-slate-500">원하는 기능을 자연어로 설명</p>
@@ -434,7 +434,7 @@ export default function MisoJourney() {
                           <span className="text-xl sm:text-2xl">🎨</span>
                           <h5 className="font-semibold text-slate-900 text-sm sm:text-base">디자인도 자동으로</h5>
                         </div>
-                        <p className="text-slate-600 text-sm sm:text-base">"깔끔한 디자인으로 만들어줘"라고 하면 예쁜 UI를 자동으로 만들어줘요</p>
+                        <p className="text-slate-600 text-sm sm:text-base">&ldquo;깔끔한 디자인으로 만들어줘&rdquo;라고 하면 예쁜 UI를 자동으로 만들어줘요</p>
                       </div>
                       
                       <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-sm">
@@ -450,7 +450,7 @@ export default function MisoJourney() {
                           <span className="text-xl sm:text-2xl">🔧</span>
                           <h5 className="font-semibold text-slate-900 text-sm sm:text-base">쉬운 수정</h5>
                         </div>
-                        <p className="text-slate-600 text-sm sm:text-base">"버튼 색을 빨간색으로 바꿔줘"처럼 말로 수정 요청하면 바로 변경돼요</p>
+                        <p className="text-slate-600 text-sm sm:text-base">&ldquo;버튼 색을 빨간색으로 바꿔줘&rdquo;처럼 말로 수정 요청하면 바로 변경돼요</p>
                       </div>
                       
                       <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-sm">
