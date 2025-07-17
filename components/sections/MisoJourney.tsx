@@ -70,7 +70,7 @@ export default function MisoJourney() {
         
         {/* 메인 타이틀 */}
         <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tight">
-          <span className="text-slate-900">미소</span><span className="text-slate-600">와 함께하는</span>
+          <span className="text-slate-900">MISO</span><span className="text-slate-600">와 함께하는</span>
           <br />
           <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">해커톤 대모험!</span>
         </h3>

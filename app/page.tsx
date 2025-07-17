@@ -16,7 +16,7 @@ export default function Home() {
       
       {/* 메인 콘텐츠 섹션 */}
       <section className="min-h-screen py-16 md:py-24 px-4 md:px-6 flex items-center justify-center relative z-30">
-        <div className="max-w-7xl mx-auto">
+        <div className="mx-auto" style={{ maxWidth: '88rem' }}>
           
           {/* 프리미엄 포스터 컨테이너 */}
           <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.12)] overflow-hidden border border-white/30 relative">

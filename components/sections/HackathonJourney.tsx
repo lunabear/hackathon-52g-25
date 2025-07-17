@@ -13,7 +13,7 @@ export default function HackathonJourney() {
         {/* 서브 타이틀 */}
         <div className="max-w-2xl mx-auto">
           <p className="text-base md:text-lg text-slate-600 leading-relaxed">
-            단계별로 <span className="font-semibold text-blue-600">함께 나아가는</span> 여정
+            제4회 GS그룹 해커톤은 <span className="font-semibold text-cyan-600">이렇게 진행됩니다.</span>
           </p>
           <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 mx-auto mt-4 rounded-full"></div>
         </div>
@@ -32,7 +32,7 @@ export default function HackathonJourney() {
                 <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-3">참여자 모집</h4>
               </div>
               <div>
-                <p className="text-slate-700 font-bold text-sm md:text-base mb-1">7.21(월) ~ 8.6(수)</p>
+                <p className="text-slate-700 font-bold text-xs md:text-sm mb-1">7.21(월) ~ 8.6(수)</p>
                 <p className="text-slate-500 text-xs">신청 기간</p>
               </div>
             </div>
@@ -50,7 +50,7 @@ export default function HackathonJourney() {
                 <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-3">확정자 발표</h4>
               </div>
               <div>
-                <p className="text-slate-700 font-bold text-sm md:text-base mb-1">8.11(월)</p>
+                <p className="text-slate-700 font-bold text-xs md:text-sm mb-1">8.11(월)</p>
                 <p className="text-slate-500 text-xs">선발 결과 개별 안내</p>
               </div>
             </div>
@@ -66,7 +66,7 @@ export default function HackathonJourney() {
                 <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-3">리모트 리그</h4>
               </div>
               <div>
-                <p className="text-blue-700 font-bold text-sm md:text-base mb-1">8.13(수) ~ 8.27(수)</p>
+                <p className="text-blue-700 font-bold text-xs md:text-sm mb-1">8.13(수) ~ 8.27(수)</p>
                 <p className="text-blue-600 text-xs">원하는 장소에서</p>
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function HackathonJourney() {
                 <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-3">필드 리그</h4>
               </div>
               <div>
-                <p className="text-emerald-700 font-bold text-sm md:text-base mb-1">9.8(월) ~ 9.9(화)</p>
+                <p className="text-emerald-700 font-bold text-xs md:text-sm mb-1">9.8(월) ~ 9.9(화)</p>
                 <p className="text-emerald-600 text-xs">웨스틴 서울 파르나스</p>
               </div>
             </div>
@@ -98,10 +98,8 @@ export default function HackathonJourney() {
                 <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-3">챔피언스리그</h4>
               </div>
               <div>
-                <p className="text-purple-700 font-bold text-sm md:text-base mb-1">9.29(월)</p>
-                <p className="text-purple-600 text-xs mb-1">GS역삼타워</p>
-                <p className="text-purple-500 text-xs font-medium">아이디어 현실화</p>
-              </div>
+                <p className="text-purple-700 font-bold text-xs md:text-sm mb-1">9.29(월)</p>
+                <p className="text-purple-600 text-xs mb-1">GS역삼타워</p>              </div>
             </div>
           </div>
         </div>

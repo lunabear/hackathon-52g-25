@@ -32,7 +32,6 @@ export default function HackathonGuide() {
               <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
                 GS그룹 구성원 중 GenAI로 내 문제를<br />스스로 해결해보고 싶은 사람 누구나
               </p>
-              <span className="inline-block px-4 py-2 bg-slate-100 rounded-full text-slate-700 text-xs font-medium">52g 초청사</span>
             </div>
           </div>
           
@@ -58,13 +57,9 @@ export default function HackathonGuide() {
               {/* 중요 안내 */}
               <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-4 border border-blue-200/50">
                 <div className="flex items-start gap-3">
-                  <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                    <span className="text-white text-xs font-bold">!</span>
-                  </div>
                   <div className="text-left">
-                    <p className="text-blue-700 font-semibold text-sm mb-1">필수 확인사항</p>
                     <p className="text-blue-600 text-xs leading-relaxed">
-                      팀으로 지원하는 경우에도 <strong>모든 팀원이 각각 개별적으로 신청서를 제출</strong>해야 합니다.
+                     <strong>💡모든 팀원이 각자 신청서를 제출해야 합니다.</strong>
                     </p>
                   </div>
                 </div>

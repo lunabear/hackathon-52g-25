@@ -11,13 +11,16 @@ export default function ParticipationSteps() {
         
         {/* 메인 타이틀 */}
         <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tight">
-          <span className="text-slate-700">참여 방법</span> <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">선택</span>
+          <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">참여 방법</span>
         </h3>
         
         {/* 서브 타이틀 */}
         <div className="max-w-2xl mx-auto">
+        <p className="text-base md:text-lg text-slate-600 leading-relaxed">
+            리모트 리그와 필드 리그 중 원하는 리그를 선택해서 지원해주세요!
+          </p>
           <p className="text-base md:text-lg text-slate-600 leading-relaxed">
-            내 상황에 맞는 해커톤을 선택하여 즐겨보세요!
+            내 상황에 맞는 해커톤을 선택하여 즐겨보세요☺️
           </p>
           <div className="w-16 h-0.5 bg-gradient-to-r from-purple-400 to-indigo-400 mx-auto mt-4 rounded-full"></div>
           
@@ -129,48 +132,17 @@ export default function ParticipationSteps() {
         <div className="bg-gradient-to-br from-purple-50/90 to-indigo-50/90 backdrop-blur-sm border-2 border-purple-200/60 hover:border-purple-300 rounded-2xl p-5 md:p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
           <div className="text-center">
             <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-              <span className="text-xl">🚀</span>
+              <span className="text-xl">🏆</span>
             </div>
             <h4 className="text-lg md:text-xl font-bold text-gray-900 mb-1">챔피언스리그</h4>
-            <p className="text-sm font-medium text-purple-600 mb-3">아이디어 현실화를 위한 도전</p>
+            <p className="text-sm font-medium text-purple-600 mb-3">PLAI to the Moon</p>
             <div className="w-6 h-px bg-purple-300 mx-auto mb-4"></div>
             
             <div className="max-w-4xl mx-auto">
-              <p className="text-gray-700 text-xs md:text-sm leading-relaxed font-medium mb-4">
-                해커톤 참여팀은 <span className="text-purple-600 font-bold">챔피언스리그</span>에 도전하여 아이디어를 현실화할 기회를 얻을 수 있습니다
-              </p>
-              
               <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl p-4 mb-4">
-                <h5 className="font-bold text-sm md:text-base mb-1">선발팀 혜택</h5>
-                <p className="text-xs md:text-sm">
-                  9월 29일 데모데이 참여 및 <span className="font-bold">아이디어 현실화 기회</span> 제공
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div className="bg-white/80 rounded-xl p-3">
-                  <div className="flex flex-col items-center">
-                    <span className="text-gray-500 text-xs mb-0.5">데모데이</span>
-                    <span className="font-bold text-gray-900 text-sm">9.29(월)</span>
-                  </div>
-                </div>
-                <div className="bg-white/80 rounded-xl p-3">
-                  <div className="flex flex-col items-center">
-                    <span className="text-gray-500 text-xs mb-0.5">신청 방법</span>
-                    <span className="font-bold text-gray-900 text-xs">결과물 제출 시</span>
-                  </div>
-                </div>
-                <div className="bg-white/80 rounded-xl p-3">
-                  <div className="flex flex-col items-center">
-                    <span className="text-gray-500 text-xs mb-0.5">참가 대상</span>
-                    <span className="font-bold text-gray-900 text-xs">모든 참가팀</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-purple-100/50 rounded-xl p-3 mt-4">
-                <p className="text-purple-700 text-xs leading-relaxed font-medium">
-                  💡 당신의 아이디어가 GS의 미래를 바꿀 수 있습니다!
+                <p className="text-sm md:text-base">
+                  해커톤 참여팀 중 희망하는 팀에 한해 챔피언스리그에 도전하여<br />
+                  9월 29일 데모데이 참여 및 <span className="font-bold">아이디어 현실화 기회</span>를 얻을 수 있습니다.
                 </p>
               </div>
             </div>

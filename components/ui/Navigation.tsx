@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 
 const menuItems = [
   { id: 'main', label: '해커톤 소개', href: '#main', isInternal: true },
-  { id: 'reference', label: '참고자료', href: '/reference', isInternal: false },
+  { id: 'reference', label: '쇼케이스', href: '/reference', isInternal: false },
   { id: 'plai-event', label: 'PLAI Event', href: '/plai-event', isInternal: false },
   { id: 'faq', label: 'FAQ', href: '#faq', isInternal: true }
 ]

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
+import Link from 'next/link'
 import SimpleWordSwitcher from '@/components/ui/SimpleWordSwitcher'
 
 const switchWords = ['GenAI', 'Everyone', 'Innovation', 'Future', 'Together', 'Vibe']
@@ -59,9 +59,6 @@ export default function Hero() {
     isOngoing: boolean
     description?: string
   } | null>(null)
-  
-  const [isPlaiEventOpen, setIsPlaiEventOpen] = useState(false)
-  const [portalElement, setPortalElement] = useState<HTMLElement | null>(null)
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -119,53 +116,6 @@ export default function Hero() {
 
     return () => clearInterval(timer)
   }, [])
-
-  // Portal element setup
-  useEffect(() => {
-    const element = document.createElement('div')
-    element.style.position = 'fixed'
-    element.style.top = '0'
-    element.style.left = '0'
-    element.style.zIndex = '9999'
-    document.body.appendChild(element)
-    setPortalElement(element)
-
-    return () => {
-      if (document.body.contains(element)) {
-        document.body.removeChild(element)
-      }
-    }
-  }, [])
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (isPlaiEventOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-    }
-
-    return () => {
-      document.body.style.overflow = 'auto'
-    }
-  }, [isPlaiEventOpen])
-
-  // Close modal on ESC key press
-  useEffect(() => {
-    const handleEscKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isPlaiEventOpen) {
-        setIsPlaiEventOpen(false)
-      }
-    }
-
-    if (isPlaiEventOpen) {
-      document.addEventListener('keydown', handleEscKey)
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscKey)
-    }
-  }, [isPlaiEventOpen])
 
   return (
     <div className="relative overflow-x-hidden">
@@ -450,8 +400,8 @@ export default function Hero() {
                   </div>
                 </a>
                 
-                <button
-                  onClick={() => setIsPlaiEventOpen(true)}
+                <Link
+                  href="/plai-event"
                   className="group relative"
                 >
                   <div className="relative transform -translate-y-2 transition-all duration-150 group-hover:translate-y-0 group-active:translate-y-1">
@@ -461,7 +411,7 @@ export default function Hero() {
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                     </div>
                   </div>
-                </button>
+                </Link>
               </div>
               
               {/* 카운트다운 타이머 */}
@@ -529,166 +479,6 @@ export default function Hero() {
         </motion.div>
 
       </div>
-      
-      {/* PLAI 이벤트 팝업 모달 */}
-      {isPlaiEventOpen && portalElement && createPortal(
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* 배경 오버레이 */}
-          <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setIsPlaiEventOpen(false)}
-          />
-          
-          {/* 모달 컨텐츠 */}
-          <div 
-            className="relative bg-white/95 backdrop-blur-xl rounded-2xl w-[700px] max-w-full max-h-[90vh] shadow-[0_40px_100px_rgba(0,0,0,0.12)] border border-white/30 overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* 모달 헤더 - 프로젝트 톤앤매너 맞춤 */}
-            <div className="relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-black"></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-slate-50/20 pointer-events-none"></div>
-              
-              <div className="relative px-6 py-5 flex items-center justify-between text-white">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
-                    <span className="text-xl">🎨</span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold">PLAI 이벤트</h3>
-                    <p className="text-sm text-white/80">나의 회사 생활 Vibe</p>
-                  </div>
-                </div>
-                
-                <button
-                  onClick={() => setIsPlaiEventOpen(false)}
-                  className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            
-            {/* 모달 컨텐츠 */}
-            <div className="p-8 overflow-y-auto max-h-[calc(90vh-80px)]">
-              
-              {/* 메인 CTA 섹션 */}
-              <div className="text-center mb-8">
-                <div className="inline-block mb-4">
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full">
-                    <div className="w-2 h-2 bg-slate-600 rounded-full"></div>
-                    <span className="text-xs font-medium text-slate-700 uppercase tracking-wider">지금 참여하세요</span>
-                  </div>
-                </div>
-                
-                <h4 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight">
-                  요즘 나의 회사 생활을 AI로 표현해요!
-                </h4>
-                <p className="text-slate-600 mb-6 leading-relaxed">
-                  PLAI Everywhere, PLAI Together!<br />
-                  우리가 함께 PLAI하면, 그곳이 바로 플레이그라운드!
-                </p>
-                
-                {/* CTA 버튼 */}
-                <a
-                  href="https://padlet.com/gs52group2/PLAIseason2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold px-8 py-4 rounded-xl hover:from-slate-800 hover:to-slate-700 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-0.5 border border-slate-700"
-                >
-                  작품 제출하기
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </a>
-              </div>
-              
-              {/* 핵심 정보 */}
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 hover:border-slate-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
-                  <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl">📅</span>
-                  </div>
-                  <p className="font-semibold text-gray-900 mb-2">응모 기간</p>
-                  <p className="text-slate-700 font-medium">
-                    {schedules[0].startDate.getMonth() + 1}/{schedules[0].startDate.getDate()} ~ {schedules[0].endDate.getMonth() + 1}/{schedules[0].endDate.getDate()}
-                    {currentSchedule?.name === '참여자 모집' && (
-                      <span className="block text-xs text-blue-600 mt-1">진행 중</span>
-                    )}
-                  </p>
-                </div>
-                
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 hover:border-slate-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
-                  <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl">🏆</span>
-                  </div>
-                  <p className="font-semibold text-gray-900 mb-2">최대 상금</p>
-                  <p className="text-slate-700 font-medium">30만원 상당</p>
-                </div>
-              </div>
-              
-              {/* 상세 정보 */}
-              <div className="space-y-6">
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
-                      <span className="text-xl">🎯</span>
-                    </div>
-                    <h4 className="font-semibold text-gray-900">참여 방법</h4>
-                  </div>
-                  <div className="space-y-3 text-slate-700">
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-slate-600 rounded-full flex items-center justify-center text-white text-sm font-medium mt-0.5">1</div>
-                      <p>GenAI 툴로 <strong>이미지, 영상, 노래, 만화</strong> 등 자유 제작</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-slate-600 rounded-full flex items-center justify-center text-white text-sm font-medium mt-0.5">2</div>
-                      <p>제목에 <strong>소속회사/팀/이름</strong> 포함해서 업로드</p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-slate-600 rounded-full flex items-center justify-center text-white text-sm font-medium mt-0.5">3</div>
-                      <p>개수 제한 없이 자유롭게 도전!</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
-                      <span className="text-xl">🏆</span>
-                    </div>
-                    <h4 className="font-semibold text-gray-900">시상 내역</h4>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-slate-50 rounded-xl p-4 text-center flex flex-col justify-center min-h-[80px]">
-                      <p className="font-semibold text-gray-900 text-sm mb-1">Best Video/Song/Picture</p>
-                      <p className="text-xs text-slate-600">각 20만원 상당</p>
-                    </div>
-                    <div className="bg-slate-50 rounded-xl p-4 text-center flex flex-col justify-center min-h-[80px]">
-                      <p className="font-semibold text-gray-900 text-sm mb-1">최다 하트 수상</p>
-                      <p className="text-xs text-slate-600">30만원 상당</p>
-                    </div>
-                    <div className="bg-slate-50 rounded-xl p-4 text-center flex flex-col justify-center min-h-[80px]">
-                      <p className="font-semibold text-gray-900 text-sm mb-1">발표</p>
-                      <p className="text-xs text-slate-600">8/8(금)</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* 하단 안내 */}
-              <div className="mt-8 text-center">
-                <p className="text-sm text-slate-500">
-                  * 작성 가이드를 준수하지 않으면 당첨에서 제외될 수 있습니다
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>,
-        portalElement
-      )}
     </div>
   )
 }
