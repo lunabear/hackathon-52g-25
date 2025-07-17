@@ -66,14 +66,8 @@ export default function FAQ() {
   }
 
   return (
-    <div className="mb-12 md:mb-16" style={{ fontFamily: 'Pretendard Variable, Pretendard, -apple-system, sans-serif' }}>
+    <div id="faq" className="mb-12 md:mb-16" style={{ fontFamily: 'Pretendard Variable, Pretendard, -apple-system, sans-serif' }}>
       <div className="text-center mb-16 md:mb-20 relative">
-        
-        {/* 섹션 라벨 */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-100 to-yellow-100 rounded-full mb-6 shadow-sm">
-          <span className="text-base">❓</span>
-          <span className="text-xs font-semibold text-amber-700 tracking-wider uppercase">FAQ</span>
-        </div>
         
         {/* 메인 타이틀 */}
         <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tight">

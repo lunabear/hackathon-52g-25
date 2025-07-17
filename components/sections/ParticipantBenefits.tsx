@@ -6,12 +6,6 @@ export default function ParticipantBenefits() {
       <div className="mb-12 md:mb-16">
         <div className="text-center mb-16 md:mb-20 relative">
           
-          {/* 섹션 라벨 */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-rose-100 to-pink-100 rounded-full mb-6 shadow-sm">
-            <span className="text-base">⭐</span>
-            <span className="text-xs font-semibold text-rose-700 tracking-wider uppercase">Benefits</span>
-          </div>
-          
           {/* 메인 타이틀 */}
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tight">
             <span className="bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">참가자 특전</span>

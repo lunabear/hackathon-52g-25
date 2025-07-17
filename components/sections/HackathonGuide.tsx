@@ -1,14 +1,9 @@
 export default function HackathonGuide() {
   return (
-    <div className="mb-12 md:mb-16" style={{ fontFamily: 'Pretendard Variable, Pretendard, -apple-system, sans-serif' }}>
+    <div id="reference" className="mb-12 md:mb-16" style={{ fontFamily: 'Pretendard Variable, Pretendard, -apple-system, sans-serif' }}>
       <div className="text-center mb-16 md:mb-20 relative">
         
-        {/* 섹션 라벨 */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-100 to-green-100 rounded-full mb-6 shadow-sm">
-          <span className="text-base">👥</span>
-          <span className="text-xs font-semibold text-emerald-700 tracking-wider uppercase">Who Can Join</span>
-        </div>
-        
+
         {/* 메인 타이틀 */}
         <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tight">
           <span className="bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">참여 안내</span>
@@ -50,13 +45,13 @@ export default function HackathonGuide() {
             <div className="w-8 h-px bg-blue-300 mx-auto mb-6"></div>
             <div className="flex-1 flex flex-col justify-center">
               <div className="space-y-4 mb-6">
-                <div className="flex justify-between items-center py-3 border-b border-slate-100">
-                  <span className="text-gray-500 text-sm md:text-base">팀 출전</span>
-                  <span className="font-medium text-gray-900 text-sm md:text-base">2~4인</span>
+                <div className="flex items-center justify-between py-3 border-b border-slate-100">
+                  <span className="text-gray-500 text-sm md:text-base">리모트 리그</span>
+                  <span className="font-medium text-gray-900 text-sm md:text-base">팀(2~4인)만 가능</span>
                 </div>
-                <div className="flex justify-between items-center py-3 border-b border-slate-100">
-                  <span className="text-gray-500 text-sm md:text-base">개인 출전</span>
-                  <span className="font-medium text-gray-900 text-sm md:text-base">필드 리그만</span>
+                <div className="flex items-center justify-between py-3 border-b border-slate-100">
+                  <span className="text-gray-500 text-sm md:text-base">필드 리그</span>
+                  <span className="font-medium text-gray-900 text-sm md:text-base">팀(2~4인) 또는 개인</span>
                 </div>
               </div>
               
@@ -82,7 +77,7 @@ export default function HackathonGuide() {
             <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-6">
               <span className="text-2xl">📋</span>
             </div>
-            <h4 className="text-xl md:text-2xl font-medium text-gray-900 mb-6">제출물 요구사항</h4>
+            <h4 className="text-xl md:text-2xl font-medium text-gray-900 mb-6">결과물 제출</h4>
             <div className="w-8 h-px bg-orange-300 mx-auto mb-6"></div>
             <div className="flex-1 flex flex-col justify-center">
               <div className="space-y-4 text-left">

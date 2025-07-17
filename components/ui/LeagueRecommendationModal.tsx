@@ -305,7 +305,7 @@ export default function LeagueRecommendationModal({ isOpen, onClose }: LeagueRec
                       <div className="bg-white/80 rounded-xl p-3 sm:p-4">
                         <div className="flex items-center gap-2 sm:gap-3">
                           <span className="text-emerald-500 text-sm sm:text-base">🏨</span>
-                          <span className="text-slate-700 text-xs sm:text-sm font-medium">웨스틴 파르나스에서 진행</span>
+                          <span className="text-slate-700 text-xs sm:text-sm font-medium">웨스틴 서울 파르나스에서 진행</span>
                         </div>
                       </div>
                       <div className="bg-white/80 rounded-xl p-3 sm:p-4">

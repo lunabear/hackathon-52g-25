@@ -81,23 +81,11 @@ export default function MisoJourney() {
             아이디어만 있던 이미소 매니저가 <span className="font-semibold text-purple-600 not-italic">해커톤 도전자</span>가 되기까지의 이야기
           </p>
           <div className="w-16 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 mx-auto mt-4 rounded-full"></div>
-          
-          {/* 정보 버튼 */}
-          <div className="mt-6 flex items-center justify-center gap-4">
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="group inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full hover:border-purple-300 hover:bg-purple-50 transition-all duration-200 shadow-sm">
-              <svg className="w-4 h-4 text-slate-500 group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span className="text-sm text-slate-600 group-hover:text-purple-600 font-medium">MISO & 바이브코딩이란?</span>
-            </button>
-          </div>
         </div>
       </div>
       
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+      <div className="max-w-[1320px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 lg:gap-16">
           
           {/* Chapter 1: 이미소 매니저의 고민 */}
           <div className="text-center" style={{ fontFamily: 'Pretendard Variable, Pretendard, -apple-system, sans-serif' }}>
@@ -127,10 +115,10 @@ export default function MisoJourney() {
             {/* 스토리 내용 */}
             <div className="text-center space-y-6">
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                &ldquo;혁신적인 아이디어가 있는데...&rdquo;
+                &ldquo;프로그램 개발 지식이 없어서<br />개발자가 필요한데, 어떡하지?&rdquo;
               </p>
-              <p className="text-base md:text-lg text-slate-500 italic">
-                &ldquo;코딩은 못하는데 어떡하지...?&rdquo;
+              <p className="text-base md:text-lg text-orange-500 italic">
+                &ldquo;코딩도 할 줄 모르고...&rdquo;
               </p>
             </div>
           </div>
@@ -177,10 +165,10 @@ export default function MisoJourney() {
             {/* 스토리 내용 */}
             <div className="text-center space-y-6">
               <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
-                &ldquo;어? MISO랑 바이브코딩이 뭐야?&rdquo;
+                &ldquo;대박! AI가 코딩을 대신해준다고?&rdquo;
               </p>
               <p className="text-base md:text-lg text-blue-600 italic font-medium">
-                &ldquo;대박! AI가 코딩을 대신해준다고?!&rdquo;
+                &ldquo;해커톤에 나가면, MISO랑 바이브코딩으로<br />나도 만들어볼 수 있다고?&rdquo;
               </p>
             </div>
           </div>
@@ -213,20 +201,33 @@ export default function MisoJourney() {
             {/* 스토리 내용 */}
             <div className="text-center space-y-6">
               <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
-                &ldquo;팀원들아! 나랑 같이 해커톤 나가자!&rdquo;
+                &ldquo;동료들아! 나랑 같이 해커톤 나가자!&rdquo;
               </p>
               <p className="text-base md:text-lg text-emerald-600 italic font-semibold">
-                &ldquo;우리 아이디어로 GS의 미래를 바꿔보자고!&rdquo;
+                &ldquo;우리의 엄청난 아이디어로<br />
+                GS의 미래를 바꿔보자고!&rdquo;
               </p>
             </div>
           </div>
 
         </div>
 
+          {/* 정보 버튼 */}
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-green-600 text-white rounded-full hover:from-purple-700 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm font-semibold">MISO & 바이브코딩이란?</span>
+            </button>
+          </div>
+          
         {/* 하단 메시지 */}
-        <div className="text-center mt-16 md:mt-20">
+        <div className="text-center mt-8 md:mt-10">
           <p className="text-xl md:text-2xl font-medium text-slate-700 mb-2">
-            당신도 이미소 매니저와 함께 도전해보세요
+            함께 PLAI하고 싶은 동료들과 도전해보세요!
           </p>
           <p className="text-base text-slate-500">
             아이디어만 있어도 충분합니다

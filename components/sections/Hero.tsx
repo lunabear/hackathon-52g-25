@@ -8,6 +8,42 @@ import SimpleWordSwitcher from '@/components/ui/SimpleWordSwitcher'
 
 const switchWords = ['GenAI', 'Everyone', 'Innovation', 'Future', 'Together', 'Vibe']
 
+// 일정 데이터 정의
+const schedules = [
+  {
+    name: '참여자 모집',
+    startDate: new Date('2025-07-17T00:00:00+09:00'),
+    endDate: new Date('2025-08-06T23:59:59+09:00'),
+    label: '모집 마감까지'
+  },
+  {
+    name: '확정자 발표',
+    startDate: new Date('2025-08-11T00:00:00+09:00'),
+    endDate: new Date('2025-08-11T23:59:59+09:00'),
+    label: '확정자 발표까지'
+  },
+  {
+    name: '리모트 리그',
+    startDate: new Date('2025-08-13T00:00:00+09:00'),
+    endDate: new Date('2025-08-27T23:59:59+09:00'),
+    label: '리모트 리그 시작까지',
+    description: '원하는 시간과 장소에서 PLAI⚽️'
+  },
+  {
+    name: '필드 리그',
+    startDate: new Date('2025-09-08T00:00:00+09:00'),
+    endDate: new Date('2025-09-09T23:59:59+09:00'),
+    label: '필드 리그 시작까지',
+    description: '웨스틴 서울 파르나스에서 PLAI⚽️'
+  },
+  {
+    name: '챔피언스리그',
+    startDate: new Date('2025-09-29T00:00:00+09:00'),
+    endDate: new Date('2025-09-29T23:59:59+09:00'),
+    label: '챔피언스리그까지'
+  }
+]
+
 export default function Hero() {
   
   const [timeLeft, setTimeLeft] = useState({
@@ -17,13 +53,47 @@ export default function Hero() {
     seconds: 0
   })
   
+  const [currentSchedule, setCurrentSchedule] = useState<{
+    name: string
+    label: string
+    isOngoing: boolean
+    description?: string
+  } | null>(null)
+  
   const [isPlaiEventOpen, setIsPlaiEventOpen] = useState(false)
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null)
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const targetDate = new Date('2025-08-06T23:59:59+09:00') // 한국 시간 8월 6일 자정
       const now = new Date()
+      
+      // 현재 진행 중이거나 다음 일정 찾기
+      let targetSchedule = null
+      let isOngoing = false
+      
+      for (const schedule of schedules) {
+        if (now >= schedule.startDate && now <= schedule.endDate) {
+          // 현재 진행 중인 일정
+          targetSchedule = schedule
+          isOngoing = true
+          break
+        } else if (now < schedule.startDate) {
+          // 다음 일정
+          targetSchedule = schedule
+          isOngoing = false
+          break
+        }
+      }
+      
+      if (!targetSchedule) {
+        // 모든 일정이 종료됨
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        setCurrentSchedule(null)
+        return
+      }
+      
+      // 목표 날짜 설정 (진행 중이면 종료일, 아니면 시작일)
+      const targetDate = isOngoing ? targetSchedule.endDate : targetSchedule.startDate
       const difference = targetDate.getTime() - now.getTime()
 
       if (difference > 0) {
@@ -33,6 +103,12 @@ export default function Hero() {
         const seconds = Math.floor((difference % (1000 * 60)) / 1000)
 
         setTimeLeft({ days, hours, minutes, seconds })
+        setCurrentSchedule({
+          name: targetSchedule.name,
+          label: targetSchedule.label,
+          isOngoing,
+          description: targetSchedule.description
+        })
       } else {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
       }
@@ -263,11 +339,7 @@ export default function Hero() {
 
         {/* 로고 - 완전히 고정 */}
         <div className="absolute top-4 left-4 sm:top-8 sm:left-8 flex items-center gap-4 z-50">
-          <Image src="/assets/symbols/52g로고.png" alt="52g" width={50} height={25} className="h-5 sm:h-7 w-auto opacity-80" />
-        </div>
-        
-        <div className="absolute top-4 right-4 sm:top-8 sm:right-8 z-50">
-          <Image src="/assets/symbols/GS로고.png" alt="GS" width={70} height={35} className="h-7 sm:h-9 w-auto opacity-80" />
+          <Image src="/assets/symbols/52g로고.png" alt="52g" width={100} height={50} className="h-10 sm:h-14 w-auto opacity-80" />
         </div>
       </div>
 
@@ -306,7 +378,7 @@ export default function Hero() {
                   transition={{ duration: 0.5, delay: 0.3 }}
                   className="absolute block z-10"
                   style={{ 
-                    right: '-18%',
+                    right: '-21%',
                     bottom: '-5%',
                     width: '45%',
                     height: '45%'
@@ -356,12 +428,12 @@ export default function Hero() {
               style={{ marginTop: '60px' }}
             >
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 font-medium px-4" style={{ lineHeight: '1.8' }}>
-                모두의 PLAI, <span className="font-bold text-gray-900">PLAI Everywhere</span> 🔥
+                <span className="font-bold text-gray-900">PLAI Everywhere, PLAI Together!</span>
               </p>
             </motion.div>
 
             {/* CTA 버튼 영역 */}
-            <div style={{ marginTop: '60px', position: 'relative', zIndex: 30 }} className="sm:mt-24 md:mt-32">
+            <div id="plai-event" style={{ marginTop: '60px', position: 'relative', zIndex: 30 }} className="sm:mt-24 md:mt-32">
               <div className="flex items-center justify-center gap-4">
                 <a
                   href="https://form.typeform.com/to/GX5MGuZ9"
@@ -393,20 +465,36 @@ export default function Hero() {
               </div>
               
               {/* 카운트다운 타이머 */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="mt-6 text-center"
-              >
-                <div className="inline-flex items-center gap-2 text-xs sm:text-sm mb-3">
-                  <span className="text-gray-600 font-semibold">모집 마감까지</span>
-                  <span className="text-gray-900 font-black">
-                    {timeLeft.days}일 {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
-                  </span>
-                </div>
-                
-              </motion.div>
+              {currentSchedule && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="mt-6 text-center"
+                >
+                  {/* 현재 진행 중인 일정 표시 */}
+                  {currentSchedule.isOngoing && (
+                    <div className="mb-3">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full mb-2">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                        <span className="text-xs font-semibold text-blue-700">{currentSchedule.name} 진행 중</span>
+                      </div>
+                      {currentSchedule.description && (
+                        <p className="text-xs text-gray-600 font-medium">{currentSchedule.description}</p>
+                      )}
+                    </div>
+                  )}
+                  
+                  {/* 카운트다운 표시 */}
+                  <div className="inline-flex items-center gap-2 text-xs sm:text-sm">
+                    <span className="text-gray-600 font-semibold">{currentSchedule.label}</span>
+                    <span className="text-gray-900 font-black">
+                      {timeLeft.days > 0 && `${timeLeft.days}일 `}
+                      {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
+                    </span>
+                  </div>
+                </motion.div>
+              )}
             </div>
           </div>
         </section>
@@ -524,7 +612,12 @@ export default function Hero() {
                     <span className="text-2xl">📅</span>
                   </div>
                   <p className="font-semibold text-gray-900 mb-2">응모 기간</p>
-                  <p className="text-slate-700 font-medium">7/17 ~ 8/6</p>
+                  <p className="text-slate-700 font-medium">
+                    {schedules[0].startDate.getMonth() + 1}/{schedules[0].startDate.getDate()} ~ {schedules[0].endDate.getMonth() + 1}/{schedules[0].endDate.getDate()}
+                    {currentSchedule?.name === '참여자 모집' && (
+                      <span className="block text-xs text-blue-600 mt-1">진행 중</span>
+                    )}
+                  </p>
                 </div>
                 
                 <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 hover:border-slate-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">

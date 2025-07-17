@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navigation from "@/components/ui/Navigation";
+import Link from "next/link";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +36,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Link 
+          href="/" 
+          className="fixed top-4 left-4 sm:top-8 sm:left-8 z-50 hover:opacity-100 transition-opacity duration-200"
+        >
+          <Image 
+            src="/assets/symbols/52g로고.png" 
+            alt="52g" 
+            width={200} 
+            height={100} 
+            className="h-10 sm:h-14 w-auto opacity-90" 
+            priority
+            quality={100}
+            unoptimized
+          />
+        </Link>
+        <Navigation />
         {children}
         <script dangerouslySetInnerHTML={{
           __html: `

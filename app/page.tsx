@@ -6,11 +6,13 @@ import HackathonJourney from '@/components/sections/HackathonJourney'
 import ParticipantBenefits from '@/components/sections/ParticipantBenefits'
 import FAQ from '@/components/sections/FAQ'
 import ImageCycler from '@/components/ui/ImageCycler'
+import PageTransition from '@/components/ui/PageTransition'
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <Hero />
+      <PageTransition>
+        <Hero />
       
       {/* 메인 콘텐츠 섹션 */}
       <section className="min-h-screen py-16 md:py-24 px-4 md:px-6 flex items-center justify-center relative z-30">
@@ -48,14 +50,13 @@ export default function Home() {
                   <div className="max-w-2xl mx-auto">
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <div className="h-px w-8 bg-gradient-to-r from-transparent to-orange-500/50"></div>
-                      <span className="text-xs font-semibold text-orange-400 uppercase tracking-wider">도전 과제</span>
+                      <span className="text-xs font-semibold text-orange-400 uppercase tracking-wider">주제</span>
                       <div className="h-px w-8 bg-gradient-to-l from-transparent to-orange-500/50"></div>
                     </div>
-                    <p className="text-base md:text-lg lg:text-xl font-medium text-white/90">
-                      Make it WOW, Make it WORK!
-                    </p>
                     <p className="text-sm md:text-base lg:text-lg text-white/80 mt-2">
-                      세상을 놀라게 하거나 GS현장을 변화시킬 아이디어를 GenAI로 직접 만들어 보세요!
+                      세상을 놀라게 하거나, GS현장을 변화시킬 아이디어를
+                      <br />
+                      GenAI로 직접 만들어보세요!
                     </p>
                   </div>
                 </div>
@@ -94,6 +95,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </PageTransition>
     </main>
   )
 }
