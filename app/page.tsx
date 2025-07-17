@@ -15,7 +15,7 @@ export default function Home() {
         <Hero />
       
       {/* 메인 콘텐츠 섹션 */}
-      <section className="min-h-screen py-16 md:py-24 px-4 md:px-6 flex items-center justify-center relative z-30">
+      <section id="main" className="min-h-screen py-16 md:py-24 px-4 md:px-6 flex items-center justify-center relative z-30">
         <div className="mx-auto" style={{ maxWidth: '88rem' }}>
           
           {/* 프리미엄 포스터 컨테이너 */}

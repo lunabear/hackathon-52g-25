@@ -1,19 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/ui/Navigation";
 import Link from "next/link";
 import Image from "next/image";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "제4회 GS그룹 해커톤 - Play with GenAI Season2",
@@ -33,9 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         <Link 
           href="/" 
           className="fixed top-4 left-4 sm:top-8 sm:left-8 z-50 hover:opacity-100 transition-opacity duration-200"

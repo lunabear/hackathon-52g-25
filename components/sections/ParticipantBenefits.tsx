@@ -22,7 +22,7 @@ export default function ParticipantBenefits() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
             
             {/* 리모트 리그 */}
-            <div className="bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-3xl p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-3xl p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
               <div className="text-center mb-8">
                 <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mx-auto mb-6">
                   <span className="text-2xl">💻</span>
@@ -32,20 +32,22 @@ export default function ParticipantBenefits() {
                 <div className="w-8 h-px bg-purple-300 mx-auto mb-6"></div>
               </div>
               
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    언제, 어디서든 <span className="font-bold text-purple-600">자유롭게 참여</span>할 수 있는 기회
-                  </p>
+              <div className="flex-1 flex flex-col">
+                <div className="flex-1 space-y-6 mb-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      언제, 어디서든 <span className="font-bold text-purple-600">자유롭게 참여</span>할 수 있는 기회
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      우리가 모인 곳을 플레이 그라운드로 만들어주는 <span className="font-bold text-purple-600">PLAI리모트팩</span>
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    우리가 모인 곳을 플레이 그라운드로 만들어주는 <span className="font-bold text-purple-600">PLAI리모트팩</span>
-                  </p>
-                </div>
-                <div className="bg-purple-50/50 rounded-2xl p-4 mt-6">
+                <div className="bg-purple-50/50 rounded-2xl p-4 mt-auto">
                   <p className="text-purple-700 text-xs md:text-sm leading-relaxed">
                     해커톤 티셔츠, 간식 쿠폰, 리모트 리그 전용 키링 등
                   </p>
@@ -54,7 +56,7 @@ export default function ParticipantBenefits() {
             </div>
 
             {/* 필드 리그 */}
-            <div className="bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-3xl p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-3xl p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
               <div className="text-center mb-8">
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-6">
                   <span className="text-2xl">🏢</span>
@@ -64,32 +66,34 @@ export default function ParticipantBenefits() {
                 <div className="w-8 h-px bg-blue-300 mx-auto mb-6"></div>
               </div>
               
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    <span className="font-bold text-blue-600">다양한 계열사 구성원, AI기업</span>들과 만날 수 있는 기회
-                  </p>
+              <div className="flex-1 flex flex-col">
+                <div className="flex-1 space-y-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      <span className="font-bold text-blue-600">다양한 계열사 구성원, AI기업</span>들과 만날 수 있는 기회
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      공식 오픈 전, <span className="font-bold text-blue-600">웨스틴 서울 파르나스를 가장 먼저 경험</span>할 기회
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      MISO & 바이브코딩 마스터들의 <span className="font-bold text-blue-600">기술 코치</span>
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      우리의 경험을 더욱 즐겁게 만들어주는 PLAI필드팩
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    공식 오픈 전, <span className="font-bold text-blue-600">웨스틴 서울 파르나스를 가장 먼저 경험</span>할 기회
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    MISO & 바이브코딩 마스터들의 <span className="font-bold text-blue-600">기술 코치</span>
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    우리의 경험을 더욱 즐겁게 만들어주는 PLAI필드팩
-                  </p>
-                </div>
-                <div className="bg-blue-50/50 rounded-2xl p-4 mt-6">
+                <div className="bg-blue-50/50 rounded-2xl p-4 mt-auto">
                   <p className="text-blue-700 text-xs md:text-sm leading-relaxed">
                     FC서울x52g 한정판 저지, 해커톤 모자, 필드 리그 전용 키링
                   </p>
@@ -98,7 +102,7 @@ export default function ParticipantBenefits() {
             </div>
 
             {/* 챔피언스리그 */}
-            <div className="bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-3xl p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-3xl p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
               <div className="text-center mb-8">
                 <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mx-auto mb-6">
                   <span className="text-2xl">🚀</span>
@@ -108,28 +112,30 @@ export default function ParticipantBenefits() {
                 <div className="w-8 h-px bg-emerald-300 mx-auto mb-6"></div>
               </div>
               
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    <span className="font-bold text-emerald-600">데모데이를 통한 아이디어 현실화 기회</span>
-                  </p>
+              <div className="flex-1 flex flex-col">
+                <div className="flex-1 space-y-6 mb-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      <span className="font-bold text-emerald-600">데모데이를 통한 아이디어 현실화 기회</span>
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      비즈니스 전문가들의 피드백과 <span className="font-bold text-emerald-600">멘토링 기회</span>
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                      <span className="font-bold text-emerald-600">50만원 상당</span>의 완주 상품 제공
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    비즈니스 전문가들의 피드백과 <span className="font-bold text-emerald-600">멘토링 기회</span>
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    <span className="font-bold text-emerald-600">50만원 상당</span>의 완주 상품 제공
-                  </p>
-                </div>
-                <div className="bg-emerald-50/50 rounded-2xl p-4 mt-6">
+                <div className="bg-emerald-50/50 rounded-2xl p-4 mt-auto">
                   <p className="text-emerald-700 text-xs md:text-sm leading-relaxed">
-                    💡 당신의 아이디어가 GS의 미래를 바꿀 수 있습니다!
+                    50만원 상당의 완주 상품 제공
                   </p>
                 </div>
               </div>
@@ -141,11 +147,11 @@ export default function ParticipantBenefits() {
 
       {/* 참가자 모두에게는? */}
       <div className="max-w-7xl mx-auto mb-16 md:mb-20">
-        <div className="bg-gradient-to-r from-slate-50 to-white border border-slate-200 rounded-2xl md:rounded-3xl px-6 md:px-12 py-8 md:py-12 shadow-sm flex flex-col md:flex-row items-center gap-6 md:gap-10">
-          <div className="flex-shrink-0 mb-4 md:mb-0">
+        <div className="bg-gradient-to-r from-slate-50 to-white border border-slate-200 rounded-2xl md:rounded-3xl px-6 md:px-12 py-8 md:py-12 shadow-sm text-center">
+          <div className="mb-6">
             <span className="inline-block bg-gradient-to-r from-rose-500 to-pink-500 text-white text-sm font-bold px-6 py-2 rounded-full shadow-md">참가자 모두에게는?</span>
           </div>
-          <div className="flex-1 text-base md:text-lg text-slate-700 font-medium space-y-3">
+          <div className="max-w-4xl mx-auto text-base md:text-lg text-slate-700 font-medium space-y-3">
             <p className="text-slate-700">
               24시간 해커들과 함께하는 <span className="font-bold text-rose-600">AI PLAI MAKER</span>
             </p>

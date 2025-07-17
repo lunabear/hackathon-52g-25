@@ -14,7 +14,7 @@ const schedules = [
     name: '참여자 모집',
     startDate: new Date('2025-07-17T00:00:00+09:00'),
     endDate: new Date('2025-08-06T23:59:59+09:00'),
-    label: '모집 마감까지'
+    label: '참여자 모집 마감까지'
   },
   {
     name: '확정자 발표',
@@ -422,18 +422,6 @@ export default function Hero() {
                   transition={{ duration: 0.5, delay: 0.5 }}
                   className="mt-6 text-center"
                 >
-                  {/* 현재 진행 중인 일정 표시 */}
-                  {currentSchedule.isOngoing && (
-                    <div className="mb-3">
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full mb-2">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                        <span className="text-xs font-semibold text-blue-700">{currentSchedule.name} 진행 중</span>
-                      </div>
-                      {currentSchedule.description && (
-                        <p className="text-xs text-gray-600 font-medium">{currentSchedule.description}</p>
-                      )}
-                    </div>
-                  )}
                   
                   {/* 카운트다운 표시 */}
                   <div className="inline-flex items-center gap-2 text-xs sm:text-sm">

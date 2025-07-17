@@ -41,22 +41,25 @@ export default function Navigation() {
       const scrollToSection = sessionStorage.getItem('scrollToSection')
       if (scrollToSection) {
         sessionStorage.removeItem('scrollToSection')
+        
         // Wait for page to load before scrolling
         setTimeout(() => {
           if (scrollToSection === 'main') {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
+            window.scrollTo({ top: 0, behavior: 'instant' })
           } else if (scrollToSection === 'faq') {
             const faqElement = document.getElementById('faq')
             if (faqElement) {
-              faqElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              faqElement.scrollIntoView({ behavior: 'instant', block: 'start' })
             }
           } else {
             const element = document.getElementById(scrollToSection)
             if (element) {
               const offsetTop = element.offsetTop - 80
-              window.scrollTo({ top: offsetTop, behavior: 'smooth' })
+              window.scrollTo({ top: offsetTop, behavior: 'instant' })
             }
           }
+          
+          // Update active section immediately
           setActiveSection(scrollToSection)
         }, 100)
       }
@@ -66,11 +69,45 @@ export default function Navigation() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
+      
+      // Only run scroll spy on main page
+      if (pathname === '/') {
+        const currentSection = getCurrentSection()
+        setActiveSection(currentSection)
+      }
     }
+    
     window.addEventListener('scroll', handleScroll)
     handleScroll() // Initial check
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pathname])
+  
+  const getCurrentSection = () => {
+    const scrollPosition = window.scrollY
+    const windowHeight = window.innerHeight
+    
+    // If we're at the very top of the page, return 'main'
+    if (scrollPosition < 100) {
+      return 'main'
+    }
+    
+    // Find FAQ section position
+    const faqElement = document.getElementById('faq')
+    if (faqElement) {
+      const faqRect = faqElement.getBoundingClientRect()
+      const faqTop = faqRect.top
+      const faqBottom = faqRect.bottom
+      
+      // If FAQ section is in view (at least 30% visible), make it active
+      if (faqTop < windowHeight * 0.7 && faqBottom > windowHeight * 0.3) {
+        return 'faq'
+      }
+    }
+    
+    // For all other cases, return 'main'
+    // This ensures that when scrolling up from FAQ, it goes to 'main'
+    return 'main'
+  }
 
   useEffect(() => {
     if (isOpen) {
@@ -98,17 +135,17 @@ export default function Navigation() {
     }
     
     // We're on the main page - handle scrolling
-    setActiveSection(targetId)
     setIsOpen(false)
+    setActiveSection(targetId)
     
-    // Navigate to section
+    // Navigate to section - both with instant behavior
     if (item.href === '#main') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      window.scrollTo({ top: 0, behavior: 'instant' })
     } else if (item.href === '#faq') {
-      // Special handling for FAQ to ensure correct positioning
+      // Instant navigation to FAQ section
       const faqElement = document.getElementById('faq')
       if (faqElement) {
-        faqElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        faqElement.scrollIntoView({ behavior: 'instant', block: 'start' })
       }
     }
   }
