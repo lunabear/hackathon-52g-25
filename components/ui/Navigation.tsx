@@ -5,14 +5,37 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-const menuItems = [
+// 메뉴 표시 여부 설정 (false로 설정하면 숨김, true로 설정하면 표시)
+const MENU_CONFIG = {
+  SHOW_MAIN: true,        // 해커톤 소개
+  SHOW_SHOWCASE: false,    // 쇼케이스
+  SHOW_PLAI_EVENT: true,  // PLAI Event
+  SHOW_FAQ: true          // FAQ
+}
+
+const allMenuItems = [
   { id: 'main', label: '해커톤 소개', href: '#main', isInternal: true },
   { id: 'reference', label: '쇼케이스', href: '/reference', isInternal: false },
   { id: 'plai-event', label: 'PLAI Event', href: '/plai-event', isInternal: false },
   { id: 'faq', label: 'FAQ', href: '#faq', isInternal: true }
 ]
 
-export default function Navigation() {
+// 조건부로 메뉴 아이템 필터링
+const menuItems = allMenuItems.filter(item => {
+  switch(item.id) {
+    case 'main': return MENU_CONFIG.SHOW_MAIN
+    case 'reference': return MENU_CONFIG.SHOW_SHOWCASE
+    case 'plai-event': return MENU_CONFIG.SHOW_PLAI_EVENT
+    case 'faq': return MENU_CONFIG.SHOW_FAQ
+    default: return true
+  }
+})
+
+interface NavigationProps {
+  isMainPage?: boolean
+}
+
+export default function Navigation({ isMainPage = false }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
@@ -153,7 +176,7 @@ export default function Navigation() {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className={`fixed top-8 right-8 z-40 hidden md:block transition-all duration-300`}>
+      <nav className={`fixed top-12 right-8 z-40 hidden md:block transition-all duration-300`}>
         <div className={`${scrolled ? 'bg-white/90 backdrop-blur-md shadow-lg' : 'bg-white/70 backdrop-blur-sm'} rounded-full p-1.5 transition-all duration-300`}>
           <ul className="flex items-center gap-0.5">
             {menuItems.map((item) => (
@@ -201,7 +224,7 @@ export default function Navigation() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed top-6 right-6 z-40 p-2.5 rounded-full md:hidden transition-all duration-300 ${
+        className={`fixed ${isMainPage ? 'top-10' : 'top-6'} right-6 z-40 p-2.5 rounded-full md:hidden transition-all duration-300 ${
           scrolled 
             ? 'bg-white/90 backdrop-blur-md shadow-lg' 
             : 'bg-white/70 backdrop-blur-sm'

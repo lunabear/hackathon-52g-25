@@ -7,10 +7,12 @@ import ParticipantBenefits from '@/components/sections/ParticipantBenefits'
 import FAQ from '@/components/sections/FAQ'
 import ImageCycler from '@/components/ui/ImageCycler'
 import PageTransition from '@/components/ui/PageTransition'
+import CheerMarquee from '@/components/ui/CheerMarquee'
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <CheerMarquee />
       <PageTransition>
         <Hero />
       

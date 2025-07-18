@@ -287,10 +287,6 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* 로고 - 완전히 고정 */}
-        <div className="absolute top-4 left-4 sm:top-8 sm:left-8 flex items-center gap-4 z-50">
-          <Image src="/assets/symbols/52g로고.png" alt="52g" width={100} height={50} className="h-10 sm:h-14 w-auto opacity-80" />
-        </div>
       </div>
 
       {/* 스크롤 가능한 콘텐츠 */}
