@@ -3,15 +3,29 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
+// Type definitions for ChannelIO
+interface ChannelIOWindow extends Window {
+  ChannelIO?: ChannelIOFunction
+  ChannelIOInitialized?: boolean
+}
+
+interface ChannelIOFunction {
+  (...args: unknown[]): void
+  c?: (args: unknown[]) => void
+  q?: unknown[][]
+}
+
 export default function ChannelIO() {
   const pathname = usePathname()
   
   useEffect(() => {
+    const w = window as ChannelIOWindow
+    
     // 페이지가 바뀔 때마다 즉시 처리
     if (pathname !== '/') {
       // 메인 페이지가 아니면 즉시 숨김
-      if ((window as any).ChannelIO) {
-        (window as any).ChannelIO('hideChannelButton');
+      if (w.ChannelIO) {
+        w.ChannelIO('hideChannelButton');
         // DOM에서 강제로 제거
         setTimeout(() => {
           const channelButton = document.querySelector('#ch-plugin-launcher');
@@ -28,9 +42,9 @@ export default function ChannelIO() {
     }
 
     // 메인 페이지인 경우
-    if ((window as any).ChannelIO) {
+    if (w.ChannelIO) {
       // 이미 로드되어 있으면 show
-      (window as any).ChannelIO('showChannelButton');
+      w.ChannelIO('showChannelButton');
       // DOM에서 다시 표시
       setTimeout(() => {
         const channelButton = document.querySelector('#ch-plugin-launcher');
@@ -48,16 +62,17 @@ export default function ChannelIO() {
     // 처음 로드하는 경우
     const loadChannelIO = () => {
       (function() {
-        var w = window as any;
         if (w.ChannelIO) {
           return;
         }
-        var ch = function() {
-          ch.c(arguments);
+        const ch: ChannelIOFunction = function(...args: unknown[]) {
+          if (ch.c) {
+            ch.c(args);
+          }
         };
         ch.q = [];
-        ch.c = function(args: any) {
-          ch.q.push(args);
+        ch.c = function(args: unknown[]) {
+          ch.q?.push(args);
         };
         w.ChannelIO = ch;
         function l() {
@@ -65,11 +80,11 @@ export default function ChannelIO() {
             return;
           }
           w.ChannelIOInitialized = true;
-          var s = document.createElement("script");
+          const s = document.createElement("script");
           s.type = "text/javascript";
           s.async = true;
           s.src = "https://cdn.channel.io/plugin/ch-plugin-web.js";
-          var x = document.getElementsByTagName("script")[0];
+          const x = document.getElementsByTagName("script")[0];
           if (x.parentNode) {
             x.parentNode.insertBefore(s, x);
           }
@@ -84,8 +99,8 @@ export default function ChannelIO() {
 
       // 스크립트 로드 후 부팅
       setTimeout(() => {
-        if ((window as any).ChannelIO) {
-          (window as any).ChannelIO('boot', {
+        if (w.ChannelIO) {
+          w.ChannelIO('boot', {
             "pluginKey": "f9360e8f-b7cf-471d-bf18-a7684a08a510"
           });
         }

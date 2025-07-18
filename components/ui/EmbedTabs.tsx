@@ -47,7 +47,7 @@ export default function EmbedTabs() {
         {/* 모바일: 가로 스크롤, PC: 중앙 정렬 */}
         <div className="overflow-x-auto hide-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
           <div className="flex gap-1 min-w-max md:justify-start">
-            {SAMPLE_TABS.map((tab, index) => (
+            {SAMPLE_TABS.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
