@@ -49,7 +49,7 @@ export default function ParticipantBenefits() {
                 </div>
                 <div className="bg-purple-50/50 rounded-2xl p-4 mt-auto">
                   <p className="text-purple-700 text-xs md:text-sm leading-relaxed">
-                    해커톤 티셔츠, 간식 쿠폰, 리모트 리그 전용 키링 등
+                    PLAI 리모트팩 구성품: 해커톤 티셔츠, 간식 쿠폰, 리모트 리그 전용 키링 등
                   </p>
                 </div>
               </div>
@@ -83,19 +83,19 @@ export default function ParticipantBenefits() {
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
                     <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                      MISO & 바이브코딩 마스터들의 <span className="font-bold text-blue-600">기술 코치</span>
+                      MISO & 바이브코딩 마스터들의 <span className="font-bold text-blue-600">기술 코칭</span>
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
                     <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                      우리의 경험을 더욱 즐겁게 만들어주는 PLAI필드팩
+                      우리의 경험을 더욱 즐겁게 만들어주는 <span className="font-bold text-blue-600">PLAI필드팩</span>
                     </p>
                   </div>
                 </div>
                 <div className="bg-blue-50/50 rounded-2xl p-4 mt-auto">
                   <p className="text-blue-700 text-xs md:text-sm leading-relaxed">
-                    FC서울x52g 한정판 저지, 해커톤 모자, 필드 리그 전용 키링
+                  PLAI필드팩 구성품: FC서울x52g 한정판 저지, 해커톤 모자, 필드 리그전용 키링 등
                   </p>
                 </div>
               </div>
@@ -124,12 +124,6 @@ export default function ParticipantBenefits() {
                     <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
                     <p className="text-gray-700 text-sm md:text-base leading-relaxed">
                       비즈니스 전문가들의 피드백과 <span className="font-bold text-emerald-600">멘토링 기회</span>
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                      <span className="font-bold text-emerald-600">50만원 상당</span>의 완주 상품 제공
                     </p>
                   </div>
                 </div>

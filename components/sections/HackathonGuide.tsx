@@ -80,21 +80,21 @@ export default function HackathonGuide() {
                   <span className="text-orange-600 text-xs font-bold bg-orange-100 px-2 py-1 rounded-full mt-0.5">1</span>
                   <div>
                     <p className="font-medium text-gray-900 text-sm">아이디어 소개서</p>
-                    <p className="text-gray-500 text-xs mt-1">풀고 싶은 문제와 해결방법 소개</p>
+                    <p className="text-gray-500 text-xs mt-1">풀고 싶은 문제와 해결방법을 소개해 주세요</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-orange-600 text-xs font-bold bg-orange-100 px-2 py-1 rounded-full mt-0.5">2</span>
                   <div>
                     <p className="font-medium text-gray-900 text-sm">동작하는 디지털 결과물</p>
-                    <p className="text-gray-500 text-xs mt-1">웹사이트 또는 앱 링크 제출</p>
+                    <p className="text-gray-500 text-xs mt-1">V0, MISO와 같은 AI 툴을 활용해 만든 디지털 결과물을 실제로 열어볼 수 있는 웹사이트 또는 앱 링크를 제출해 주세요.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-orange-600 text-xs font-bold bg-orange-100 px-2 py-1 rounded-full mt-0.5">3</span>
                   <div>
-                    <p className="font-medium text-gray-900 text-sm">시연 영상</p>
-                    <p className="text-gray-500 text-xs mt-1">팀 & 아이디어 소개 (3분 이내)</p>
+                    <p className="font-medium text-gray-900 text-sm">팀 & 아이디어 소개 및 시연 영상</p>
+                    <p className="text-gray-500 text-xs mt-1">실제로 어떻게 작동하는지 설명하는 영상을 찍어 링크를 제출해주세요. (3분 이내)</p>
                   </div>
                 </div>
               </div>
