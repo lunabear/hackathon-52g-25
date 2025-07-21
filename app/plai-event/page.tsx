@@ -59,8 +59,8 @@ export default function PlaiEventPage() {
             
             {/* 헤더 */}
             <div className="text-center mb-8 md:mb-12">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
-                PLAI Event : <br className="sm:hidden" />나의 회사 생활 Vibe
+              <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6">
+              🖼️ PLAI 갤러리: <br className="sm:hidden" />내가 만든 AI작품을 자랑해보세요! 🎨
               </h1>
               {/* 설명과 버튼 레이아웃 */}
               <div className="max-w-4xl mx-auto">
@@ -68,10 +68,7 @@ export default function PlaiEventPage() {
                   <div className="text-center">
                     <div className="space-y-2 md:space-y-3">
                       <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed">
-                        GenAI로 표현하는 <span className="font-bold text-gray-900">우리의 일상</span>을 공유해보세요.
-                      </p>
-                      <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
-                        창의적인 아이디어와 즐거운 경험을 <span className="font-semibold text-gray-700">함께 나눠보세요</span>.
+                        📢 “웃기고 짠하고 할 말 많은 우리네 회사생활, AI로 보여주세요!“
                       </p>
                     </div>
                   </div>
@@ -277,10 +274,10 @@ export default function PlaiEventPage() {
                   </h4>
                   <div className="bg-amber-50 rounded-xl p-4 md:p-6">
                     <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-3">
-                      독창성, 공감성, 전달력, 표현 완성도를 중심으로 AI 기반 추천 시스템을 통해 <strong>1차 후보작</strong>을 선정한 후, 사내 심사위원단의 <strong>2차 정성 평가</strong>를 거쳐 최종 선정합니다.
+                      독창성, 공감성, 전달력을 고려하여 사내 심사위원단의 정성 평가를 거쳐 최종 선정합니다.
                     </p>
                     <p className="text-amber-700 text-xs md:text-sm font-medium">
-                      📌 Best 작품은 부문별 최고 완성도와 공감력을 갖춘 콘텐츠에 수여됩니다.
+                      📌 Best 작품은 부문별 콘텐츠로 수여됩니다.
                     </p>
                   </div>
                 </div>
@@ -288,25 +285,81 @@ export default function PlaiEventPage() {
                 {/* 대상 */}
                 <div>
                   <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                    🏆 대상 (Best PLAI)
+                    🏆 선정 대상 (Best PLAI)
                   </h4>
                   <div className="bg-purple-50 rounded-xl p-4 md:p-6">
                     <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-3">
-                      창의성, 메시지 임팩트, 예술적 표현력, 브랜드 적합성, 몰입도를 종합적으로 평가하며, 단순 기술적 완성도를 넘어 전사 구성원에게 가장 깊은 인상과 울림을 준 콘텐츠에 수여됩니다.
+                      독창성, 공감성, 전달력에 완성도를 포함하여 종합적으로 평가하며, 전사 구성원에게 가장 깊은 공감과 울림을 준 콘텐츠에 수여됩니다.
                     </p>
                     <p className="text-purple-700 text-xs md:text-sm font-medium">
-                      ⚠️ (단, Best 작품과의 중복 수상은 불가합니다.)
+                      📌 Best 작품과의 중복 수상은 불가합니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 시상 내역 */}
+              <div className="mb-8 md:mb-12">
+                <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
+                  🏆 시상 내역
+                </h3>
+                <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-4 md:p-6">
+                  <p className="text-gray-700 text-sm md:text-base mb-4">
+                    수상자: 카테고리별 베스트 작품 1개 선정하여 수상(1인)
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center p-3 bg-white/60 rounded-lg">
+                      <span className="font-semibold text-gray-900">Best Video</span>
+                      <span className="font-bold text-blue-600">30만원 상당</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-white/60 rounded-lg">
+                      <span className="font-semibold text-gray-900">Best Cartoon</span>
+                      <span className="font-bold text-purple-600">20만원 상당</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-white/60 rounded-lg">
+                      <span className="font-semibold text-gray-900">Best Song</span>
+                      <span className="font-bold text-green-600">10만원 상당</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-white/60 rounded-lg">
+                      <span className="font-semibold text-gray-900">Best Picture</span>
+                      <span className="font-bold text-orange-600">10만원 상당</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-white/60 rounded-lg border-2 border-purple-200">
+                      <span className="font-semibold text-gray-900">Best PLAI</span>
+                      <span className="font-bold text-purple-600">30만원 상당</span>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-red-50 rounded-lg">
+                    <p className="text-red-700 text-sm font-medium">
+                      🛑 우승자가 중복될 경우, 하나의 분야에서만 수상됩니다
                     </p>
                   </div>
                 </div>
               </div>
               
-              {/* 주의사항 */}
-              <div className="bg-red-50 rounded-xl p-4 md:p-6 text-center">
-                <p className="text-red-700 text-sm md:text-base font-medium flex items-center justify-center gap-2">
-                  <span>⚠️</span>
-                  회사/팀/이름 미기재 시 수상에서 제외될 수 있습니다
-                </p>
+              {/* 유의사항 */}
+              <div className="mb-8 md:mb-12">
+                <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
+                  📌 유의사항
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3 p-3 bg-blue-50 rounded-xl">
+                    <span className="text-blue-600 text-lg">📢</span>
+                    <p className="text-gray-700 text-sm md:text-base">제출작은 해커톤 진행 기간 중 홍보에 활용될 수 있어요</p>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-red-50 rounded-xl">
+                    <span className="text-red-600 text-lg">⚠️</span>
+                    <p className="text-gray-700 text-sm md:text-base">패들릿에 회사/팀/이름 미기재 시 선발이 어려울 수 있어요</p>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-orange-50 rounded-xl">
+                    <span className="text-orange-600 text-lg">🚫</span>
+                    <p className="text-gray-700 text-sm md:text-base">중복 수상은 불가! (가장 잘한 분야 1개만 시상)</p>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 bg-green-50 rounded-xl">
+                    <span className="text-green-600 text-lg">🎨</span>
+                    <p className="text-gray-700 text-sm md:text-base">툴은 자유! 추천 툴은 참고만 하시고, 본인이 편한 AI툴로 마음껏 만들어주세요 :)</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

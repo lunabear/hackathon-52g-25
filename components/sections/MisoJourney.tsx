@@ -299,66 +299,68 @@ export default function MisoJourney() {
               
               {/* MISO 탭 */}
               {activeTab === 'miso' && (
-                <div className="space-y-6 sm:space-y-8">
+                <div className="space-y-8">
                   {/* 메인 소개 */}
                   <div className="text-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-                      <span className="text-3xl sm:text-4xl">🤖</span>
+                    <div className="w-20 h-20 bg-gradient-to-br from-purple-50 to-blue-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                      <span className="text-4xl">🤖</span>
                     </div>
-                    <h4 className="text-lg sm:text-2xl font-bold text-slate-900 mb-2">GS 구성원을 위한</h4>
-                    <h5 className="text-base sm:text-xl font-semibold text-slate-700 mb-3">안전하고 쉬운 GenAI Playground</h5>
-                    <h3 className="text-2xl sm:text-4xl font-black text-purple-600 mb-4 sm:mb-6">MISO</h3>
-                    <p className="text-slate-600 leading-relaxed max-w-2xl mx-auto text-sm sm:text-lg px-4 sm:px-0">
-                      미소와 함께라면 GS 구성원 누구나 GenAI를 자유롭게 사용해보고<br className="hidden sm:block" />
-                      내 업무에 적용하는 AX 여정을 쉽게 시작할 수 있습니다.
+                    <h3 className="text-3xl font-black text-purple-600 mb-2">MISO</h3>
+                    <p className="text-slate-600 leading-relaxed max-w-2xl mx-auto text-base">
+                      GS 구성원을 위한 안전하고 쉬운 GenAI Playground
                     </p>
                   </div>
 
-                  {/* 핵심 기능 */}
-                  <div>
-                    <h4 className="text-lg sm:text-xl font-bold text-slate-900 mb-4 sm:mb-6 text-center">핵심 기능</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-blue-200/50">
-                        <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span className="text-lg sm:text-2xl">🛠️</span>
-                          </div>
-                          <h5 className="font-semibold text-slate-900 text-sm sm:text-lg">누구나 쉽게 만드는 GenAI 앱</h5>
+                  {/* 동영상 임베드 */}
+                  <div className="bg-slate-50 rounded-2xl p-6">
+                    <div className="aspect-video bg-white rounded-xl overflow-hidden shadow-sm">
+                      <iframe
+                        src="https://drive.google.com/file/d/1J8ycNPOBs7j94hlzSvTRl14QtE-US6YK/preview"
+                        width="100%"
+                        height="100%"
+                        allow="autoplay"
+                        className="w-full h-full"
+                      />
+                    </div>
+                  </div>
+
+                  {/* 핵심 가치 */}
+                  <div className="space-y-4">
+                    <h4 className="text-xl font-bold text-slate-900 text-center mb-6">핵심 가치</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                        <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
+                          <span className="text-2xl">🛠️</span>
                         </div>
-                        <p className="text-slate-600 leading-relaxed text-sm sm:text-base">다양한 도구와 모델을 지원해요.</p>
+                        <h5 className="font-semibold text-slate-900 mb-2">누구나 쉽게</h5>
+                        <p className="text-slate-600 text-sm leading-relaxed">
+                          다양한 도구와 모델을 지원해 누구나 GenAI를 활용할 수 있어요
+                        </p>
                       </div>
                       
-                      <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-amber-200/50">
-                        <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span className="text-lg sm:text-2xl">💡</span>
-                          </div>
-                          <h5 className="font-semibold text-slate-900 text-sm sm:text-lg">맞춤형 GPT 챗봇</h5>
+                      <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                        <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-4">
+                          <span className="text-2xl">🔒</span>
                         </div>
-                        <p className="text-slate-600 leading-relaxed text-sm sm:text-base">우리 회사 데이터를 활용하는 맞춤형 GPT 챗봇을 사용할 수 있어요</p>
+                        <h5 className="font-semibold text-slate-900 mb-2">안전한 보호</h5>
+                        <p className="text-slate-600 text-sm leading-relaxed">
+                          데이터 외부 유출 걱정 없이 안전하게 GenAI를 활용할 수 있어요
+                        </p>
                       </div>
                       
-                      <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-emerald-200/50">
-                        <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span className="text-lg sm:text-2xl">🔒</span>
-                          </div>
-                          <h5 className="font-semibold text-slate-900 text-sm sm:text-lg">안전한 데이터 보호</h5>
+                      <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                        <div className="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center mb-4">
+                          <span className="text-2xl">💡</span>
                         </div>
-                        <p className="text-slate-600 leading-relaxed text-sm sm:text-base">데이터 외부 유출 걱정 없이 안전하게 GenAI를 활용할 수 있어요.</p>
-                      </div>
-                      
-                      <div className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-violet-200/50">
-                        <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-violet-100 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span className="text-lg sm:text-2xl">📱</span>
-                          </div>
-                          <h5 className="font-semibold text-slate-900 text-sm sm:text-lg">동료 앱 공유</h5>
-                        </div>
-                        <p className="text-slate-600 leading-relaxed text-sm sm:text-base">동료가 만든 GenAI 앱을 내 업무에도 바로 적용해 보세요.</p>
+                        <h5 className="font-semibold text-slate-900 mb-2">맞춤형 챗봇</h5>
+                        <p className="text-slate-600 text-sm leading-relaxed">
+                          우리 회사 데이터를 활용하는 맞춤형 GPT 챗봇을 사용할 수 있어요
+                        </p>
                       </div>
                     </div>
                   </div>
+
+
                 </div>
               )}
 
