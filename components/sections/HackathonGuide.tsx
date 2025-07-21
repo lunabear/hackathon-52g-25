@@ -87,7 +87,7 @@ export default function HackathonGuide() {
                   <span className="text-orange-600 text-xs font-bold bg-orange-100 px-2 py-1 rounded-full mt-0.5">2</span>
                   <div>
                     <p className="font-medium text-gray-900 text-sm">동작하는 디지털 결과물</p>
-                    <p className="text-gray-500 text-xs mt-1">V0, MISO와 같은 AI 툴을 활용해 만든 디지털 결과물을 실제로 열어볼 수 있는 웹사이트 또는 앱 링크를 제출해 주세요.</p>
+                    <p className="text-gray-500 text-xs mt-1">AI 툴을 활용해 만든 디지털 결과물을 실제로 열어볼 수 있는 웹사이트 또는 앱 링크를 제출해 주세요.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

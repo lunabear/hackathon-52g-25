@@ -17,8 +17,8 @@ export default function ParticipationSteps() {
         {/* 서브 타이틀 */}
         <div className="max-w-2xl mx-auto">
         <p className="text-base md:text-lg text-slate-600 leading-relaxed">
-            리모트 리그와 필드 리그 중 원하는 리그를 선택해서 지원해주세요!
-          </p>
+          리모트 리그와 필드 리그 중 <span className="font-bold text-purple-600">원하는 리그를 선택해서 지원</span>해주세요!
+        </p>
           <p className="text-base md:text-lg text-slate-600 leading-relaxed">
             내 상황에 맞는 해커톤을 선택하여 즐겨보세요☺️
           </p>
@@ -72,10 +72,10 @@ export default function ParticipationSteps() {
             <div className="bg-blue-50/50 rounded-2xl p-4 mt-6">
               <div className="space-y-2">
                 <p className="text-blue-700 text-xs md:text-sm leading-relaxed">
-                  <span className="inline-block mr-1">•</span>팀의 리더에게 PLAI팩을 배송해 드립니다.
+                  <span className="inline-block mr-1">•</span>리모트 리그를 온전히 즐길 수 있는 온라인 교육을 제공합니다.
                 </p>
                 <p className="text-blue-700 text-xs md:text-sm leading-relaxed">
-                  <span className="inline-block mr-1">•</span>팀원들이 가능한 시간에 모여 함께 열어보세요.
+                  <span className="inline-block mr-1">•</span>도움이 필요할 때, 언제든 지원할 수 있는 AI코치를 활용할 수 있습니다.
                 </p>
               </div>
             </div>
@@ -116,10 +116,10 @@ export default function ParticipationSteps() {
             <div className="bg-emerald-50/50 rounded-2xl p-4 mt-6">
               <div className="space-y-2">
                 <p className="text-emerald-700 text-xs md:text-sm leading-relaxed">
-                  <span className="inline-block mr-1">•</span>참가자 발표 후, 교육영상을 제공해 드립니다.
+                  <span className="inline-block mr-1">•</span>다양한 계열사 구성원들과 만나 교류할 수 있습니다.
                 </p>
                 <p className="text-emerald-700 text-xs md:text-sm leading-relaxed">
-                  <span className="inline-block mr-1">•</span>영상을 보면서, 나의 MISO와 바이브코딩을 미리 경험해보세요.
+                  <span className="inline-block mr-1">•</span>AI 전문가 코치와 AI활용 기업을 현장에서 만나볼 수 있습니다.
                 </p>
               </div>
             </div>

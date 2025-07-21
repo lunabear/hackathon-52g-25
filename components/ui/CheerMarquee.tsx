@@ -11,7 +11,7 @@ export default function CheerMarquee() {
       <div className="marquee-container">
         <div className="marquee-content">
           {doubledMessages.map((msg, index) => (
-            <span key={index} className="marquee-item text-orange-500">
+            <span key={index} className="marquee-item text-white">
               <span className="cheer-message">{msg.message}</span>
               <span className="cheer-divider mx-2">|</span>
               <span className="cheer-author">{msg.company} {msg.name}</span>

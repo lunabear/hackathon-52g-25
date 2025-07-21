@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 
 export default function ParticipantBenefits() {
@@ -18,8 +20,25 @@ export default function ParticipantBenefits() {
           </div>
         </div>
 
+        {/* 참가자 모두에게는? */}
+        <div className="max-w-7xl mx-auto mb-12 md:mb-16">
+          <div className="bg-gradient-to-r from-slate-50 to-white border border-slate-200 rounded-2xl md:rounded-3xl px-6 md:px-12 py-8 md:py-12 shadow-sm text-center">
+            <div className="mb-6">
+              <span className="inline-block bg-gradient-to-r from-rose-500 to-pink-500 text-white text-sm font-bold px-6 py-2 rounded-full shadow-md">참가자 모두에게는?</span>
+            </div>
+            <div className="max-w-4xl mx-auto text-base md:text-lg text-slate-700 font-medium space-y-3">
+              <p className="text-slate-700">
+                24시간 해커들과 함께하는 <span className="font-bold text-rose-600">AI PLAI MAKER</span>
+              </p>
+              <p className="text-slate-600">
+                GenAI를 스스로 학습하고, 직접 만들어볼 수 있도록 돕는 <span className="font-bold text-rose-600">템플릿과 온라인 콘텐츠</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="mx-auto" style={{ maxWidth: '88rem' }}>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
             
             {/* 리모트 리그 */}
             <div className="bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-3xl p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
@@ -139,23 +158,6 @@ export default function ParticipantBenefits() {
         </div>
       </div>
 
-      {/* 참가자 모두에게는? */}
-      <div className="max-w-7xl mx-auto mb-16 md:mb-20">
-        <div className="bg-gradient-to-r from-slate-50 to-white border border-slate-200 rounded-2xl md:rounded-3xl px-6 md:px-12 py-8 md:py-12 shadow-sm text-center">
-          <div className="mb-6">
-            <span className="inline-block bg-gradient-to-r from-rose-500 to-pink-500 text-white text-sm font-bold px-6 py-2 rounded-full shadow-md">참가자 모두에게는?</span>
-          </div>
-          <div className="max-w-4xl mx-auto text-base md:text-lg text-slate-700 font-medium space-y-3">
-            <p className="text-slate-700">
-              24시간 해커들과 함께하는 <span className="font-bold text-rose-600">AI PLAI MAKER</span>
-            </p>
-            <p className="text-slate-600">
-              GenAI를 스스로 학습하고, 직접 만들어볼 수 있도록 돕는 <span className="font-bold text-rose-600">템플릿과 온라인 콘텐츠</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* 구분선 */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-16 md:mb-20"></div>
       
@@ -194,23 +196,38 @@ export default function ParticipantBenefits() {
               </p>
               {/* CTA 버튼 */}
               <div className="text-center lg:text-left">
-                <a
-                  href="https://form.typeform.com/to/GX5MGuZ9"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-3 md:gap-4 bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold px-8 md:px-12 py-4 md:py-5 rounded-2xl md:rounded-3xl hover:from-slate-800 hover:to-slate-700 transition-all duration-300 hover:-translate-y-1 text-sm md:text-base tracking-[-0.01em] relative overflow-hidden"
-                >
-                  {/* 미묘한 샤인 효과 */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <span className="relative z-10">지금 바로 신청하기</span>
-                  <svg className="relative z-10 w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </a>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center lg:justify-start max-w-xl lg:max-w-none mx-auto lg:mx-0">
+                  {/* 주요 신청 버튼 */}
+                  <a
+                    href="https://form.typeform.com/to/GX5MGuZ9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex-1 sm:flex-none inline-flex items-center justify-center bg-gradient-to-r from-slate-900 to-slate-800 text-white font-bold px-8 py-4 rounded-2xl hover:from-slate-800 hover:to-slate-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-base tracking-[-0.01em] relative overflow-hidden min-w-[200px]"
+                  >
+                    {/* 미묘한 샤인 효과 */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    <span className="relative z-10">지금 바로 신청하기</span>
+                  </a>
+                  
+                  {/* 팟캐스트 버튼 */}
+                  <a
+                    href="https://www.podbbang.com/channels/1793063"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex-1 sm:flex-none inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold px-8 py-4 rounded-2xl hover:from-purple-700 hover:to-purple-800 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl text-base tracking-[-0.01em] relative overflow-hidden min-w-[180px]"
+                  >
+                    {/* 미묘한 샤인 효과 */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    <span className="relative z-10">귀로 듣는 유스케이스</span>
+                  </a>
+                </div>
+                
                 {/* 주석 형태의 안내 문구 */}
-                <p className="text-xs text-slate-500 mt-3 max-w-sm mx-auto lg:mx-0">
-                  * 팀 출전을 하더라도 모든 팀원이 신청서를 제출해야 합니다
-                </p>
+                <div className="mt-4 text-center lg:text-left">
+                  <p className="text-xs text-slate-500 leading-relaxed max-w-sm mx-auto lg:mx-0">
+                    * 팀 출전을 하더라도 모든 팀원이 신청서를 제출해야 합니다
+                  </p>
+                </div>
               </div>
             </div>
           </div>

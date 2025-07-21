@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import SimpleWordSwitcher from '@/components/ui/SimpleWordSwitcher'
+import { MENU_CONFIG } from '@/lib/menuConfig'
 
 const switchWords = ['GenAI', 'Everyone', 'Innovation', 'Future', 'Together', 'Vibe']
 
@@ -391,23 +392,42 @@ export default function Hero() {
                     <div className="absolute inset-0 bg-gray-200 rounded-2xl transform translate-y-3 group-hover:translate-y-1 group-active:translate-y-0 transition-transform duration-150" />
                     <div className="relative bg-white rounded-2xl font-bold text-gray-900 text-sm sm:text-base border border-gray-100 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '16px 32px', minWidth: '160px' }}>
                       <span className="relative z-10 block text-center">참가 신청 하기</span>
-                      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                     </div>
                   </div>
                 </a>
-                
-                <Link
-                  href="/plai-event"
-                  className="group relative"
-                >
-                  <div className="relative transform -translate-y-2 transition-all duration-150 group-hover:translate-y-0 group-active:translate-y-1">
-                    <div className="absolute inset-0 bg-blue-200 rounded-2xl transform translate-y-3 group-hover:translate-y-1 group-active:translate-y-0 transition-transform duration-150" />
-                    <div className="relative bg-blue-500 rounded-2xl font-bold text-white text-sm sm:text-base border border-blue-400 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '16px 32px', minWidth: '160px' }}>
-                      <span className="relative z-10 block text-center">PLAI 이벤트</span>
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+
+                {/* 사전가이드 버튼 - 조건부 렌더링 */}
+                {MENU_CONFIG.SHOW_GUIDE && (
+                  <Link
+                    href="/guide"
+                    className="group relative"
+                  >
+                    <div className="relative transform -translate-y-2 transition-all duration-150 group-hover:translate-y-0 group-active:translate-y-1">
+                      <div className="absolute inset-0 bg-green-200 rounded-2xl transform translate-y-3 group-hover:translate-y-1 group-active:translate-y-0 transition-transform duration-150" />
+                      <div className="relative bg-green-500 rounded-2xl font-bold text-white text-sm sm:text-base border border-green-400 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '16px 32px', minWidth: '160px' }}>
+                        <span className="relative z-10 block text-center">사전가이드</span>
+                        <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                )}
+
+
+                {/* PLAI 이벤트 버튼 - 조건부 렌더링 */}
+                {MENU_CONFIG.SHOW_PLAI_EVENT && (
+                  <Link
+                    href="/plai-event"
+                    className="group relative"
+                  >
+                    <div className="relative transform -translate-y-2 transition-all duration-150 group-hover:translate-y-0 group-active:translate-y-1">
+                      <div className="absolute inset-0 bg-blue-200 rounded-2xl transform translate-y-3 group-hover:translate-y-1 group-active:translate-y-0 transition-transform duration-150" />
+                      <div className="relative bg-blue-500 rounded-2xl font-bold text-white text-sm sm:text-base border border-blue-400 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '16px 32px', minWidth: '160px' }}>
+                        <span className="relative z-10 block text-center">PLAI 이벤트</span>
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      </div>
+                    </div>
+                  </Link>
+                )}
               </div>
               
               {/* 카운트다운 타이머 */}
@@ -433,34 +453,7 @@ export default function Hero() {
           </div>
         </section>
 
-        {/* 스크롤 인디케이터 - 화살표 */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none"
-              className="text-gray-600"
-            >
-              <path 
-                d="M7 13L12 18L17 13" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-            </svg>
-          </motion.div>
-        </motion.div>
+
 
       </div>
     </div>

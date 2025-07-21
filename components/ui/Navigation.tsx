@@ -4,19 +4,14 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
-// 메뉴 표시 여부 설정 (false로 설정하면 숨김, true로 설정하면 표시)
-const MENU_CONFIG = {
-  SHOW_MAIN: true,        // 해커톤 소개
-  SHOW_SHOWCASE: false,    // 쇼케이스
-  SHOW_PLAI_EVENT: true,  // PLAI Event
-  SHOW_FAQ: true          // FAQ
-}
+import { MENU_CONFIG } from '@/lib/menuConfig'
 
 const allMenuItems = [
   { id: 'main', label: '해커톤 소개', href: '#main', isInternal: true },
+  { id: 'guide', label: '사전가이드', href: '/guide', isInternal: false },
   { id: 'reference', label: '쇼케이스', href: '/reference', isInternal: false },
   { id: 'plai-event', label: 'PLAI Event', href: '/plai-event', isInternal: false },
+  { id: 'podcast', label: '팟캐스트', href: 'https://www.podbbang.com/channels/1793063', isInternal: false, isPodcast: true },
   { id: 'faq', label: 'FAQ', href: '#faq', isInternal: true }
 ]
 
@@ -24,8 +19,10 @@ const allMenuItems = [
 const menuItems = allMenuItems.filter(item => {
   switch(item.id) {
     case 'main': return MENU_CONFIG.SHOW_MAIN
+    case 'guide': return MENU_CONFIG.SHOW_GUIDE
     case 'reference': return MENU_CONFIG.SHOW_SHOWCASE
     case 'plai-event': return MENU_CONFIG.SHOW_PLAI_EVENT
+    case 'podcast': return MENU_CONFIG.SHOW_PODCAST
     case 'faq': return MENU_CONFIG.SHOW_FAQ
     default: return true
   }
@@ -42,6 +39,7 @@ export default function Navigation({ isMainPage = false }: NavigationProps) {
   
   // Determine initial active section
   const getInitialSection = () => {
+    if (pathname === '/guide') return 'guide'
     if (pathname === '/reference') return 'reference'
     if (pathname === '/plai-event') return 'plai-event'
     return 'main'
@@ -52,7 +50,8 @@ export default function Navigation({ isMainPage = false }: NavigationProps) {
   // Update active section when pathname changes
   useEffect(() => {
     let newSection = 'main'
-    if (pathname === '/reference') newSection = 'reference'
+    if (pathname === '/guide') newSection = 'guide'
+    else if (pathname === '/reference') newSection = 'reference'
     else if (pathname === '/plai-event') newSection = 'plai-event'
     
     setActiveSection(newSection)
@@ -144,6 +143,13 @@ export default function Navigation({ isMainPage = false }: NavigationProps) {
   }, [isOpen])
 
   const handleMenuClick = (item: typeof menuItems[0]) => {
+    // 팟캐스트 메뉴인 경우 새 창에서 열기
+    if (item.isPodcast) {
+      window.open(item.href, '_blank')
+      setIsOpen(false)
+      return
+    }
+    
     // Only handle internal links
     if (!item.isInternal) return
     
@@ -176,12 +182,35 @@ export default function Navigation({ isMainPage = false }: NavigationProps) {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className={`fixed top-12 right-8 z-40 hidden md:block transition-all duration-300`}>
+      <nav className={`fixed top-12 right-8 z-[60] hidden md:block transition-all duration-300`}>
         <div className={`${scrolled ? 'bg-white/90 backdrop-blur-md shadow-lg' : 'bg-white/70 backdrop-blur-sm'} rounded-full p-1.5 transition-all duration-300`}>
           <ul className="flex items-center gap-0.5">
             {menuItems.map((item) => (
               <li key={item.id}>
-                {item.isInternal ? (
+                {item.isPodcast ? (
+                  // 팟캐스트 버튼 (글자색으로만 구별)
+                  <button
+                    onClick={() => handleMenuClick(item)}
+                    className="block px-5 py-2.5 text-sm font-bold transition-colors duration-150 rounded-full relative cursor-pointer text-purple-600 hover:text-purple-700"
+                  >
+                    <div className="flex items-center gap-2">
+                      {/* 라이브 인디케이터 */}
+                      <motion.div
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          opacity: [1, 0.7, 1]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        className="w-1.5 h-1.5 bg-purple-500 rounded-full"
+                      />
+                      <span>{item.label}</span>
+                    </div>
+                  </button>
+                ) : item.isInternal ? (
                   <a
                     href={item.href}
                     onClick={(e) => {
@@ -224,7 +253,7 @@ export default function Navigation({ isMainPage = false }: NavigationProps) {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed ${isMainPage ? 'top-10' : 'top-6'} right-6 z-40 p-2.5 rounded-full md:hidden transition-all duration-300 ${
+        className={`fixed ${isMainPage ? 'top-10' : 'top-6'} right-6 z-[60] p-2.5 rounded-full md:hidden transition-all duration-300 ${
           scrolled 
             ? 'bg-white/90 backdrop-blur-md shadow-lg' 
             : 'bg-white/70 backdrop-blur-sm'
@@ -245,7 +274,7 @@ export default function Navigation({ isMainPage = false }: NavigationProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 md:hidden"
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] md:hidden"
             />
 
             {/* Sidebar */}
@@ -254,7 +283,7 @@ export default function Navigation({ isMainPage = false }: NavigationProps) {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 w-[280px] bg-white shadow-2xl z-50 md:hidden"
+              className="fixed top-0 right-0 bottom-0 w-[280px] bg-white shadow-2xl z-[60] md:hidden"
             >
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-gray-100">
@@ -274,7 +303,27 @@ export default function Navigation({ isMainPage = false }: NavigationProps) {
                 <ul className="space-y-2">
                   {menuItems.map((item) => (
                     <li key={item.id}>
-                      {item.isInternal ? (
+                      {item.isPodcast ? (
+                        // 모바일 팟캐스트 버튼
+                        <button
+                          onClick={() => handleMenuClick(item)}
+                          className="w-full flex items-center gap-3 px-4 py-3 font-bold rounded-lg transition-colors text-purple-600 hover:bg-purple-50 hover:text-purple-700"
+                        >
+                          <motion.div
+                            animate={{
+                              scale: [1, 1.2, 1],
+                              opacity: [1, 0.7, 1]
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut"
+                            }}
+                            className="w-2 h-2 bg-purple-500 rounded-full"
+                          />
+                          {item.label}
+                        </button>
+                      ) : item.isInternal ? (
                         <a
                           href={item.href}
                           onClick={(e) => {

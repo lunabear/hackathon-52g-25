@@ -12,7 +12,7 @@ export default function ReferencePage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                프로젝트 쇼케이스
+                사전가이드
               </h1>
               <div className="text-lg text-gray-600 max-w-2xl mx-auto">
                 <p className="mb-2">
@@ -27,7 +27,7 @@ export default function ReferencePage() {
               <iframe
                 src="https://gshackathonusecase.oopy.io/"
                 style={{ width: '100%', height: '80vh', border: 'none' }}
-                title="Project Showcase"
+                title="사전가이드"
               ></iframe>
             </div>
           </div>

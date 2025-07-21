@@ -278,7 +278,7 @@ export default function LeagueRecommendationModal({ isOpen, onClose }: LeagueRec
                       <div className="bg-white/80 rounded-xl p-3 sm:p-4">
                         <div className="flex items-center gap-2 sm:gap-3">
                           <span className="text-purple-500 text-sm sm:text-base">🏢</span>
-                          <span className="text-slate-700 text-xs sm:text-sm font-medium">GS타워 25층 리모트 존 자유롭게 이용 가능</span>
+                          <span className="text-slate-700 text-xs sm:text-sm font-medium">오후 시간 GS타워 그레잇 자유롭게 이용 가능</span>
                         </div>
                       </div>
                       <div className="bg-white/80 rounded-xl p-3 sm:p-4">

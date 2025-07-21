@@ -193,7 +193,7 @@ export default function MisoJourney() {
                   alt="도전하는 이미소 매니저"
                   width={176}
                   height={176}
-                  className="w-full h-full object-contain scale-125"
+                  className="w-full h-full object-contain scale-125 rounded-2xl"
                 />
               </div>
             </div>

@@ -18,7 +18,7 @@ const faqItems: FAQItem[] = [
   },
   {
     question: "GenAI툴은 어떤걸 사용하나요?",
-    answer: "GS그룹 플레이그라운드 MISO와 바이브 코딩 툴 V0를 사용할 수 있도록 환경을 제공하며, 그 외의 툴을 사용하고자 하시는 경우, 운영진 또는 각 사 크루에게 문의 주시기 바랍니다."
+    answer: "GS그룹 플레이그라운드 MISO와 바이브 코딩 툴을 사용할 수 있도록 환경을 제공하며, 그 외의 툴을 사용하고자 하시는 경우, 운영진 또는 각 사 크루에게 문의 주시기 바랍니다."
   },
   {
     question: "리모트 리그와 필드 리그, 둘 다 참여하고 싶은데 양 리그 지원이 가능한가요?",
@@ -45,7 +45,7 @@ const faqItems: FAQItem[] = [
     answer: (
       <div className="space-y-3">
         <p>2024년 진행한 제3회 GS그룹 해커톤에서는 12개팀이 현실화 프로젝트에 선정되어 최종 5개 아이디어가 현장에 적용되었습니다.</p>
-        <div className="space-y-2 text-sm">
+        <div className="space-y-2 text-xs md:text-sm lg:text-base">
           <p><strong>GS리테일 &lt;NewGenS&gt;</strong><br />
           GS Shop의 단어 검색이란 한계에서 벗어나, GenAI를 활용하여 자연어 검색을 통해 보다 정확도 높은 상품을 찾고 추천해주는 아이디어 → GS Shop App에 적용</p>
           <p><strong>GS건설 &lt;I Care U&gt;</strong><br />
@@ -95,7 +95,7 @@ export default function FAQ() {
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-6 py-5 text-left hover:bg-slate-50/80 transition-colors duration-200 flex items-center justify-between"
               >
-                <span className="text-lg font-medium text-gray-900 pr-4">
+                <span className="text-base md:text-lg lg:text-xl font-medium text-gray-900 pr-4">
                   {item.question}
                 </span>
                 <svg 
@@ -112,7 +112,7 @@ export default function FAQ() {
               
               {openIndex === index && (
                 <div className="px-6 pb-5 pt-0">
-                  <div className="text-gray-600 leading-relaxed">
+                  <div className="text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
                     {item.answer}
                   </div>
                 </div>
