@@ -178,7 +178,7 @@ export default function EventModal({ isOpen, onClose, onDontShowAgain }: EventMo
                       <span className="text-lg">📅</span>
                     </div>
                                          <p className="text-xs font-medium text-gray-600 mb-1">응모 기간</p>
-                     <p className="text-sm font-bold text-gray-900">~8.6까지</p>
+                     <p className="text-sm font-bold text-gray-900">~8.3까지</p>
                    </div>
                    <div className="text-center">
                      <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-2">
