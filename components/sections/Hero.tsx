@@ -65,14 +65,14 @@ export default function Hero() {
   // 이벤트 모달 상태
   const [showEventModal, setShowEventModal] = useState(false)
 
-  // 이벤트 모달 자동 표시 (첫 방문 시)
-  useEffect(() => {
-    const hasSeenModal = localStorage.getItem('plai-event-modal-shown')
-    if (!hasSeenModal) {
-      // 즉시 모달 표시
-      setShowEventModal(true)
-    }
-  }, [])
+  // 이벤트 모달 자동 표시 (첫 방문 시) - 비활성화됨
+  // useEffect(() => {
+  //   const hasSeenModal = localStorage.getItem('plai-event-modal-shown')
+  //   if (!hasSeenModal) {
+  //     // 즉시 모달 표시
+  //     setShowEventModal(true)
+  //   }
+  // }, [])
 
   // 모달 닫기 핸들러 (localStorage 저장하지 않음)
   const handleCloseEventModal = () => {
@@ -405,18 +405,18 @@ export default function Hero() {
 
             {/* CTA 버튼 영역 */}
             <div id="plai-event" style={{ marginTop: '60px', position: 'relative', zIndex: 30 }} className="sm:mt-24 md:mt-32">
-              <div className="flex items-center justify-center gap-4">
+              {/* 모바일: 세로 배치, PC: 가로 배치 */}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
+                {/* 주요 CTA - 참가 신청 버튼 */}
                 <a
                   href="https://form.typeform.com/to/GX5MGuZ9"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative"
+                  className="group relative w-64 md:w-44"
                 >
-                  <div className="relative transform -translate-y-2 transition-all duration-150 group-hover:translate-y-0 group-active:translate-y-1">
-                    <div className="absolute inset-0 bg-gray-200 rounded-2xl transform translate-y-3 group-hover:translate-y-1 group-active:translate-y-0 transition-transform duration-150" />
-                    <div className="relative bg-white rounded-2xl font-bold text-gray-900 text-sm sm:text-base border border-gray-100 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '16px 32px', minWidth: '160px' }}>
-                      <span className="relative z-10 block text-center">참가 신청 하기</span>
-                    </div>
+                  <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:from-slate-800 group-hover:to-slate-700 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span className="relative z-10 text-center block text-base tracking-wide">참가 신청하기</span>
                   </div>
                 </a>
 
@@ -424,20 +424,25 @@ export default function Hero() {
                 {MENU_CONFIG.SHOW_GUIDE && (
                   <Link
                     href="/guide"
-                    className="group relative"
+                    className="group relative w-64 md:w-44"
                   >
-                    <div className="relative transform -translate-y-2 transition-all duration-150 group-hover:translate-y-0 group-active:translate-y-1">
-                      <div className="absolute inset-0 bg-green-200 rounded-2xl transform translate-y-3 group-hover:translate-y-1 group-active:translate-y-0 transition-transform duration-150" />
-                      <div className="relative bg-green-500 rounded-2xl font-bold text-white text-sm sm:text-base border border-green-400 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '16px 32px', minWidth: '160px' }}>
-                        <span className="relative z-10 block text-center">사전가이드</span>
-                        <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                      </div>
+                    <div className="bg-white border-2 border-slate-200 text-slate-700 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:border-slate-300 group-hover:bg-slate-50 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
+                      <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <span className="relative z-10 text-center block text-base tracking-wide">📖 사전가이드</span>
                     </div>
                   </Link>
                 )}
 
-
-
+                {/* PLAI Event 버튼 */}
+                <Link
+                  href="/plai-event"
+                  className="group relative w-64 md:w-44"
+                >
+                  <div className="bg-white border-2 border-slate-200 text-slate-700 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:border-slate-300 group-hover:bg-slate-50 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span className="relative z-10 text-center block text-base tracking-wide">🎨 PLAI Event</span>
+                  </div>
+                </Link>
               </div>
               
               {/* 카운트다운 타이머 */}
