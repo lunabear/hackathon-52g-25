@@ -46,8 +46,8 @@ const faqItems: FAQItem[] = [
       <div className="space-y-3">
         <p>2024년 진행한 제3회 GS그룹 해커톤에서는 12개팀이 현실화 프로젝트에 선정되어 최종 5개 아이디어가 현장에 적용되었습니다.</p>
         <div className="space-y-2 text-xs md:text-sm lg:text-base">
-          <p><strong>GS리테일 &lt;NewGenS&gt;</strong><br />
-          GS Shop의 단어 검색이란 한계에서 벗어나, GenAI를 활용하여 자연어 검색을 통해 보다 정확도 높은 상품을 찾고 추천해주는 아이디어 → GS Shop App에 적용</p>
+          <p><strong>GS파워 &lt;GenAI WeldInspect&gt;</strong><br />
+          배관 용접부의 육안검사 및 비피괴 검사 데이터를 AI 분석을 통해 객관적으로 진단하고, 검사 신뢰성을 향상시키며 고품질을 확보하는 솔루션</p>
           <p><strong>GS건설 &lt;I Care U&gt;</strong><br />
           GenAI의 이미지 분석 기술을 활용하여 안전조회시 사전에 재해 발생 할 수 있는 인원에 대한 알람을 주어 사전에 재해를 방지하는 아이디어</p>
           <p><strong>GS칼텍스 &lt;Athena&gt;</strong><br />

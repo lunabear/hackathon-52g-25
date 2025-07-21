@@ -10,39 +10,39 @@ import { motion, AnimatePresence } from 'framer-motion'
 const categories = [
   {
     id: 'video',
-    title: '영상을 만들었어요',
-    description: '창의적인 영상 콘텐츠',
-    icon: '🎬',
+    title: '영상 만들기',
+    subtitle: '오늘은 내가 인급동 유튜버',
+    description: 'AI와 함께 브이로그부터 광고 영상까지!\n누구나 쉽게 크리에이터가 될 수 있어요',
     image: '/assets/miso/miso-team.gif',
-    embedUrl: 'https://www.youtube.com/embed/QH2-TGUlwu4',
-    color: 'from-purple-500 to-pink-500'
+    embedUrl: 'https://padlet.com/gs52group2/PLAIvideo',
+    bgColor: 'bg-blue-50'
   },
   {
     id: 'webtoon',
-    title: '웹툰을 그렸어요',
-    description: '재미있는 웹툰 스토리',
-    icon: '🎨',
+    title: '웹툰 그리기',
+    subtitle: '오늘은 내가 웹툰작가',
+    description: '스토리만 있으면 OK!\nAI가 그림 실력 걱정은 덜어드릴게요',
     image: '/assets/miso/miso-protagonist.png',
-    embedUrl: 'https://padlet.com/gs52group2/plai-ai-fqu4auq6jbr6ladw',
-    color: 'from-blue-500 to-cyan-500'
+    embedUrl: 'https://padlet.com/gs52group2/PLAIcartoon',
+    bgColor: 'bg-purple-50'
   },
   {
     id: 'music',
-    title: '노래를 작곡해봤어요',
-    description: '감성적인 음악 창작',
-    icon: '🎵',
+    title: '음악 만들기',
+    subtitle: '오늘은 내가 케이팝 데몬헌터스',
+    description: '흥얼거리던 멜로디가 진짜 노래로!\n당신의 감성을 AI가 완성해드려요',
     image: '/assets/miso/miso-music.png',
-    embedUrl: 'https://www.youtube.com/embed/HcjR6ZngQcw',
-    color: 'from-green-500 to-emerald-500'
+    embedUrl: 'https://padlet.com/gs52group2/PLAImusic',
+    bgColor: 'bg-green-50'
   },
   {
     id: 'image',
-    title: '이미지를 생성해봤어요',
-    description: 'AI로 만든 창의적인 이미지',
-    icon: '🖼️',
+    title: '그림 그리기',
+    subtitle: '오늘은 내가 화가!',
+    description: '상상하는 모든 걸 그림으로!\n붓을 들지 않아도 작품이 완성돼요',
     image: '/assets/miso/miso-picaso.png',
-    embedUrl: 'https://padlet.com/gs52group2/plai-ai-fqu4auq6jbr6ladw',
-    color: 'from-orange-500 to-yellow-500'
+    embedUrl: 'https://padlet.com/gs52group2/PLAIpicture',
+    bgColor: 'bg-orange-50'
   }
 ]
 
@@ -95,46 +95,60 @@ export default function PlaiEventPage() {
               </div>
             </div>
 
-            {/* 카테고리 그리드 */}
+            {/* 카테고리 그리드 - 애플 스타일 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category)}
-                  className="group bg-white rounded-xl hover:shadow-lg transition-all duration-200 overflow-hidden border border-gray-200 hover:border-gray-300"
+                  className="group bg-white rounded-xl border border-gray-200/60 hover:border-gray-300/80 transition-all duration-300 ease-out hover:shadow-sm text-left overflow-hidden"
                 >
+                  {/* 반응형 레이아웃: 모바일 세로, PC 가로 */}
                   <div className="flex flex-col md:flex-row">
-                    {/* 캐릭터 이미지 영역 */}
-                    <div className="relative w-full md:w-2/5 h-48 md:h-auto bg-gradient-to-br from-gray-50 to-gray-100">
+                    {/* 이미지 영역 */}
+                    <div className="relative h-48 md:h-auto md:w-48 bg-gray-50/50 flex items-center justify-center flex-shrink-0">
                       <Image
                         src={category.image}
                         alt={category.title}
-                        fill
-                        className="object-contain p-6 group-hover:scale-110 transition-transform duration-300"
+                        width={160}
+                        height={160}
+                        className={`w-36 h-36 md:w-40 md:h-40 object-contain group-hover:scale-105 transition-transform duration-500 ease-out ${
+                          category.image.includes('miso-protagonist') || category.image.includes('miso-music') || category.image.includes('miso-picaso') ? 'rounded-2xl' : ''
+                        }`}
                       />
                     </div>
                     
-                    {/* 콘텐츠 영역 */}
-                    <div className="flex-1 p-6 md:p-8 text-left">
-                      {/* 아이콘 */}
-                      <div className="text-3xl mb-4">{category.icon}</div>
-                      
-                      {/* 텍스트 영역 */}
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {/* 텍스트 콘텐츠 영역 */}
+                    <div className="flex-1 flex flex-col">
+                      <div className="p-6 space-y-3 flex-1">
+                        {/* 메인 타이틀 */}
+                        <h3 className="text-xl font-semibold text-gray-900 leading-tight tracking-tight">
                           {category.title}
                         </h3>
-                        <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                        
+                        {/* 서브 타이틀 */}
+                        <p className="text-base font-medium text-gray-600 leading-snug">
+                          {category.subtitle}
+                        </p>
+                        
+                        {/* 설명 */}
+                        <p className="text-sm text-gray-500 leading-relaxed whitespace-pre-line pt-1">
                           {category.description}
                         </p>
                       </div>
                       
-                      {/* 하단 화살표 */}
-                      <div className="flex items-center gap-2 text-gray-400 group-hover:text-gray-700 transition-colors">
-                        <span className="text-sm font-medium">자세히 보기</span>
-                        <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
+                      {/* 하단 액션 영역 */}
+                      <div className="px-6 pb-6 mt-auto">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium text-gray-400 group-hover:text-gray-600 transition-colors">
+                            참여하기
+                          </span>
+                          <div className="w-5 h-5 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-0.5 transition-all duration-200">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -148,7 +162,7 @@ export default function PlaiEventPage() {
 
       {/* 이벤트 가이드 모달 */}
       {showGuideModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center z-50 md:p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center z-[100] md:p-4">
           <div className="bg-white rounded-t-3xl md:rounded-3xl max-w-4xl w-full h-[85vh] md:h-[90vh] md:max-h-[90vh] shadow-2xl flex flex-col">
             <div className="bg-white rounded-t-3xl md:rounded-t-3xl border-b border-gray-100 p-4 md:p-6 flex-shrink-0">
               <div className="flex justify-between items-center">
@@ -167,82 +181,130 @@ export default function PlaiEventPage() {
               <div className="grid grid-cols-3 gap-3 md:gap-6 mb-8 md:mb-12">
                 <div className="bg-blue-50 rounded-2xl p-4 md:p-6 text-center">
                   <span className="text-2xl md:text-3xl mb-2 block">📅</span>
-                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">응모 기간</h3>
-                  <p className="text-sm md:text-lg font-bold text-blue-700">7.17 ~ 8.6</p>
+                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">참여 기간</h3>
+                  <p className="text-sm md:text-lg font-bold text-blue-700">7.21 ~ 8.3</p>
                 </div>
                 
                 <div className="bg-purple-50 rounded-2xl p-4 md:p-6 text-center">
                   <span className="text-2xl md:text-3xl mb-2 block">🏆</span>
-                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">최대 상금</h3>
-                  <p className="text-sm md:text-lg font-bold text-purple-700">30만원</p>
+                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">총 상금</h3>
+                  <p className="text-sm md:text-lg font-bold text-purple-700">100만원</p>
                 </div>
 
                 <div className="bg-emerald-50 rounded-2xl p-4 md:p-6 text-center">
                   <span className="text-2xl md:text-3xl mb-2 block">🎯</span>
-                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">제출 형식</h3>
-                  <p className="text-sm md:text-lg font-bold text-emerald-700">제한 없음</p>
+                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">발표일</h3>
+                  <p className="text-sm md:text-lg font-bold text-emerald-700">8.8(금)</p>
                 </div>
               </div>
 
               {/* 참여 방법 */}
               <div className="mb-8 md:mb-12">
-                <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-4 md:mb-8 text-center">참여 방법</h3>
+                <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
+                  📝 참여 방법
+                </h3>
                 <div className="space-y-3 md:space-y-4">
-                  <div className="flex items-start gap-3 md:gap-4 p-3 md:p-5 bg-gray-50 rounded-xl md:rounded-2xl">
-                    <div className="w-7 h-7 md:w-9 md:h-9 bg-slate-900 rounded-lg md:rounded-xl flex items-center justify-center text-white font-bold text-sm md:text-base flex-shrink-0">1</div>
+                  <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 rounded-xl">
+                    <div className="w-7 h-7 md:w-8 md:h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">1</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 text-sm md:text-base">GenAI 툴로 콘텐츠 제작</h4>
-                      <p className="text-gray-600 text-xs md:text-sm mt-1">이미지, 영상, 노래, 만화 등 자유 형식</p>
+                      <p className="text-gray-900 text-sm md:text-base font-medium">영상 / 만화 / 노래 / 그림 중 분야를 선택합니다</p>
+                      <p className="text-gray-600 text-xs md:text-sm mt-1">(분야별 중복 지원 가능!)</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 md:gap-4 p-3 md:p-5 bg-gray-50 rounded-xl md:rounded-2xl">
-                    <div className="w-7 h-7 md:w-9 md:h-9 bg-slate-900 rounded-lg md:rounded-xl flex items-center justify-center text-white font-bold text-sm md:text-base flex-shrink-0">2</div>
+                  <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 rounded-xl">
+                    <div className="w-7 h-7 md:w-8 md:h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">2</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 text-sm md:text-base">제목 형식 준수</h4>
-                      <p className="text-gray-600 text-xs md:text-sm mt-1">소속회사/팀/이름 포함</p>
+                      <p className="text-gray-900 text-sm md:text-base font-medium">AI로 나만의 작품을 제작합니다</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 md:gap-4 p-3 md:p-5 bg-gray-50 rounded-xl md:rounded-2xl">
-                    <div className="w-7 h-7 md:w-9 md:h-9 bg-slate-900 rounded-lg md:rounded-xl flex items-center justify-center text-white font-bold text-sm md:text-base flex-shrink-0">3</div>
+                  <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 rounded-xl">
+                    <div className="w-7 h-7 md:w-8 md:h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">3</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 text-sm md:text-base">자유롭게 도전</h4>
-                      <p className="text-gray-600 text-xs md:text-sm mt-1">여러 작품 제출 가능</p>
+                      <p className="text-gray-900 text-sm md:text-base font-medium">패들릿에 작품을 업로드합니다</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 rounded-xl">
+                    <div className="w-7 h-7 md:w-8 md:h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">4</div>
+                    <div>
+                      <p className="text-gray-900 text-sm md:text-base font-medium">회사/팀/이름 기재 필수!</p>
+                      <p className="text-gray-600 text-xs md:text-sm mt-1">상품 전달을 위해 반드시 포함해주세요</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 rounded-xl">
+                    <div className="w-7 h-7 md:w-8 md:h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">5</div>
+                    <div>
+                      <p className="text-gray-900 text-sm md:text-base font-medium">내 작품 링크를 널리 널리 공유합니다</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* 시상 내역 */}
+              {/* 일정 및 안내 */}
               <div className="mb-8 md:mb-12">
-                <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-4 md:mb-6 text-center">시상 내역</h3>
-                <div className="space-y-3 mb-4">
-                  <div className="bg-amber-50 rounded-xl p-3 md:p-4 flex items-center gap-3">
-                    <span className="text-xl md:text-2xl">🥇</span>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 text-sm md:text-base">Best Video/Song/Picture</h4>
-                      <p className="text-xs md:text-sm text-gray-600">각 20만원 상당</p>
-                    </div>
+                <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
+                  📅 일정 및 안내
+                </h3>
+                <div className="bg-blue-50 rounded-xl p-4 md:p-6 space-y-3">
+                  <div>
+                    <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-1">참여기간</h4>
+                    <p className="text-gray-700 text-sm md:text-base">7월 21일(월) ~ 8월 3일(일)</p>
                   </div>
-                  <div className="bg-red-50 rounded-xl p-3 md:p-4 flex items-center gap-3">
-                    <span className="text-xl md:text-2xl">❤️</span>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 text-sm md:text-base">최다 하트 수상</h4>
-                      <p className="text-xs md:text-sm text-gray-600">30만원 상당</p>
-                    </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-1">수상작 발표</h4>
+                    <p className="text-gray-700 text-sm md:text-base">8월 8일(금)</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-2">당첨자 안내방법</h4>
+                    <ul className="text-gray-700 text-sm md:text-base space-y-1">
+                      <li>• 패들릿에 수상작 공지</li>
+                      <li>• 상품은 회사/팀/이름 기준으로 크루에게 연락처를 받아 별도 안내 및 전달예정</li>
+                    </ul>
                   </div>
                 </div>
-                <div className="text-center p-3 md:p-4 bg-gray-50 rounded-xl">
-                  <p className="text-gray-700 text-sm md:text-base">
-                    <span className="font-semibold">발표일:</span> 8월 8일(금)
-                  </p>
+              </div>
+
+              {/* 선정 기준 */}
+              <div className="mb-8 md:mb-12">
+                <h3 className="text-lg md:text-2xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
+                  🎯 선정 기준
+                </h3>
+                
+                {/* Best 작품 */}
+                <div className="mb-6">
+                  <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+                    🥇 Best 작품
+                  </h4>
+                  <div className="bg-amber-50 rounded-xl p-4 md:p-6">
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-3">
+                      독창성, 공감성, 전달력, 표현 완성도를 중심으로 AI 기반 추천 시스템을 통해 <strong>1차 후보작</strong>을 선정한 후, 사내 심사위원단의 <strong>2차 정성 평가</strong>를 거쳐 최종 선정합니다.
+                    </p>
+                    <p className="text-amber-700 text-xs md:text-sm font-medium">
+                      📌 Best 작품은 부문별 최고 완성도와 공감력을 갖춘 콘텐츠에 수여됩니다.
+                    </p>
+                  </div>
+                </div>
+
+                {/* 대상 */}
+                <div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+                    🏆 대상 (Best PLAI)
+                  </h4>
+                  <div className="bg-purple-50 rounded-xl p-4 md:p-6">
+                    <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-3">
+                      창의성, 메시지 임팩트, 예술적 표현력, 브랜드 적합성, 몰입도를 종합적으로 평가하며, 단순 기술적 완성도를 넘어 전사 구성원에게 가장 깊은 인상과 울림을 준 콘텐츠에 수여됩니다.
+                    </p>
+                    <p className="text-purple-700 text-xs md:text-sm font-medium">
+                      ⚠️ (단, Best 작품과의 중복 수상은 불가합니다.)
+                    </p>
+                  </div>
                 </div>
               </div>
               
               {/* 주의사항 */}
-              <div className="bg-blue-50 rounded-xl p-3 md:p-4 text-center">
-                <p className="text-blue-700 text-xs md:text-sm font-medium flex items-center justify-center gap-2">
+              <div className="bg-red-50 rounded-xl p-4 md:p-6 text-center">
+                <p className="text-red-700 text-sm md:text-base font-medium flex items-center justify-center gap-2">
                   <span>⚠️</span>
-                  가이드를 준수하지 않으면 당첨에서 제외될 수 있습니다
+                  회사/팀/이름 미기재 시 수상에서 제외될 수 있습니다
                 </p>
               </div>
             </div>
@@ -271,11 +333,13 @@ export default function PlaiEventPage() {
             >
               {/* 모달 헤더 */}
               <div className="absolute top-0 left-0 right-0 bg-white/90 backdrop-blur-sm p-4 md:p-6 flex items-center justify-between z-10">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{selectedCategory.icon}</span>
+                <div>
                   <h2 className="text-lg md:text-2xl font-bold text-gray-900">
                     {selectedCategory.title}
                   </h2>
+                  <p className="text-sm md:text-base font-medium text-gray-600">
+                    {selectedCategory.subtitle}
+                  </p>
                 </div>
                 <button
                   onClick={() => setSelectedCategory(null)}

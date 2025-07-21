@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import SimpleWordSwitcher from '@/components/ui/SimpleWordSwitcher'
+import EventModal from '@/components/ui/EventModal'
 import { MENU_CONFIG } from '@/lib/menuConfig'
 
 const switchWords = ['GenAI', 'Everyone', 'Innovation', 'Future', 'Together', 'Vibe']
@@ -60,6 +61,29 @@ export default function Hero() {
     isOngoing: boolean
     description?: string
   } | null>(null)
+
+  // 이벤트 모달 상태
+  const [showEventModal, setShowEventModal] = useState(false)
+
+  // 이벤트 모달 자동 표시 (첫 방문 시)
+  useEffect(() => {
+    const hasSeenModal = localStorage.getItem('plai-event-modal-shown')
+    if (!hasSeenModal) {
+      // 즉시 모달 표시
+      setShowEventModal(true)
+    }
+  }, [])
+
+  // 모달 닫기 핸들러 (localStorage 저장하지 않음)
+  const handleCloseEventModal = () => {
+    setShowEventModal(false)
+  }
+
+  // "다시 보지 않음" 핸들러 (localStorage에 저장)
+  const handleDontShowAgain = () => {
+    setShowEventModal(false)
+    localStorage.setItem('plai-event-modal-shown', 'true')
+  }
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -413,21 +437,7 @@ export default function Hero() {
                 )}
 
 
-                {/* PLAI 이벤트 버튼 - 조건부 렌더링 */}
-                {MENU_CONFIG.SHOW_PLAI_EVENT && (
-                  <Link
-                    href="/plai-event"
-                    className="group relative"
-                  >
-                    <div className="relative transform -translate-y-2 transition-all duration-150 group-hover:translate-y-0 group-active:translate-y-1">
-                      <div className="absolute inset-0 bg-blue-200 rounded-2xl transform translate-y-3 group-hover:translate-y-1 group-active:translate-y-0 transition-transform duration-150" />
-                      <div className="relative bg-blue-500 rounded-2xl font-bold text-white text-sm sm:text-base border border-blue-400 overflow-hidden transition-all duration-150 group-hover:shadow-xl" style={{ padding: '16px 32px', minWidth: '160px' }}>
-                        <span className="relative z-10 block text-center">PLAI 이벤트</span>
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                      </div>
-                    </div>
-                  </Link>
-                )}
+
               </div>
               
               {/* 카운트다운 타이머 */}
@@ -456,6 +466,13 @@ export default function Hero() {
 
 
       </div>
+
+      {/* 이벤트 모달 */}
+      <EventModal 
+        isOpen={showEventModal} 
+        onClose={handleCloseEventModal} 
+        onDontShowAgain={handleDontShowAgain}
+      />
     </div>
   )
 }
