@@ -4,6 +4,13 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
+// ChannelIO 타입 정의
+declare global {
+  interface Window {
+    ChannelIO?: (...args: unknown[]) => void
+  }
+}
+
 export default function MisoJourney() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [activeTab, setActiveTab] = useState<'miso' | 'vibe'>('miso')
@@ -26,6 +33,28 @@ export default function MisoJourney() {
       }
     }
   }, [])
+
+  // 모달 열림/닫힘 시 채널톡 버튼 제어
+  useEffect(() => {
+    if (isModalOpen) {
+      // 모달 열림 시 채널톡 버튼 숨기기
+      if (window.ChannelIO) {
+        window.ChannelIO('hideChannelButton')
+      }
+    } else {
+      // 모달 닫힘 시 채널톡 버튼 다시 보이기 (메인 페이지에서만)
+      if (window.ChannelIO && window.location.pathname === '/') {
+        window.ChannelIO('showChannelButton')
+      }
+    }
+
+    return () => {
+      // 컴포넌트 언마운트 시 채널톡 버튼 복원 (메인 페이지에서만)
+      if (window.ChannelIO && window.location.pathname === '/') {
+        window.ChannelIO('showChannelButton')
+      }
+    }
+  }, [isModalOpen])
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -216,8 +245,8 @@ export default function MisoJourney() {
           <div className="mt-6 flex items-center justify-center gap-4">
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-green-600 text-white rounded-full hover:from-purple-700 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-green-600 text-white rounded-full hover:from-purple-700 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 h-12">
+              <svg className="w-5 h-5 text-white flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span className="text-sm font-semibold">MISO & 바이브코딩이란?</span>
@@ -263,31 +292,31 @@ export default function MisoJourney() {
             </div>
             
             {/* 탭 네비게이션 */}
-            <div className="sticky top-[73px] bg-white border-b border-slate-100 px-4 sm:px-6 py-2 z-10">
-              <div className="flex flex-wrap gap-2 sm:gap-0 sm:space-x-0 justify-center sm:justify-start">
+            <div className="sticky top-[73px] bg-white border-b border-slate-100 px-0 py-0 z-10">
+              <div className="flex w-full">
                 <button
                   onClick={() => setActiveTab('miso')}
-                  className={`px-3 sm:px-6 py-2 sm:py-4 font-medium text-xs sm:text-sm transition-all duration-200 border-b-2 sm:border-b-2 rounded-t-lg sm:rounded-none flex-shrink-0 ${
+                  className={`flex-1 px-4 py-4 font-medium text-sm transition-all duration-200 border-b-2 ${
                     activeTab === 'miso' 
                       ? 'text-purple-600 border-purple-600 bg-purple-50/50' 
                       : 'text-slate-600 border-transparent hover:text-slate-900 hover:border-slate-300'
                   }`}
                 >
-                  <span className="flex items-center gap-1 sm:gap-2">
-                    <span className="text-sm sm:text-lg">🤖</span>
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="text-lg">🤖</span>
                     <span className="whitespace-nowrap">MISO</span>
                   </span>
                 </button>
                 <button
                   onClick={() => setActiveTab('vibe')}
-                  className={`px-3 sm:px-6 py-2 sm:py-4 font-medium text-xs sm:text-sm transition-all duration-200 border-b-2 sm:border-b-2 rounded-t-lg sm:rounded-none flex-shrink-0 ${
+                  className={`flex-1 px-4 py-4 font-medium text-sm transition-all duration-200 border-b-2 ${
                     activeTab === 'vibe' 
                       ? 'text-green-600 border-green-600 bg-green-50/50' 
                       : 'text-slate-600 border-transparent hover:text-slate-900 hover:border-slate-300'
                   }`}
                 >
-                  <span className="flex items-center gap-1 sm:gap-2">
-                    <span className="text-sm sm:text-lg">💻</span>
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="text-lg">💻</span>
                     <span className="whitespace-nowrap">바이브코딩</span>
                   </span>
                 </button>
@@ -312,16 +341,14 @@ export default function MisoJourney() {
                   </div>
 
                   {/* 동영상 임베드 */}
-                  <div className="bg-slate-50 rounded-2xl p-6">
-                    <div className="aspect-video bg-white rounded-xl overflow-hidden shadow-sm">
-                      <iframe
-                        src="https://drive.google.com/file/d/1J8ycNPOBs7j94hlzSvTRl14QtE-US6YK/preview"
-                        width="100%"
-                        height="100%"
-                        allow="autoplay"
-                        className="w-full h-full"
-                      />
-                    </div>
+                  <div className="aspect-video bg-white overflow-hidden shadow-sm">
+                    <iframe
+                      src="https://drive.google.com/file/d/1J8ycNPOBs7j94hlzSvTRl14QtE-US6YK/preview"
+                      width="100%"
+                      height="100%"
+                      allow="autoplay"
+                      className="w-full h-full"
+                    />
                   </div>
 
                   {/* 핵심 가치 */}

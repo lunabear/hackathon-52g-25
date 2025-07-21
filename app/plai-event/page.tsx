@@ -1,10 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Background from '@/components/ui/Background'
 import PageTransition from '@/components/ui/PageTransition'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+
+// ChannelIO 타입 정의
+declare global {
+  interface Window {
+    ChannelIO?: (...args: unknown[]) => void
+  }
+}
 
 // 카테고리 데이터
 const categories = [
@@ -49,6 +56,36 @@ const categories = [
 export default function PlaiEventPage() {
   const [showGuideModal, setShowGuideModal] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<typeof categories[0] | null>(null)
+
+  // 가이드 모달 열림/닫힘 시 채널톡 버튼 제어
+  useEffect(() => {
+    if (showGuideModal) {
+      // 모달 열림 시 채널톡 버튼 숨기기
+      if (window.ChannelIO) {
+        window.ChannelIO('hideChannelButton')
+      }
+    } else {
+      // 모달 닫힘 시 채널톡 버튼 다시 보이기 (메인 페이지에서만)
+      if (window.ChannelIO && window.location.pathname === '/') {
+        window.ChannelIO('showChannelButton')
+      }
+    }
+  }, [showGuideModal])
+
+  // 카테고리 모달 열림/닫힘 시 채널톡 버튼 제어
+  useEffect(() => {
+    if (selectedCategory) {
+      // 모달 열림 시 채널톡 버튼 숨기기
+      if (window.ChannelIO) {
+        window.ChannelIO('hideChannelButton')
+      }
+    } else {
+      // 모달 닫힘 시 채널톡 버튼 다시 보이기 (메인 페이지에서만)
+      if (window.ChannelIO && window.location.pathname === '/') {
+        window.ChannelIO('showChannelButton')
+      }
+    }
+  }, [selectedCategory])
 
   return (
     <main className="min-h-screen relative" style={{ fontFamily: 'Pretendard Variable, Pretendard, -apple-system, sans-serif' }}>

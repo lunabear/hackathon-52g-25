@@ -1,9 +1,38 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import LeagueRecommendationModal from '../ui/LeagueRecommendationModal'
+
+// ChannelIO 타입 정의
+declare global {
+  interface Window {
+    ChannelIO?: (...args: unknown[]) => void
+  }
+}
 
 export default function ParticipationSteps() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // 모달 열림/닫힘 시 채널톡 버튼 제어
+  useEffect(() => {
+    if (isModalOpen) {
+      // 모달 열림 시 채널톡 버튼 숨기기
+      if (window.ChannelIO) {
+        window.ChannelIO('hideChannelButton')
+      }
+    } else {
+      // 모달 닫힘 시 채널톡 버튼 다시 보이기 (메인 페이지에서만)
+      if (window.ChannelIO && window.location.pathname === '/') {
+        window.ChannelIO('showChannelButton')
+      }
+    }
+
+    return () => {
+      // 컴포넌트 언마운트 시 채널톡 버튼 복원 (메인 페이지에서만)
+      if (window.ChannelIO && window.location.pathname === '/') {
+        window.ChannelIO('showChannelButton')
+      }
+    }
+  }, [isModalOpen])
 
   return (
     <div className="mb-12 md:mb-16" style={{ fontFamily: 'Pretendard Variable, Pretendard, -apple-system, sans-serif' }}>
@@ -28,9 +57,9 @@ export default function ParticipationSteps() {
           <div className="mt-8">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 h-12"
             >
-              <span className="text-lg">🧭</span>
+              <span className="text-lg flex-shrink-0">🧭</span>
               <span className="text-sm font-semibold">나에게 맞는 리그 찾기</span>
             </button>
           </div>
