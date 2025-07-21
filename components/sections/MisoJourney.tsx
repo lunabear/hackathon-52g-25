@@ -197,7 +197,7 @@ export default function MisoJourney() {
                 &ldquo;대박! AI가 코딩을 대신해준다고?&rdquo;
               </p>
               <p className="text-base md:text-lg text-blue-600 italic font-medium">
-                &ldquo;해커톤에 나가면, MISO랑 바이브코딩으로<br />나도 만들어볼 수 있다고?&rdquo;
+                &ldquo;해커톤에 나가면, MISO랑 바이브코딩으로<br />내가 원하는걸 만들어볼 수 있다고?&rdquo;
               </p>
             </div>
           </div>
@@ -253,14 +253,45 @@ export default function MisoJourney() {
             </button>
           </div>
           
-        {/* 하단 메시지 */}
-        <div className="text-center mt-8 md:mt-10">
-          <p className="text-xl md:text-2xl font-medium text-slate-700 mb-2">
-            함께 PLAI하고 싶은 동료들과 도전해보세요!
-          </p>
-          <p className="text-base text-slate-500">
-            아이디어만 있어도 충분합니다
-          </p>
+        {/* 팟캐스트 섹션 - 프로젝트 톤앤매너 일치 */}
+        <div className="max-w-4xl mx-auto mt-16 md:mt-20 px-6" style={{ fontFamily: 'Pretendard Variable, Pretendard, -apple-system, sans-serif' }}>
+          <div className="text-center space-y-8 md:space-y-10">
+            {/* 제목 */}
+            <div className="max-w-3xl mx-auto">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight text-gray-900 leading-tight">
+                어떤 문제를 풀어볼 수 있을지<br />
+                아직 <span className="bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">감이 안잡히시나요?</span>
+              </h3>
+              <div className="w-16 h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            {/* 설명 */}
+            <div className="max-w-2xl mx-auto space-y-4">
+              <p className="text-base md:text-lg text-slate-600 leading-relaxed">
+                다양한 사례를 담아, GS계열사의 담당자와의 <span className="font-semibold text-emerald-600">가상 인터뷰</span>를 AI로 만들어봤어요!
+              </p>
+                             <p className="text-base md:text-lg text-slate-700 font-medium leading-relaxed">
+                 <span className="font-semibold text-emerald-600">제4회 GS그룹 해커톤- 스페셜 팟캐스트</span>를 통해, 
+                 <span className="font-bold text-emerald-600">나도 할 수 있다!</span>는 가능성을 상상해봐요
+               </p>
+            </div>
+            
+            {/* CTA 버튼 */}
+            <div className="pt-6">
+              <a
+                href="https://www.podbbang.com/channels/1793063" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-block bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:shadow-lg relative"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative z-10 flex items-center justify-center gap-3">
+                  <span className="text-xl">🎧</span>
+                  <span className="text-base tracking-wide">귀로 듣는 유즈케이스</span>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       

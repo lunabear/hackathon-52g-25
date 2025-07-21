@@ -44,22 +44,31 @@ export default function ParticipationSteps() {
         </h3>
         
         {/* 서브 타이틀 */}
-        <div className="max-w-2xl mx-auto">
-        <p className="text-base md:text-lg text-slate-600 leading-relaxed">
-          리모트 리그와 필드 리그 중 <span className="font-bold text-purple-600">원하는 리그를 선택해서 지원</span>해주세요!
-        </p>
-          <p className="text-base md:text-lg text-slate-600 leading-relaxed">
-            내 상황에 맞는 해커톤을 선택하여 즐겨보세요☺️
+        <div className="max-w-2xl mx-auto space-y-4">
+          <p className="text-base md:text-lg text-slate-700 leading-relaxed text-center">
+            <span className="text-purple-600 font-bold">리모트 리그</span>와 <span className="text-indigo-600 font-bold">필드 리그</span> 중<br />
+            <span className="font-bold text-gray-900">원하는 리그를 선택해서 지원</span>해주세요!
           </p>
+          
+          <div className="flex justify-center">
+            <span className="inline-block text-sm text-purple-700 font-medium bg-purple-50 rounded-lg px-3 py-2 border border-purple-100">
+              ※ 한 명당 <span className="font-semibold">1개 리그만</span> 선택 가능
+            </span>
+          </div>
+          
+          <p className="text-base text-slate-600 text-center">
+            내 상황에 맞는 해커톤을 선택하여 즐겨보세요 ☺️
+          </p>
+          
           <div className="w-16 h-0.5 bg-gradient-to-r from-purple-400 to-indigo-400 mx-auto mt-4 rounded-full"></div>
           
           {/* 참여방법 가이드 버튼 */}
           <div className="mt-8">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 h-12"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
-              <span className="text-lg flex-shrink-0">🧭</span>
+              <span className="text-lg">🧭</span>
               <span className="text-sm font-semibold">나에게 맞는 리그 찾기</span>
             </button>
           </div>

@@ -8,7 +8,7 @@ import { MENU_CONFIG } from '@/lib/menuConfig'
 
 const allMenuItems = [
   { id: 'main', label: '해커톤 소개', href: '#main', isInternal: true },
-  { id: 'guide', label: '사전가이드', href: '/guide', isInternal: false },
+  { id: 'guide', label: '사전 학습 가이드', href: '/guide', isInternal: false },
   { id: 'reference', label: '쇼케이스', href: '/reference', isInternal: false },
   { id: 'plai-event', label: 'PLAI Event', href: '/plai-event', isInternal: false },
   { id: 'podcast', label: '팟캐스트', href: 'https://www.podbbang.com/channels/1793063', isInternal: false, isPodcast: true },

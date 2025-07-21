@@ -12,7 +12,7 @@ export default function GuidePage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                사전가이드
+                사전 학습 가이드
               </h1>
               <div className="text-lg text-gray-600 max-w-2xl mx-auto">
                 <p>
@@ -24,7 +24,7 @@ export default function GuidePage() {
               <iframe
                 src="https://gshackathonguide.oopy.io/"
                 style={{ width: '100%', height: '80vh', border: 'none' }}
-                title="사전가이드"
+                title="사전 학습 가이드"
               ></iframe>
             </div>
           </div>

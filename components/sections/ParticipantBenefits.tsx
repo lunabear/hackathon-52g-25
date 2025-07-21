@@ -196,31 +196,17 @@ export default function ParticipantBenefits() {
               </p>
               {/* CTA 버튼 */}
               <div className="text-center lg:text-left">
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center lg:justify-start max-w-xl lg:max-w-none mx-auto lg:mx-0">
-                  {/* 주요 신청 버튼 */}
-                  <a
-                    href="https://form.typeform.com/to/GX5MGuZ9"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex-1 sm:flex-none inline-flex items-center justify-center bg-gradient-to-r from-slate-900 to-slate-800 text-white font-bold px-8 py-4 rounded-2xl hover:from-slate-800 hover:to-slate-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-base tracking-[-0.01em] relative overflow-hidden min-w-[200px]"
-                  >
-                    {/* 미묘한 샤인 효과 */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="relative z-10">지금 바로 신청하기</span>
-                  </a>
-                  
-                  {/* 팟캐스트 버튼 */}
-                  <a
-                    href="https://www.podbbang.com/channels/1793063"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex-1 sm:flex-none inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold px-8 py-4 rounded-2xl hover:from-purple-700 hover:to-purple-800 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl text-base tracking-[-0.01em] relative overflow-hidden min-w-[180px]"
-                  >
-                    {/* 미묘한 샤인 효과 */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="relative z-10">귀로 듣는 유스케이스</span>
-                  </a>
-                </div>
+                {/* 주요 신청 버튼 */}
+                <a
+                  href="https://form.typeform.com/to/GX5MGuZ9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center justify-center bg-gradient-to-r from-slate-900 to-slate-800 text-white font-bold px-10 py-4 rounded-2xl hover:from-slate-800 hover:to-slate-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-base tracking-[-0.01em] relative overflow-hidden"
+                >
+                  {/* 미묘한 샤인 효과 */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  <span className="relative z-10">지금 바로 신청하기</span>
+                </a>
                 
                 {/* 주석 형태의 안내 문구 */}
                 <div className="mt-4 text-center lg:text-left">

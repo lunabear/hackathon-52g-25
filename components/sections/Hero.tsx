@@ -420,7 +420,7 @@ export default function Hero() {
                   </div>
                 </a>
 
-                {/* 사전가이드 버튼 - 조건부 렌더링 */}
+                {/* 사전 학습 가이드 버튼 - 조건부 렌더링 */}
                 {MENU_CONFIG.SHOW_GUIDE && (
                   <Link
                     href="/guide"
@@ -428,7 +428,7 @@ export default function Hero() {
                   >
                     <div className="bg-white border-2 border-slate-200 text-slate-700 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:border-slate-300 group-hover:bg-slate-50 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
                       <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <span className="relative z-10 text-center block text-base tracking-wide whitespace-nowrap">📖 사전가이드</span>
+                      <span className="relative z-10 text-center block text-base tracking-wide whitespace-nowrap">📖 사전 학습 가이드</span>
                     </div>
                   </Link>
                 )}
