@@ -16,7 +16,7 @@ export default function HeaderLayout() {
         className={`fixed ${isMainPage ? 'top-10' : 'top-6'} left-4 sm:top-12 sm:left-8 z-40 hover:opacity-100 transition-opacity duration-200`}
       >
         <Image 
-          src="/assets/symbols/52g로고.png" 
+          src="/assets/symbols/52g-logo.png" 
           alt="52g" 
           width={200} 
           height={100} 

@@ -155,7 +155,7 @@ export default function Hero() {
         {/* 축구장 배경 - 하단에 배치 */}
         <div className="absolute bottom-0 left-0 right-0 h-[40%]">
           <Image 
-            src="/assets/symbols/축구장.png" 
+            src="/assets/symbols/soccer-field.png" 
             alt="" 
             fill
             className="object-cover object-top opacity-70"
@@ -165,7 +165,7 @@ export default function Hero() {
         {/* 3D 요소들 - 완전 고정 */}
         <div className="absolute top-[20%] left-[5%] sm:left-[10%] w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40">
           <Image 
-            src="/assets/symbols/도형1.png" 
+            src="/assets/symbols/shape1.png" 
             alt="" 
             width={160} 
             height={160}
@@ -179,7 +179,7 @@ export default function Hero() {
           className="absolute top-[8%] left-[40%] sm:left-[45%] w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
         >
           <Image 
-            src="/assets/symbols/깃발.png" 
+            src="/assets/symbols/flag.png" 
             alt="" 
             width={96} 
             height={96}
@@ -193,7 +193,7 @@ export default function Hero() {
           className="absolute bottom-[30%] left-[10%] sm:left-[15%] w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28"
         >
           <Image 
-            src="/assets/symbols/축구공.png" 
+            src="/assets/symbols/soccer-ball.png" 
             alt="" 
             width={112} 
             height={112}
@@ -203,7 +203,7 @@ export default function Hero() {
         
         <div className="absolute top-[10%] right-[5%] sm:right-[8%] w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40">
           <Image 
-            src="/assets/symbols/트로피.png" 
+            src="/assets/symbols/trophy.png" 
             alt="" 
             width={160} 
             height={160}
@@ -217,7 +217,7 @@ export default function Hero() {
           className="absolute bottom-[25%] right-[5%] sm:right-[10%] w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32"
         >
           <Image 
-            src="/assets/symbols/호루라기.png" 
+            src="/assets/symbols/whistle.png" 
             alt="" 
             width={128} 
             height={128}
@@ -227,7 +227,7 @@ export default function Hero() {
         
         <div className="absolute top-[35%] right-[10%] sm:right-[15%] w-24 h-16 sm:w-28 sm:h-20 md:w-36 md:h-24">
           <Image 
-            src="/assets/symbols/도형11.png" 
+            src="/assets/symbols/shape11.png" 
             alt="" 
             width={144} 
             height={96}
@@ -242,7 +242,7 @@ export default function Hero() {
           className="absolute top-[30%] left-[20%] sm:left-[25%] w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
         >
           <Image 
-            src="/assets/symbols/도형4.png" 
+            src="/assets/symbols/shape4.png" 
             alt="" 
             width={48} 
             height={48}
@@ -256,7 +256,7 @@ export default function Hero() {
           className="absolute top-[50%] right-[25%] sm:right-[30%] w-8 h-8 sm:w-10 sm:h-10"
         >
           <Image 
-            src="/assets/symbols/도형4.png" 
+            src="/assets/symbols/shape4.png" 
             alt="" 
             width={40} 
             height={40}
@@ -266,7 +266,7 @@ export default function Hero() {
         
         <div className="absolute top-[15%] right-[30%] sm:right-[35%] w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
           <Image 
-            src="/assets/symbols/도형5.png" 
+            src="/assets/symbols/shape5.png" 
             alt="" 
             width={64} 
             height={64}
@@ -280,7 +280,7 @@ export default function Hero() {
           className="absolute bottom-[40%] left-[25%] sm:left-[30%] w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14"
         >
           <Image 
-            src="/assets/symbols/도형7.png" 
+            src="/assets/symbols/shape7.png" 
             alt="" 
             width={56} 
             height={56}
@@ -290,7 +290,7 @@ export default function Hero() {
         
         <div className="absolute top-[45%] left-[2%] sm:left-[5%] w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20">
           <Image 
-            src="/assets/symbols/도형3.png" 
+            src="/assets/symbols/shape3.png" 
             alt="" 
             width={80} 
             height={80}
@@ -304,7 +304,7 @@ export default function Hero() {
           className="absolute top-[60%] right-[2%] sm:right-[5%] w-10 h-10 sm:w-12 sm:h-12"
         >
           <Image 
-            src="/assets/symbols/도형6.png" 
+            src="/assets/symbols/shape6.png" 
             alt="" 
             width={48} 
             height={48}
@@ -412,7 +412,7 @@ export default function Hero() {
                   href="https://form.typeform.com/to/GX5MGuZ9"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative w-64 md:w-48"
+                  className="group relative w-64 md:w-56"
                 >
                   <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:from-slate-800 group-hover:to-slate-700 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
                     <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -424,7 +424,7 @@ export default function Hero() {
                 {MENU_CONFIG.SHOW_GUIDE && (
                   <Link
                     href="/guide"
-                    className="group relative w-64 md:w-48"
+                    className="group relative w-64 md:w-56"
                   >
                     <div className="bg-white border-2 border-slate-200 text-slate-700 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:border-slate-300 group-hover:bg-slate-50 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
                       <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -436,7 +436,7 @@ export default function Hero() {
                 {/* PLAI Event 버튼 */}
                 <Link
                   href="/plai-event"
-                  className="group relative w-64 md:w-48"
+                  className="group relative w-64 md:w-56"
                 >
                   <div className="bg-white border-2 border-slate-200 text-slate-700 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:border-slate-300 group-hover:bg-slate-50 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
                     <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
