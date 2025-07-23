@@ -38,11 +38,11 @@ export default function FloatingApplyButton() {
         rel="noopener noreferrer"
         className="group relative block"
       >
-        <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold px-8 py-4 rounded-2xl shadow-2xl transition-all duration-300 ease-out group-hover:from-slate-800 group-hover:to-slate-700 group-hover:shadow-3xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white font-bold px-16 py-5 rounded-2xl shadow-2xl transition-all duration-300 ease-out group-hover:from-slate-800 group-hover:to-slate-700 group-hover:shadow-3xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
           {/* 미묘한 샤인 효과 */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-2xl"></div>
 
-          <span className="relative z-10 text-base font-semibold tracking-wide whitespace-nowrap block text-center">
+          <span className="relative z-10 text-base font-bold tracking-wide whitespace-nowrap block text-center">
             참가 신청하기
           </span>
         </div>
