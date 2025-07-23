@@ -46,11 +46,11 @@ export default function HackathonGuide() {
               <div className="space-y-4 mb-6">
                 <div className="flex items-center justify-between py-3 border-b border-slate-100">
                   <span className="text-gray-500 text-sm md:text-base">리모트 리그</span>
-                  <span className="font-medium text-gray-900 text-sm md:text-base">팀(2~4인) 가능</span>
+                  <span className="font-medium text-gray-900 text-sm md:text-base">팀(2~4인) 신청 가능</span>
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-slate-100">
                   <span className="text-gray-500 text-sm md:text-base">필드 리그</span>
-                  <span className="font-medium text-gray-900 text-sm md:text-base">개인 또는 팀(2~4인) 가능</span>
+                  <span className="font-medium text-gray-900 text-sm md:text-base">개인 또는 팀(2~4인) 신청 가능</span>
                 </div>
               </div>
               
