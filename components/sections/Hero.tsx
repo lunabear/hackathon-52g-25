@@ -400,44 +400,65 @@ export default function Hero() {
               style={{ marginTop: "60px", position: "relative", zIndex: 30 }}
               className="sm:mt-24 md:mt-32"
             >
-              {/* 모바일: 세로 배치, PC: 가로 배치 */}
-              <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
-                {/* 주요 CTA - 참가 신청 버튼 */}
-                <a
-                  href="https://form.typeform.com/to/GX5MGuZ9"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative w-64 md:w-56"
-                >
-                  <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:from-slate-800 group-hover:to-slate-700 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="relative z-10 text-center block text-base tracking-wide whitespace-nowrap">
-                      참가 신청하기
-                    </span>
-                  </div>
-                </a>
+              {/* 두 줄로 배치된 버튼들 */}
+              <div className="flex flex-col items-center justify-center gap-4">
+                {/* 첫 번째 줄: 참가 신청하기 + 디스코드 소통채널 */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                  {/* 주요 CTA - 참가 신청 버튼 */}
+                  <a
+                    href="https://form.typeform.com/to/GX5MGuZ9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative w-64 sm:w-56"
+                  >
+                    <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:from-slate-800 group-hover:to-slate-700 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <span className="relative z-10 text-center block text-base tracking-wide whitespace-nowrap">
+                        참가 신청하기
+                      </span>
+                    </div>
+                  </a>
 
-                {/* 사전 학습 가이드 버튼 - 조건부 렌더링 */}
-                {MENU_CONFIG.SHOW_GUIDE && (
-                  <Link href="/guide" className="group relative w-64 md:w-56">
+                  {/* 디스코드 소통채널 버튼 */}
+                  <a
+                    href="https://discord.gg/dUPbjZg7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative w-64 sm:w-56"
+                  >
+                    <div className="bg-gradient-to-r from-[#5865F2] to-[#4752C4] text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:from-[#4752C4] group-hover:to-[#3C45A5] group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <span className="relative z-10 text-center block text-base tracking-wide whitespace-nowrap">
+                        디스코드 소통채널
+                      </span>
+                    </div>
+                  </a>
+                </div>
+
+                {/* 두 번째 줄: 사전 학습 가이드 + PLAI Event */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                  {/* 사전 학습 가이드 버튼 - 조건부 렌더링 */}
+                  {MENU_CONFIG.SHOW_GUIDE && (
+                    <Link href="/guide" className="group relative w-64 sm:w-56">
+                      <div className="bg-white border-2 border-slate-200 text-slate-700 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:border-slate-300 group-hover:bg-slate-50 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
+                        <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span className="relative z-10 text-center block text-base tracking-wide whitespace-nowrap">
+                          📚 사전 학습 가이드
+                        </span>
+                      </div>
+                    </Link>
+                  )}
+
+                  {/* PLAI Event 버튼 */}
+                  <Link href="/plai-event" className="group relative w-64 sm:w-56">
                     <div className="bg-white border-2 border-slate-200 text-slate-700 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:border-slate-300 group-hover:bg-slate-50 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
                       <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       <span className="relative z-10 text-center block text-base tracking-wide whitespace-nowrap">
-                        📚 사전 학습 가이드
+                        🎨 PLAI Event
                       </span>
                     </div>
                   </Link>
-                )}
-
-                {/* PLAI Event 버튼 */}
-                <Link href="/plai-event" className="group relative w-64 md:w-56">
-                  <div className="bg-white border-2 border-slate-200 text-slate-700 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out group-hover:border-slate-300 group-hover:bg-slate-50 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
-                    <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="relative z-10 text-center block text-base tracking-wide whitespace-nowrap">
-                      🎨 PLAI Event
-                    </span>
-                  </div>
-                </Link>
+                </div>
               </div>
 
               {/* 카운트다운 타이머 */}
