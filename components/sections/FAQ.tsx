@@ -57,7 +57,7 @@ const faqItems: FAQItem[] = [
           <p>
             <strong>GS파워 &lt;GenAI WeldInspect&gt;</strong>
             <br />
-            배관 용접부의 육안검사 및 비피괴 검사 데이터를 AI 분석을 통해 객관적으로 진단하고, 검사 신뢰성을 향상시키며
+            배관 용접부의 육안검사 및 비파괴 검사 데이터를 AI 분석을 통해 객관적으로 진단하고, 검사 신뢰성을 향상시키며
             고품질을 확보하는 솔루션
           </p>
           <p>
