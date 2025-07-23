@@ -6,4 +6,4 @@ export const MENU_CONFIG = {
   SHOW_PLAI_EVENT: true,  // PLAI Event
   SHOW_PODCAST: false,    // 팟캐스트
   SHOW_FAQ: true          // FAQ
-} 
+}

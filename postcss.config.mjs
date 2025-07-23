@@ -1,8 +1,7 @@
-const config = {
+// Update the PostCSS config to use CommonJS format
+module.exports = {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
   },
-};
-
-export default config;
+}

@@ -1,36 +1,35 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #191919;
-  --primary: #FF5500;
-  --secondary: #0064FF;
-  --accent: #00D632;
-  --surface: #F2F4F6;
-  --border: #E5E8EB;
-  
+  --primary: #ff5500;
+  --secondary: #0064ff;
+  --accent: #00d632;
+  --surface: #f2f4f6;
+  --border: #e5e8eb;
+
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
-  
+
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
   --radius-full: 9999px;
-  
+
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-  
-  --gradient-primary: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
-  --gradient-secondary: linear-gradient(135deg, #0064FF 0%, #0080FF 100%);
-  --gradient-vibrant: linear-gradient(135deg, #FF6B00 0%, #0064FF 100%);
-  --gradient-poster: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, #ffffff 100%);
+
+  --gradient-primary: linear-gradient(135deg, #ff6b00 0%, #ff8533 100%);
+  --gradient-secondary: linear-gradient(135deg, #0064ff 0%, #0080ff 100%);
+  --gradient-vibrant: linear-gradient(135deg, #ff6b00 0%, #0064ff 100%);
+  --gradient-poster: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, #ffffff 100%);
 }
 
 * {
@@ -50,7 +49,8 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  font-family:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
   font-feature-settings: "kern" 1;
@@ -87,8 +87,13 @@ body {
 }
 
 @keyframes floating {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 .rotate-slow {
@@ -96,8 +101,12 @@ body {
 }
 
 @keyframes rotate-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .pulse-scale {
@@ -105,8 +114,15 @@ body {
 }
 
 @keyframes pulse-scale {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.9; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
 }
 
 .gradient-text {
@@ -165,8 +181,15 @@ body {
 }
 
 @keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(10px); opacity: 0.5; }
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.5;
+  }
 }
 
 /* Marquee Styles */
