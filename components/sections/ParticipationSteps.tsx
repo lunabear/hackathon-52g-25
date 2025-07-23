@@ -113,7 +113,7 @@ export default function ParticipationSteps() {
                   <span className="inline-block mr-1">•</span>리모트 리그를 온전히 즐길 수 있는 온라인 교육을 제공합니다.
                 </p>
                 <p className="text-blue-700 text-xs md:text-sm leading-relaxed">
-                  <span className="inline-block mr-1">•</span>도움이 필요할 때, 언제든 지원할 수 있는 AI코치를 활용할 수 있습니다.
+                  <span className="inline-block mr-1">•</span>도움이 필요할 때, 언제든 AI코치에게 도움을 요청할 수 있습니다.
                 </p>
               </div>
             </div>
