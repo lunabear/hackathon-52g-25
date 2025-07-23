@@ -105,7 +105,7 @@ export default function ParticipationSteps() {
             </div>
             <div className="flex items-center justify-between py-3 border-b border-slate-100">
               <span className="text-gray-500 text-sm md:text-base">장소</span>
-              <span className="font-medium text-gray-900 text-sm md:text-base">팀별로 희망하는 장소</span>
+              <span className="font-medium text-gray-900 text-sm md:text-base">팀별로 희망하는 (자율)공간</span>
             </div>
             <div className="bg-blue-50/50 rounded-2xl p-4 mt-6">
               <div className="space-y-2">
