@@ -293,7 +293,7 @@ export default function MisoJourney() {
               </p>
               <p className="text-base md:text-lg text-slate-700 font-medium leading-relaxed">
                 <span className="font-semibold text-emerald-600">제4회 GS그룹 해커톤- 스페셜 팟캐스트</span>를 통해,
-                <span className="font-bold text-emerald-600">나도 할 수 있다!</span>는 가능성을 상상해봐요
+                <span className="font-bold text-emerald-600"> 나도 할 수 있다!</span>는 가능성을 상상해봐요
               </p>
             </div>
 
