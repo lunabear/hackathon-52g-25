@@ -1,7 +1,9 @@
-// Update the PostCSS config to use CommonJS format
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
+/** @type {import('postcss-load-config').Config} */
+const config = {
+plugins: {
+  tailwindcss: {},
+  autoprefixer: {},
+},
+};
+
+export default config;
