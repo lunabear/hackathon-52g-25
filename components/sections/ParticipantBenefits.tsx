@@ -209,9 +209,8 @@ export default function ParticipantBenefits() {
               </p>
               {/* CTA 버튼 */}
               <div className="text-center lg:text-left">
-                {/* 버튼들을 가로로 배치 */}
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-                  {/* 주요 신청 버튼 */}
+                {/* 주요 신청 버튼만 남김 */}
+                <div className="flex justify-center lg:justify-start">
                   <a
                     href="https://form.typeform.com/to/GX5MGuZ9"
                     target="_blank"
@@ -221,18 +220,6 @@ export default function ParticipantBenefits() {
                     {/* 미묘한 샤인 효과 */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                     <span className="relative z-10">지금 바로 신청하기</span>
-                  </a>
-
-                  {/* 디스코드 소통채널 버튼 */}
-                  <a
-                    href="https://discord.gg/dUPbjZg7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center justify-center bg-white border-2 border-slate-200 text-slate-700 font-bold px-10 py-4 rounded-2xl hover:border-slate-300 hover:bg-slate-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-base tracking-[-0.01em] relative overflow-hidden"
-                  >
-                    {/* 미묘한 샤인 효과 */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-50/50 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="relative z-10">디스코드 소통채널</span>
                   </a>
                 </div>
 
