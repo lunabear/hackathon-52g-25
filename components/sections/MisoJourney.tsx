@@ -203,7 +203,7 @@ export default function MisoJourney() {
               <p className="text-base md:text-lg text-blue-600 italic font-medium">
                 &ldquo;해커톤에 나가면, MISO랑 바이브코딩으로
                 <br />
-                내가 원하는걸 만들어볼 수 있다고?&rdquo;
+                내가 원하는 걸 만들어볼 수 있다고?&rdquo;
               </p>
             </div>
           </div>
