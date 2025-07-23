@@ -16,20 +16,8 @@ module.exports = {
       ...defaultConfig.theme.extend,
       colors: {
         ...defaultConfig.theme.extend.colors,
-        primary: {
-          ...defaultConfig.theme.extend.colors.primary,
-          DEFAULT: "var(--primary)",
-        },
-        secondary: {
-          ...defaultConfig.theme.extend.colors.secondary,
-          DEFAULT: "var(--secondary)",
-        },
-        accent: {
-          ...defaultConfig.theme.extend.colors.accent,
-          DEFAULT: "var(--accent)",
-        },
-        surface: "var(--surface)",
         border: "var(--border)",
+        surface: "var(--surface)",
       },
       fontFamily: {
         sans: [
@@ -56,11 +44,6 @@ module.exports = {
         lg: "var(--shadow-lg)",
         xl: "var(--shadow-xl)",
       },
-      borderRadius: {
-        ...defaultConfig.theme.extend.borderRadius,
-        xl: "var(--radius-xl)",
-        full: "var(--radius-full)",
-      },
       transitionDuration: {
         fast: "var(--transition-fast)",
         base: "var(--transition-base)",
@@ -71,6 +54,20 @@ module.exports = {
         "gradient-secondary": "var(--gradient-secondary)",
         "gradient-vibrant": "var(--gradient-vibrant)",
         "gradient-poster": "var(--gradient-poster)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
