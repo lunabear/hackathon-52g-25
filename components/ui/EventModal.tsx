@@ -253,4 +253,4 @@ export default function EventModal({ isOpen, onClose, onDontShowAgain }: EventMo
     </AnimatePresence>,
     portalElement
   )
-} 
+}
