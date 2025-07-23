@@ -31,7 +31,7 @@ export default function ImageCycler() {
             alt=""
             fill
             sizes="100vw"
-            className={`object-cover transition-all duration-[2000ms] ease-in-out ${
+            className={`object-cover transition-all duration-2000 ease-in-out ${
               index === currentIndex 
                 ? 'opacity-100 scale-100' 
                 : 'opacity-0 scale-105'
