@@ -58,7 +58,7 @@ const faqItems: FAQItem[] = [
             <strong>GS파워 &lt;GenAI WeldInspect&gt;</strong>
             <br />
             배관 용접부의 육안검사 및 비파괴 검사 데이터를 AI 분석을 통해 객관적으로 진단하고, 검사 신뢰성을 향상시키며
-            고품질을 확보하는 솔루션
+            고품질을 확보하는 아이디어
           </p>
           <p>
             <strong>GS건설 &lt;I Care U&gt;</strong>
@@ -75,7 +75,7 @@ const faqItems: FAQItem[] = [
             <strong>GS파워 &lt;sAIfety&gt;</strong>
             <br />
             위험성 평가 자료를 기존에 평가결과를 분석하는 것에 자료의 다양성과 시간 부족으로 제대로 하지 못한 것을
-            GenAI를 통하여, 시간을 단축하고, 평가의 신뢰를 높이는 솔루션
+            GenAI를 통하여, 시간을 단축하고, 평가의 신뢰를 높이는 아이디어
           </p>
           <p>
             <strong>GS엔텍 &lt;제제고&gt;</strong>
