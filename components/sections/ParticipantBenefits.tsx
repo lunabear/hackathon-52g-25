@@ -228,10 +228,10 @@ export default function ParticipantBenefits() {
                     href="https://discord.gg/dUPbjZg7"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center justify-center bg-gradient-to-r from-[#5865F2] to-[#4752C4] text-white font-bold px-10 py-4 rounded-2xl hover:from-[#4752C4] hover:to-[#3C45A5] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-base tracking-[-0.01em] relative overflow-hidden"
+                    className="group inline-flex items-center justify-center bg-white border-2 border-slate-200 text-slate-700 font-bold px-10 py-4 rounded-2xl hover:border-slate-300 hover:bg-slate-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-base tracking-[-0.01em] relative overflow-hidden"
                   >
                     {/* 미묘한 샤인 효과 */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-50/50 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                     <span className="relative z-10">디스코드 소통채널</span>
                   </a>
                 </div>
