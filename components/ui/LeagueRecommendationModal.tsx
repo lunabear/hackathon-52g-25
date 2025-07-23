@@ -278,13 +278,13 @@ export default function LeagueRecommendationModal({ isOpen, onClose }: LeagueRec
                       <div className="bg-white/80 rounded-xl p-3 sm:p-4">
                         <div className="flex items-center gap-2 sm:gap-3">
                           <span className="text-purple-500 text-sm sm:text-base">🏢</span>
-                          <span className="text-slate-700 text-xs sm:text-sm font-medium">오후 시간 GS타워 그레잇 자유롭게 이용 가능</span>
+                          <span className="text-slate-700 text-xs sm:text-sm font-medium">오후 시간 GS타워 그래잇 자유롭게 이용 가능(14:00-19:00)</span>
                         </div>
                       </div>
                       <div className="bg-white/80 rounded-xl p-3 sm:p-4">
                         <div className="flex items-center gap-2 sm:gap-3">
                           <span className="text-purple-500 text-sm sm:text-base">🎁</span>
-                          <span className="text-slate-700 text-xs sm:text-sm font-medium">PLAI 웰컴팩과 온라인 멘토링 지원</span>
+                          <span className="text-slate-700 text-xs sm:text-sm font-medium">PLAI리모트팩과 온라인 멘토링 지원</span>
                         </div>
                       </div>
                     </>
@@ -311,7 +311,7 @@ export default function LeagueRecommendationModal({ isOpen, onClose }: LeagueRec
                       <div className="bg-white/80 rounded-xl p-3 sm:p-4">
                         <div className="flex items-center gap-2 sm:gap-3">
                           <span className="text-emerald-500 text-sm sm:text-base">🎁</span>
-                          <span className="text-slate-700 text-xs sm:text-sm font-medium">FC서울 한정판 굿즈와 MISO 전문가 코칭 제공</span>
+                          <span className="text-slate-700 text-xs sm:text-sm font-medium">PLAI필드팩과 MISO 전문가 코칭 제공</span>
                         </div>
                       </div>
                     </>
