@@ -255,7 +255,7 @@ export default function PlaiEventPage() {
                     <div className="w-7 h-7 md:w-8 md:h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">3</div>
                     <div>
                       <p className="text-gray-900 text-sm md:text-base font-medium">패들릿에 작품을 업로드합니다</p>
-                      <p className="text-gray-600 text-xs md:text-sm mt-1">화면 하단에 +버튼을 누르면 바로 업로드 가능합니다</p>
+                      <p className="text-gray-600 text-xs md:text-sm mt-1">이벤트 등록화면 하단에 +버튼을 누르면 바로 업로드 가능합니다</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 rounded-xl">
