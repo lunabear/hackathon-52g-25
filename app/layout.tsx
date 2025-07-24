@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import HeaderLayout from "@/components/ui/HeaderLayout"
 import ChannelIO from "@/components/ui/ChannelIO"
+import FloatingApplyButton from "@/components/ui/FloatingApplyButton"
 
 export const metadata: Metadata = {
   title: "제4회 GS그룹 해커톤 - Play with GenAI",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     description: "모두의 PLAI, PLAI Everywhere! 바이브 코딩으로 쉽게 어디서나 PLAY!",
     type: "website",
   },
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -39,6 +40,7 @@ export default function RootLayout({
         <HeaderLayout />
         {children}
         <ChannelIO />
+        <FloatingApplyButton />
       </body>
     </html>
   )
