@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import SimpleWordSwitcher from "@/components/ui/SimpleWordSwitcher"
 import EventModal from "@/components/ui/EventModal"
+import { useParticipantCount } from "@/hooks/useParticipantCount"
 import { MENU_CONFIG } from "@/lib/menuConfig"
 
 const switchWords = ["GenAI", "Everyone", "Innovation", "Future", "Together", "Vibe"]
@@ -60,6 +61,9 @@ export default function Hero() {
     isOngoing: boolean
     description?: string
   } | null>(null)
+
+  // 신청자 수 데이터
+  const { count: participantCount, isLoading: isLoadingCount } = useParticipantCount()
 
   // 이벤트 모달 상태
   const [showEventModal, setShowEventModal] = useState(false)
@@ -310,26 +314,26 @@ export default function Hero() {
       {/* 스크롤 가능한 콘텐츠 */}
       <div className="relative z-20 overflow-x-hidden">
         {/* 첫 번째 섹션 - 메인 히어로 */}
-        <section className="h-screen flex items-center justify-center px-4 overflow-x-hidden">
-          <div className="text-center relative w-full max-w-4xl mx-auto">
-            {/* 상단 공간 유지 */}
-            <div className="mb-16" />
+        <section className="min-h-screen px-4 overflow-x-hidden" style={{ minHeight: '100vh' }}>
+          <div className="text-center relative w-full max-w-4xl mx-auto pt-24 sm:pt-20 md:pt-24 lg:pt-28 xl:pt-32 pb-12 sm:pb-16">
+            {/* 안전한 영역 확보 - 모바일에서 상단 잘림 방지 */}
+            <div className="h-8 sm:h-8 md:h-12 lg:h-16" />
 
             {/* 메인 타이틀 그룹 */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mb-20"
+              className="mb-12 sm:mb-16 md:mb-20"
             >
               {/* PLAI 타이틀 */}
-              <h1 className="relative mb-12 inline-block">
+              <h1 className="relative mb-8 sm:mb-12 inline-block">
                 <Image
                   src="/assets/PLAI-logo.png"
                   alt="PLAI"
                   width={448}
                   height={160}
-                  className="block w-[14rem] sm:w-[18rem] md:w-[22rem] lg:w-[26rem] xl:w-[28rem] h-auto"
+                  className="block w-[12rem] sm:w-[16rem] md:w-[20rem] lg:w-[24rem] xl:w-[26rem] h-auto"
                   style={{
                     filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.1))",
                   }}
@@ -363,7 +367,7 @@ export default function Hero() {
               </h1>
 
               {/* with 텍스트 */}
-              <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+              <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-5 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
                 <span className="font-medium text-gray-700 italic">with</span>
                 <div className="relative">
                   <SimpleWordSwitcher words={switchWords} className="font-black tracking-tight" />
@@ -384,21 +388,81 @@ export default function Hero() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               className="max-w-2xl mx-auto"
-              style={{ marginTop: "60px" }}
+              style={{ marginTop: "30px" }}
             >
               <p
-                className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 font-medium px-4"
+                className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium px-4 mb-6"
                 style={{ lineHeight: "1.8" }}
               >
                 <span className="font-bold text-gray-900">PLAI Everywhere, PLAI Together!</span>
               </p>
+              
+              {/* 갤러그 스타일 아케이드 카운터 */}
+              <div className="flex justify-center mb-6">
+                                <div className="relative arcade-display px-6 py-3 bg-red-600 border-2 border-red-700 rounded-lg">
+                  {/* 미세한 텍스처 배경 */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-red-800/20 rounded-lg"></div>
+                  
+                  <div className="relative z-10 flex items-center gap-3 text-center">
+                    {/* LIVE 인디케이터 */}
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                      <span className="text-xs font-bold text-white tracking-wide uppercase">
+                        LIVE
+                      </span>
+                    </div>
+                    
+                    {/* 메인 카운터 */}
+                    <div className="flex items-center gap-2">
+                      {isLoadingCount ? (
+                        <div className="flex gap-1">
+                          <div className="w-1.5 h-1.5 bg-white rounded-sm animate-bounce" 
+                               style={{ animationDelay: '0ms' }}></div>
+                          <div className="w-1.5 h-1.5 bg-white rounded-sm animate-bounce" 
+                               style={{ animationDelay: '200ms' }}></div>
+                          <div className="w-1.5 h-1.5 bg-white rounded-sm animate-bounce" 
+                               style={{ animationDelay: '400ms' }}></div>
+                        </div>
+                      ) : (
+                        <>
+                          <span className="text-xl sm:text-2xl md:text-3xl font-black text-white tabular-nums tracking-tight">
+                            {participantCount.toLocaleString('ko-KR')}
+                          </span>
+                          <span className="text-sm font-bold text-white/90">
+                            명 신청완료
+                          </span>
+                        </>
+                      )}
+                    </div>
+                    
+                    {/* 만명 돌파 배지 */}
+                    {!isLoadingCount && participantCount > 10000 && (
+                      <div className="flex items-center gap-1">
+                        <span className="bg-yellow-400 text-red-800 text-xs font-black px-2 py-1 rounded-md">
+                          🔥 만명 돌파!
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+                            {/* 클린한 빨간 배경 스타일 */}
+              <style jsx>{`
+                .arcade-display {
+                  box-shadow: 
+                    0 8px 32px rgba(220, 38, 38, 0.3),
+                    0 4px 16px rgba(220, 38, 38, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                }
+              `}</style>
             </motion.div>
 
             {/* CTA 버튼 영역 */}
             <div
               id="plai-event"
-              style={{ marginTop: "60px", position: "relative", zIndex: 30 }}
-              className="sm:mt-24 md:mt-32"
+              style={{ marginTop: "24px", position: "relative", zIndex: 30 }}
+              className="sm:mt-12 md:mt-16 lg:mt-20"
             >
               {/* 모든 버튼을 한 줄로 배치 */}
               <div className="flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-4">
