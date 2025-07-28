@@ -142,7 +142,8 @@ export default function PlaiEventPage() {
                   <div className="text-center">
                     <div className="space-y-2 md:space-y-3">
                       <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed">
-                        📢 "웃기고 짠하고 할 말 많은 우리네 회사생활, AI로 보여주세요!"
+                        📢 "웃기고 짠하고 할 말 많은 우리네 회사생활, AI로 보여주세요!"</p>
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed">
                         총 상금 💸100만원이 쏟아지는 PLAI이벤트! 나도 김햄찌가 될 수 있다!  
                       </p>
                     </div>
