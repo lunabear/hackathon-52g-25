@@ -170,23 +170,21 @@ export default function PlaiEventPage() {
             <div className="max-w-5xl mx-auto mt-8 md:mt-12 mb-8 md:mb-12">
               {/* D-DAY 카운트다운 */}
               <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-3 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-2xl px-6 py-4 mb-4">
-                  <span className="text-2xl">⏰</span>
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-red-600 mb-1">이벤트 마감까지</p>
-                    <div className="flex items-center gap-2 text-lg font-black text-red-700">
-                      {timeLeft.days > 0 && (
-                        <>
-                          <span>{timeLeft.days}일</span>
-                          <span className="text-red-400">:</span>
-                        </>
-                      )}
-                      <span>{String(timeLeft.hours).padStart(2, "0")}</span>
-                      <span className="text-red-400">:</span>
-                      <span>{String(timeLeft.minutes).padStart(2, "0")}</span>
-                      <span className="text-red-400">:</span>
-                      <span>{String(timeLeft.seconds).padStart(2, "0")}</span>
-                    </div>
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl px-4 py-2 mb-4">
+                  <span className="text-lg">⏰</span>
+                  <span className="text-sm font-medium text-red-600">이벤트 마감까지</span>
+                  <div className="flex items-center gap-1 text-sm font-black text-red-700">
+                    {timeLeft.days > 0 && (
+                      <>
+                        <span>{timeLeft.days}일</span>
+                        <span className="text-red-400">:</span>
+                      </>
+                    )}
+                    <span>{String(timeLeft.hours).padStart(2, "0")}</span>
+                    <span className="text-red-400">:</span>
+                    <span>{String(timeLeft.minutes).padStart(2, "0")}</span>
+                    <span className="text-red-400">:</span>
+                    <span>{String(timeLeft.seconds).padStart(2, "0")}</span>
                   </div>
                 </div>
                 <h3 className="text-lg md:text-xl font-semibold text-gray-700">이벤트 출품작</h3>
