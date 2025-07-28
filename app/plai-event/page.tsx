@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Background from "@/components/ui/Background"
 import PageTransition from "@/components/ui/PageTransition"
 import Image from "next/image"
@@ -249,13 +249,8 @@ export default function PlaiEventPage() {
   }
 
   // 이미지 프리로딩 함수
-  const preloadImage = (src: string): Promise<void> => {
+  const preloadImage = useCallback((src: string): Promise<void> => {
     return new Promise((resolve) => {
-      if (loadedImages.has(src)) {
-        resolve()
-        return
-      }
-
       const img = new window.Image()
       img.onload = () => {
         setLoadedImages(prev => new Set(prev).add(src))
@@ -264,15 +259,20 @@ export default function PlaiEventPage() {
       img.onerror = () => resolve() // 에러가 나도 계속 진행
       img.src = src
     })
-  }
+  }, [])
 
   // 주변 이미지들 프리로딩
-  const preloadAdjacentImages = (currentIndex: number, maxWorks: number) => {
+  const preloadAdjacentImages = useCallback((currentIndex: number, maxWorks: number) => {
+    const videoWorks = works.filter(work => work.type === 'video')
+    const webtoonWorks = works.filter(work => work.type === 'webtoon')
+    const imageWorks = works.filter(work => work.type === 'image')
+    const musicWorks = works.filter(work => work.type === 'music')
+    
     const categoriesToPreload = [
-      { works: worksByCategory.video, name: 'video' },
-      { works: worksByCategory.webtoon, name: 'webtoon' },
-      { works: worksByCategory.image, name: 'image' },
-      { works: worksByCategory.music, name: 'music' }
+      { works: videoWorks, name: 'video' },
+      { works: webtoonWorks, name: 'webtoon' },
+      { works: imageWorks, name: 'image' },
+      { works: musicWorks, name: 'music' }
     ]
 
     // 현재 + 앞뒤 2개씩 총 5개 인덱스
@@ -283,23 +283,26 @@ export default function PlaiEventPage() {
     }
 
     indexesToPreload.forEach(index => {
-      if (!preloadedIndexes.has(index)) {
-        categoriesToPreload.forEach(category => {
-          if (category.works.length > 0) {
-            const work = category.works[index % category.works.length]
-            if (work?.thumbnail) {
-              preloadImage(work.thumbnail)
-            } else if (category.name === 'music') {
-              // 음악 카테고리는 기본 이미지를 인덱스에 따라 번갈아가며 프리로딩
-              const vinylImage = index % 2 === 0 ? "/assets/vinyl-record.png" : "/assets/vinyl-record2.png"
-              preloadImage(vinylImage)
+      setPreloadedIndexes(prev => {
+        if (!prev.has(index)) {
+          categoriesToPreload.forEach(category => {
+            if (category.works.length > 0) {
+              const work = category.works[index % category.works.length]
+              if (work?.thumbnail) {
+                preloadImage(work.thumbnail)
+              } else if (category.name === 'music') {
+                // 음악 카테고리는 기본 이미지를 인덱스에 따라 번갈아가며 프리로딩
+                const vinylImage = index % 2 === 0 ? "/assets/vinyl-record.png" : "/assets/vinyl-record2.png"
+                preloadImage(vinylImage)
+              }
             }
-          }
-        })
-        setPreloadedIndexes(prev => new Set(prev).add(index))
-      }
+          })
+          return new Set(prev).add(index)
+        }
+        return prev
+      })
     })
-  }
+  }, [works, preloadImage])
   
   // 모든 카테고리가 동시에 전환되도록 하나의 인덱스 상태 사용
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -337,7 +340,7 @@ export default function PlaiEventPage() {
     // 5분마다 데이터 새로고침
     const interval = setInterval(loadData, 5 * 60 * 1000)
     return () => clearInterval(interval)
-  }, [])
+  }, [preloadImage])
 
   // 카테고리별 작품 분류
   const worksByCategory = {
@@ -396,7 +399,7 @@ export default function PlaiEventPage() {
       }, 7000) // 4초에서 7초로 증가
       return () => clearInterval(timer)
     }
-  }, [works])
+  }, [works, preloadAdjacentImages])
 
   // 가이드 모달 열림/닫힘 시 채널톡 버튼 제어
   useEffect(() => {
@@ -464,7 +467,7 @@ export default function PlaiEventPage() {
                   <div className="text-center">
                     <div className="space-y-2 md:space-y-3">
                       <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed">
-                        📢 "웃기고 짠하고 할 말 많은 우리네 회사생활, AI로 보여주세요!"
+                        📢 &ldquo;웃기고 짠하고 할 말 많은 우리네 회사생활, AI로 보여주세요!&rdquo;
                       </p>
                       <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed">
                         총 상금 💸100만원이 쏟아지는 PLAI이벤트! 나도 김햄찌가 될 수 있다!
