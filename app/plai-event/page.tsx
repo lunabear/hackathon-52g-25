@@ -301,7 +301,7 @@ export default function PlaiEventPage() {
                 <div className="bg-blue-50 rounded-2xl p-4 md:p-6 text-center">
                   <span className="text-2xl md:text-3xl mb-2 block">📅</span>
                   <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">참여 기간</h3>
-                  <p className="text-sm md:text-lg font-bold text-blue-700">7.21 ~ 8.3</p>
+                  <p className="text-sm md:text-lg font-bold text-blue-700">7.21 ~ 8.6</p>
                 </div>
 
                 <div className="bg-purple-50 rounded-2xl p-4 md:p-6 text-center">
@@ -313,7 +313,7 @@ export default function PlaiEventPage() {
                 <div className="bg-emerald-50 rounded-2xl p-4 md:p-6 text-center">
                   <span className="text-2xl md:text-3xl mb-2 block">🎯</span>
                   <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">발표일</h3>
-                  <p className="text-sm md:text-lg font-bold text-emerald-700">8.8(금)</p>
+                  <p className="text-sm md:text-lg font-bold text-emerald-700">8.11(월)</p>
                 </div>
               </div>
 
