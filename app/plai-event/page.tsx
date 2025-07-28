@@ -68,8 +68,8 @@ export default function PlaiEventPage() {
   // D-DAY 카운트다운 로직
   useEffect(() => {
     const calculateTimeLeft = () => {
-      // 8월 10일 24:00 = 8월 11일 00:00
-      const targetDate = new Date("2025-08-11T00:00:00+09:00")
+      // 8월 7일 00:00
+      const targetDate = new Date("2025-08-07T00:00:00+09:00")
       const now = new Date()
       const difference = targetDate.getTime() - now.getTime()
 
@@ -142,9 +142,10 @@ export default function PlaiEventPage() {
                   <div className="text-center">
                     <div className="space-y-2 md:space-y-3">
                       <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed">
-                        📢 "웃기고 짠하고 할 말 많은 우리네 회사생활, AI로 보여주세요!"</p>
-                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed">
-                        총 상금 💸100만원이 쏟아지는 PLAI이벤트! 나도 김햄찌가 될 수 있다!  
+                        📢 "웃기고 짠하고 할 말 많은 우리네 회사생활, AI로 보여주세요!"
+                      </p>
+                      <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed">
+                        총 상금 💸100만원이 쏟아지는 PLAI이벤트! 나도 김햄찌가 될 수 있다!
                       </p>
                     </div>
                   </div>
