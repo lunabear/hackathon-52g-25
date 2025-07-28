@@ -57,6 +57,40 @@ export default function PlaiEventPage() {
   const [showGuideModal, setShowGuideModal] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<(typeof categories)[0] | null>(null)
 
+  // D-DAY 카운트다운 상태
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  // D-DAY 카운트다운 로직
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      // 8월 10일 24:00 = 8월 11일 00:00
+      const targetDate = new Date("2025-08-11T00:00:00+09:00")
+      const now = new Date()
+      const difference = targetDate.getTime() - now.getTime()
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+        setTimeLeft({ days, hours, minutes, seconds })
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+      }
+    }
+
+    calculateTimeLeft()
+    const timer = setInterval(calculateTimeLeft, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
   // 가이드 모달 열림/닫힘 시 채널톡 버튼 제어
   useEffect(() => {
     if (showGuideModal) {
@@ -108,7 +142,7 @@ export default function PlaiEventPage() {
                   <div className="text-center">
                     <div className="space-y-2 md:space-y-3">
                       <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed">
-                        📢 “웃기고 짠하고 할 말 많은 우리네 회사생활, AI로 보여주세요!“
+                        📢 "웃기고 짠하고 할 말 많은 우리네 회사생활, AI로 보여주세요!"
                       </p>
                     </div>
                   </div>
@@ -132,9 +166,29 @@ export default function PlaiEventPage() {
               </div>
             </div>
 
-            {/* 이벤트 출품작 섹션 - 이벤트 가이드 버튼과 카테고리 그리드 사이로 이동 */}
+            {/* 이벤트 출품작 섹션 - D-DAY 카운트다운 추가 */}
             <div className="max-w-5xl mx-auto mt-8 md:mt-12 mb-8 md:mb-12">
+              {/* D-DAY 카운트다운 */}
               <div className="text-center mb-6">
+                <div className="inline-flex items-center gap-3 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-2xl px-6 py-4 mb-4">
+                  <span className="text-2xl">⏰</span>
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-red-600 mb-1">이벤트 마감까지</p>
+                    <div className="flex items-center gap-2 text-lg font-black text-red-700">
+                      {timeLeft.days > 0 && (
+                        <>
+                          <span>{timeLeft.days}일</span>
+                          <span className="text-red-400">:</span>
+                        </>
+                      )}
+                      <span>{String(timeLeft.hours).padStart(2, "0")}</span>
+                      <span className="text-red-400">:</span>
+                      <span>{String(timeLeft.minutes).padStart(2, "0")}</span>
+                      <span className="text-red-400">:</span>
+                      <span>{String(timeLeft.seconds).padStart(2, "0")}</span>
+                    </div>
+                  </div>
+                </div>
                 <h3 className="text-lg md:text-xl font-semibold text-gray-700">이벤트 출품작</h3>
               </div>
 
@@ -221,33 +275,6 @@ export default function PlaiEventPage() {
                 </button>
               ))}
             </div>
-
-            {/* 이벤트 출품작 섹션 */}
-            {/* <div className="max-w-5xl mx-auto mt-12 md:mt-16">
-              <div className="text-center mb-6">
-                <h3 className="text-lg md:text-xl font-semibold text-gray-700">이벤트 출품작</h3>
-              </div>
-
-              {/* 출품작 박스 - 영상만들기와 웹툰 그리기 박스 합친 크기 */}
-            {/* <div className="bg-white rounded-xl border border-gray-200/60 overflow-hidden shadow-sm">
-                <div className="aspect-video bg-gray-50 flex items-center justify-center">
-                  <div className="text-center text-gray-400">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
-                    </div>
-                    <p className="text-sm font-medium">이미지나 영상을 추가해주세요</p>
-                    <p className="text-xs mt-1">출품작 예시나 하이라이트 영상</p>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </PageTransition>
