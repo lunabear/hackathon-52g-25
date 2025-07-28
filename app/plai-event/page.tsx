@@ -5,12 +5,25 @@ import Background from "@/components/ui/Background"
 import PageTransition from "@/components/ui/PageTransition"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
+import WorkModal, { WorkItem } from "@/components/ui/WorkModal"
 
 // ChannelIO 타입 정의
 declare global {
   interface Window {
     ChannelIO?: (...args: unknown[]) => void
   }
+}
+
+// 출품작 타입 정의는 WorkModal에서 import
+
+// 구글 시트 데이터 타입
+interface SheetData {
+  Category: string
+  Name: string
+  File: string
+  Like: number
 }
 
 // 카테고리 데이터
@@ -53,9 +66,243 @@ const categories = [
   },
 ]
 
+// 구글 드라이브 링크를 썸네일 URL로 변환
+const getDriveThumbnail = (driveUrl: string): string => {
+  const fileIdMatch = driveUrl.match(/\/d\/(.+?)\//)
+  if (fileIdMatch) {
+    return `https://drive.google.com/thumbnail?id=${fileIdMatch[1]}&sz=w400`
+  }
+  return driveUrl
+}
+
+// 카테고리 매핑
+const mapCategoryToType = (category: string): string => {
+  switch (category.toLowerCase()) {
+    case 'picture':
+      return 'image'
+    case 'video':
+      return 'video'
+    case 'cartoon':
+      return 'webtoon'
+    case 'song':
+      return 'music'
+    default:
+      return 'image'
+  }
+}
+
+// CSV 파싱 헬퍼 함수
+const parseCSVLine = (line: string): string[] => {
+  const result: string[] = []
+  let current = ''
+  let inQuotes = false
+  
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i]
+    
+    if (char === '"' && (i === 0 || line[i - 1] === ',')) {
+      inQuotes = true
+    } else if (char === '"' && inQuotes) {
+      if (i + 1 < line.length && line[i + 1] === '"') {
+        current += '"'
+        i++ // 다음 따옴표 건너뛰기
+      } else {
+        inQuotes = false
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim())
+      current = ''
+    } else {
+      current += char
+    }
+  }
+  
+  result.push(current.trim())
+  return result
+}
+
+// 구글 시트에서 데이터 가져오기
+const fetchGoogleSheetData = async (): Promise<WorkItem[]> => {
+  try {
+    // 구글 시트를 CSV로 가져오기
+    const sheetId = '1SngtFML7WHPa_pTI6DrSECzRw8AeUm-QcuIAlac5q4Q'
+    const response = await fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`)
+    
+    if (!response.ok) {
+      throw new Error('시트 데이터를 가져올 수 없습니다.')
+    }
+    
+    const csvText = await response.text()
+    const lines = csvText.split('\n').filter(line => line.trim())
+    
+    if (lines.length < 2) {
+      console.warn('데이터가 충분하지 않습니다.')
+      return []
+    }
+    
+    const data: SheetData[] = []
+    for (let i = 1; i < lines.length; i++) {
+      const line = lines[i].trim()
+      if (!line) continue
+      
+      const values = parseCSVLine(line)
+      if (values.length >= 4) {
+        // 빈 값 체크
+        const category = values[0]?.trim()
+        const name = values[1]?.trim()
+        const file = values[2]?.trim()
+        const like = parseInt(values[3]?.trim()) || 0
+        
+        if (category && name && file) {
+          data.push({
+            Category: category,
+            Name: name,
+            File: file,
+            Like: like
+          })
+        }
+      }
+    }
+    
+    console.log(`구글 시트에서 ${data.length}개의 출품작을 불러왔습니다.`)
+    
+    // WorkItem 형태로 변환
+    const workItems: WorkItem[] = data
+      .map((item, index) => {
+        const type = mapCategoryToType(item.Category)
+        let thumbnail = ''
+        
+        // 썸네일 URL 결정
+        if (type === 'music') {
+          // 음악은 항상 음반 이미지 사용 (인덱스에 따라 번갈아가며)
+          thumbnail = index % 2 === 0 ? "/assets/vinyl-record.png" : "/assets/vinyl-record2.png"
+        } else if (item.File.includes('drive.google.com')) {
+          thumbnail = getDriveThumbnail(item.File)
+        } else if (item.File.includes('padletusercontent.com')) {
+          thumbnail = item.File
+        } else {
+          // 기본 이미지 사용 
+          const defaultImages = {
+            video: "/assets/miso/miso-team.gif",
+            webtoon: "/assets/miso/miso-protagonist.png", 
+            image: "/assets/miso/miso-picaso.png",
+            music: "/assets/vinyl-record.png" // 기본값
+          }
+          thumbnail = defaultImages[type as keyof typeof defaultImages] || "/assets/miso/miso-no-idea.png"
+        }
+        
+        // 이름에서 제목과 작성자 분리
+        const nameParts = item.Name.split('_')
+        const title = nameParts.length > 1 ? nameParts[nameParts.length - 1] : item.Name
+        const author = nameParts.length > 1 ? nameParts.slice(0, -1).join(' ') : '익명'
+        
+        return {
+          id: `${type}-${index}-${Date.now()}`,
+          title,
+          author,
+          thumbnail,
+          type,
+          likes: item.Like,
+          fileUrl: item.File
+        }
+      })
+    
+    return workItems
+  } catch (error) {
+    console.error('구글 시트 데이터 로드 실패:', error)
+    return []
+  }
+}
+
 export default function PlaiEventPage() {
   const [showGuideModal, setShowGuideModal] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<(typeof categories)[0] | null>(null)
+  
+  // 동적 데이터 상태
+  const [works, setWorks] = useState<WorkItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  
+  // 작품 모달 상태
+  const [selectedWork, setSelectedWork] = useState<WorkItem | null>(null)
+  const [showWorkModal, setShowWorkModal] = useState(false)
+
+  // 이미지 로딩 상태
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set())
+  const [preloadedIndexes, setPreloadedIndexes] = useState<Set<number>>(new Set())
+
+  // 작품 클릭 핸들러
+  const handleWorkClick = (work: WorkItem) => {
+    // 음악은 새창으로 열기
+    if (work.type === 'music') {
+      window.open(work.fileUrl, '_blank', 'noopener,noreferrer')
+      return
+    }
+    
+    // 다른 타입은 모달로 열기
+    setSelectedWork(work)
+    setShowWorkModal(true)
+  }
+
+  const handleCloseWorkModal = () => {
+    setShowWorkModal(false)
+    setSelectedWork(null)
+  }
+
+  // 이미지 프리로딩 함수
+  const preloadImage = (src: string): Promise<void> => {
+    return new Promise((resolve) => {
+      if (loadedImages.has(src)) {
+        resolve()
+        return
+      }
+
+      const img = new window.Image()
+      img.onload = () => {
+        setLoadedImages(prev => new Set(prev).add(src))
+        resolve()
+      }
+      img.onerror = () => resolve() // 에러가 나도 계속 진행
+      img.src = src
+    })
+  }
+
+  // 주변 이미지들 프리로딩
+  const preloadAdjacentImages = (currentIndex: number, maxWorks: number) => {
+    const categoriesToPreload = [
+      { works: worksByCategory.video, name: 'video' },
+      { works: worksByCategory.webtoon, name: 'webtoon' },
+      { works: worksByCategory.image, name: 'image' },
+      { works: worksByCategory.music, name: 'music' }
+    ]
+
+    // 현재 + 앞뒤 2개씩 총 5개 인덱스
+    const indexesToPreload = []
+    for (let i = -2; i <= 2; i++) {
+      const index = (currentIndex + i + maxWorks) % maxWorks
+      indexesToPreload.push(index)
+    }
+
+    indexesToPreload.forEach(index => {
+      if (!preloadedIndexes.has(index)) {
+        categoriesToPreload.forEach(category => {
+          if (category.works.length > 0) {
+            const work = category.works[index % category.works.length]
+            if (work?.thumbnail) {
+              preloadImage(work.thumbnail)
+            } else if (category.name === 'music') {
+              // 음악 카테고리는 기본 이미지를 인덱스에 따라 번갈아가며 프리로딩
+              const vinylImage = index % 2 === 0 ? "/assets/vinyl-record.png" : "/assets/vinyl-record2.png"
+              preloadImage(vinylImage)
+            }
+          }
+        })
+        setPreloadedIndexes(prev => new Set(prev).add(index))
+      }
+    })
+  }
+  
+  // 모든 카테고리가 동시에 전환되도록 하나의 인덱스 상태 사용
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   // D-DAY 카운트다운 상태
   const [timeLeft, setTimeLeft] = useState({
@@ -64,6 +311,41 @@ export default function PlaiEventPage() {
     minutes: 0,
     seconds: 0,
   })
+
+  // 구글 시트 데이터 로드
+  useEffect(() => {
+    const loadData = async () => {
+      setIsLoading(true)
+      const data = await fetchGoogleSheetData()
+      setWorks(data)
+      setIsLoading(false)
+      
+      // 카테고리 이미지들 프리로딩
+      categories.forEach(category => {
+        if (category.image) {
+          preloadImage(category.image)
+        }
+      })
+      
+      // 음반 이미지들 프리로딩
+      preloadImage("/assets/vinyl-record.png")
+      preloadImage("/assets/vinyl-record2.png")
+    }
+    
+    loadData()
+    
+    // 5분마다 데이터 새로고침
+    const interval = setInterval(loadData, 5 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  // 카테고리별 작품 분류
+  const worksByCategory = {
+    video: works.filter(work => work.type === 'video'),
+    webtoon: works.filter(work => work.type === 'webtoon'),
+    image: works.filter(work => work.type === 'image'),
+    music: works.filter(work => work.type === 'music'),
+  }
 
   // D-DAY 카운트다운 로직
   useEffect(() => {
@@ -90,6 +372,31 @@ export default function PlaiEventPage() {
 
     return () => clearInterval(timer)
   }, [])
+
+  // 자동 슬라이드 효과 (카테고리별 최대 작품 수에 맞춰)
+  useEffect(() => {
+    const maxWorks = Math.max(
+      worksByCategory.video.length,
+      worksByCategory.webtoon.length,
+      worksByCategory.image.length,
+      worksByCategory.music.length
+    )
+    
+    if (maxWorks > 0) {
+      // 초기 프리로딩
+      preloadAdjacentImages(currentIndex, maxWorks)
+      
+      const timer = setInterval(() => {
+        setCurrentIndex((prev) => {
+          const nextIndex = (prev + 1) % maxWorks
+          // 다음 인덱스로 변경하기 전에 주변 이미지들 프리로딩
+          preloadAdjacentImages(nextIndex, maxWorks)
+          return nextIndex
+        })
+      }, 7000) // 4초에서 7초로 증가
+      return () => clearInterval(timer)
+    }
+  }, [works])
 
   // 가이드 모달 열림/닫힘 시 채널톡 버튼 제어
   useEffect(() => {
@@ -121,6 +428,21 @@ export default function PlaiEventPage() {
     }
   }, [selectedCategory])
 
+  // 작품 모달 열림/닫힘 시 채널톡 버튼 제어
+  useEffect(() => {
+    if (showWorkModal) {
+      // 모달 열림 시 채널톡 버튼 숨기기
+      if (window.ChannelIO) {
+        window.ChannelIO("hideChannelButton")
+      }
+    } else {
+      // 모달 닫힘 시 채널톡 버튼 다시 보이기 (메인 페이지에서만)
+      if (window.ChannelIO && window.location.pathname === "/") {
+        window.ChannelIO("showChannelButton")
+      }
+    }
+  }, [showWorkModal])
+
   return (
     <main
       className="min-h-screen relative"
@@ -128,7 +450,7 @@ export default function PlaiEventPage() {
     >
       <Background />
       <PageTransition>
-        <div className="relative z-10 container mx-auto px-4 pt-24 pb-16 md:pt-32 md:pb-24">
+        <div className="relative z-10 container mx-auto px-4 pt-32 pb-16 md:pt-40 md:pb-24">
           <div className="max-w-7xl mx-auto">
             {/* 헤더 */}
             <div className="text-center mb-8 md:mb-12">
@@ -169,11 +491,11 @@ export default function PlaiEventPage() {
               </div>
             </div>
 
-            {/* 이벤트 출품작 섹션 - D-DAY 카운트다운 추가 */}
-            <div className="max-w-5xl mx-auto mt-8 md:mt-12 mb-8 md:mb-12">
+            {/* 이벤트 출품작 섹션 - 3열 슬라이드로 고도화 */}
+            <div className="max-w-7xl mx-auto mt-12 md:mt-16 mb-12 md:mb-16">
               {/* D-DAY 카운트다운 */}
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl px-4 py-2 mb-4">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl px-4 py-2 mb-6">
                   <span className="text-lg">⏰</span>
                   <span className="text-sm font-medium text-red-600">이벤트 마감까지</span>
                   <div className="flex items-center gap-1 text-sm font-black text-red-700">
@@ -190,88 +512,646 @@ export default function PlaiEventPage() {
                     <span>{String(timeLeft.seconds).padStart(2, "0")}</span>
                   </div>
                 </div>
-                <h3 className="text-lg md:text-xl font-semibold text-gray-700">이벤트 출품작</h3>
+                
+                {/* 구분선 */}
+                <div className="w-24 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-auto mb-6"></div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="space-y-3"
+                >
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
+                    🎨 이벤트 출품작
+                  </h3>
+                  <p className="text-base md:text-lg text-gray-600 font-medium">
+                    동료들의 창의적인 AI 작품들을 감상해보세요
+                  </p>
+                </motion.div>
               </div>
 
-              {/* 출품작 박스 - 세로 길이를 절반으로 줄임 */}
-              <div className="bg-white rounded-xl border border-gray-200/60 overflow-hidden shadow-sm">
-                <div className="h-48 md:h-64 bg-gray-50 flex items-center justify-center">
-                  <div className="text-center text-gray-400">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
+              {/* PC: 3열 그리드 / 모바일: 1열 슬라이드 */}
+              <div className="relative">
+                {/* 로딩 상태 */}
+                {isLoading && (
+                  <div className="flex items-center justify-center py-12">
+                    <div className="flex items-center gap-3">
+                      <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                      <span className="text-gray-600 font-medium">출품작을 불러오는 중...</span>
                     </div>
-                    <p className="text-sm font-medium">이미지나 영상을 추가해주세요</p>
-                    <p className="text-xs mt-1">출품작 예시나 하이라이트 영상</p>
                   </div>
-                </div>
+                )}
+
+                {/* 데이터가 없을 때 */}
+                {!isLoading && works.length === 0 && (
+                  <div className="text-center py-12">
+                    <div className="text-6xl mb-4">🎭</div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">아직 출품작이 없습니다</h3>
+                    <p className="text-gray-600">첫 번째 출품자가 되어보세요!</p>
+                  </div>
+                )}
+
+                {/* PC 버전 - 3열 그리드 */}
+                {!isLoading && works.length > 0 && (
+                  <div className="hidden md:grid md:grid-cols-4 gap-6">
+                    {/* 영상 카테고리 */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                      className="gallery-item"
+                    >
+                      <div className="h-auto flex items-center">
+                        {worksByCategory.video.length > 0 ? (
+                          <AnimatePresence mode="wait">
+                            <motion.div
+                              key={currentIndex}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                              transition={{ duration: 0.5 }}
+                              className="w-full"
+                            >
+                              <div 
+                                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer work-card aspect-square relative shadow-sm"
+                                onClick={() => worksByCategory.video[currentIndex % worksByCategory.video.length] && handleWorkClick(worksByCategory.video[currentIndex % worksByCategory.video.length])}
+                              >
+                                <div className="relative h-full overflow-hidden bg-gray-100">
+                                  {/* 로딩 스켈레톤 */}
+                                  {!loadedImages.has(worksByCategory.video[currentIndex % worksByCategory.video.length]?.thumbnail || '') && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"></div>
+                                  )}
+                                  
+                                  {/* 동영상 자동재생을 위한 조건부 렌더링 */}
+                                  {worksByCategory.video[currentIndex % worksByCategory.video.length]?.fileUrl?.includes('hailuoai.video') ? (
+                                    <iframe
+                                      src={worksByCategory.video[currentIndex % worksByCategory.video.length]?.fileUrl}
+                                      className="w-full h-full object-cover"
+                                      frameBorder="0"
+                                      allow="autoplay; encrypted-media"
+                                      allowFullScreen
+                                    />
+                                  ) : (
+                                    <Image
+                                      src={worksByCategory.video[currentIndex % worksByCategory.video.length]?.thumbnail || "/assets/miso/miso-no-idea.png"}
+                                      alt={worksByCategory.video[currentIndex % worksByCategory.video.length]?.title || "No Title"}
+                                      fill
+                                      className={`object-cover object-top group-hover:scale-105 transition-all duration-500 ${
+                                        loadedImages.has(worksByCategory.video[currentIndex % worksByCategory.video.length]?.thumbnail || '') 
+                                          ? 'opacity-100' 
+                                          : 'opacity-0'
+                                      }`}
+                                      unoptimized={worksByCategory.video[currentIndex % worksByCategory.video.length]?.thumbnail?.endsWith('.gif')}
+                                      priority={currentIndex < 3}
+                                      onLoad={() => {
+                                        const src = worksByCategory.video[currentIndex % worksByCategory.video.length]?.thumbnail
+                                        if (src) setLoadedImages(prev => new Set(prev).add(src))
+                                      }}
+                                    />
+                                  )}
+                                  {/* 제목 태그 - 좌측 상단 */}
+                                  <div className="absolute top-3 left-3">
+                                    <div className="bg-black/80 backdrop-blur-md text-white px-3 py-2 rounded-lg">
+                                      <h5 className="font-bold text-sm">{worksByCategory.video[currentIndex % worksByCategory.video.length]?.title || "No Title"}</h5>
+                                    </div>
+                                  </div>
+
+                                  {/* 재생 오버레이 */}
+                                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                      <div className="w-10 h-10 bg-white/95 rounded-full flex items-center justify-center shadow-lg">
+                                        <div className="w-0 h-0 border-l-[7px] border-l-blue-600 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent ml-1"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* 카테고리 태그 - 좌측 하단 */}
+                                  <div className="absolute bottom-3 left-3">
+                                    <div className="bg-black/70 text-white text-xs px-3 py-2 rounded-full backdrop-blur-sm flex items-center gap-1.5">
+                                      <span>🎬</span>
+                                      <span className="font-medium">영상</span>
+                                    </div>
+                                  </div>
+
+                                  {/* 좋아요 태그 - 우측 하단 */}
+                                  <div className="absolute bottom-3 right-3">
+                                    <div className="bg-red-500/80 backdrop-blur-sm text-white px-3 py-1.5 rounded-full border border-red-400/50">
+                                      <div className="flex items-center gap-1.5 text-xs font-medium">
+                                        <span>❤️</span>
+                                        <span>{worksByCategory.video[currentIndex % worksByCategory.video.length]?.likes || 0}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </AnimatePresence>
+                        ) : (
+                          <div className="w-full aspect-square bg-gray-100 rounded-2xl flex items-center justify-center">
+                            <div className="text-center">
+                              <div className="text-3xl mb-2">🎬</div>
+                              <p className="text-sm text-gray-500">영상 작품을 기다리는 중...</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+
+                    {/* 웹툰 카테고리 */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className="gallery-item"
+                    >
+                      <div className="h-auto flex items-center">
+                        {worksByCategory.webtoon.length > 0 ? (
+                          <AnimatePresence mode="wait">
+                            <motion.div
+                              key={currentIndex}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                              transition={{ duration: 0.5 }}
+                              className="w-full"
+                            >
+                              <div 
+                                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer work-card aspect-square relative shadow-sm"
+                                onClick={() => worksByCategory.webtoon[currentIndex % worksByCategory.webtoon.length] && handleWorkClick(worksByCategory.webtoon[currentIndex % worksByCategory.webtoon.length])}
+                              >
+                                <div className="relative h-full overflow-hidden bg-gray-100">
+                                  {/* 로딩 스켈레톤 */}
+                                  {!loadedImages.has(worksByCategory.webtoon[currentIndex % worksByCategory.webtoon.length]?.thumbnail || '') && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"></div>
+                                  )}
+                                  
+                                  <Image
+                                    src={worksByCategory.webtoon[currentIndex % worksByCategory.webtoon.length]?.thumbnail || "/assets/miso/miso-no-idea.png"}
+                                    alt={worksByCategory.webtoon[currentIndex % worksByCategory.webtoon.length]?.title || "No Title"}
+                                    fill
+                                    className={`object-cover object-top group-hover:scale-105 transition-all duration-500 ${
+                                      loadedImages.has(worksByCategory.webtoon[currentIndex % worksByCategory.webtoon.length]?.thumbnail || '') 
+                                        ? 'opacity-100' 
+                                        : 'opacity-0'
+                                    }`}
+                                    priority={currentIndex < 3}
+                                    onLoad={() => {
+                                      const src = worksByCategory.webtoon[currentIndex % worksByCategory.webtoon.length]?.thumbnail
+                                      if (src) setLoadedImages(prev => new Set(prev).add(src))
+                                    }}
+                                  />
+                                  {/* 제목 태그 - 좌측 상단 */}
+                                  <div className="absolute top-3 left-3">
+                                    <div className="bg-black/80 backdrop-blur-md text-white px-3 py-2 rounded-lg">
+                                      <h5 className="font-bold text-sm">{worksByCategory.webtoon[currentIndex % worksByCategory.webtoon.length]?.title || "No Title"}</h5>
+                                    </div>
+                                  </div>
+
+                                  {/* 재생 오버레이 */}
+                                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                      <div className="w-10 h-10 bg-white/95 rounded-full flex items-center justify-center shadow-lg">
+                                        <div className="w-0 h-0 border-l-[7px] border-l-purple-600 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent ml-1"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* 카테고리 태그 - 좌측 하단 */}
+                                  <div className="absolute bottom-3 left-3">
+                                    <div className="bg-black/70 text-white text-xs px-3 py-2 rounded-full backdrop-blur-sm flex items-center gap-1.5">
+                                      <span>📚</span>
+                                      <span className="font-medium">웹툰</span>
+                                    </div>
+                                  </div>
+
+                                  {/* 좋아요 태그 - 우측 하단 */}
+                                  <div className="absolute bottom-3 right-3">
+                                    <div className="bg-red-500/80 backdrop-blur-sm text-white px-3 py-1.5 rounded-full border border-red-400/50">
+                                      <div className="flex items-center gap-1.5 text-xs font-medium">
+                                        <span>❤️</span>
+                                        <span>{worksByCategory.webtoon[currentIndex % worksByCategory.webtoon.length]?.likes || 0}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </AnimatePresence>
+                        ) : (
+                          <div className="w-full aspect-square bg-gray-100 rounded-2xl flex items-center justify-center">
+                            <div className="text-center">
+                              <div className="text-3xl mb-2">📚</div>
+                              <p className="text-sm text-gray-500">웹툰 작품을 기다리는 중...</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+
+                    {/* 그림 카테고리 */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                      className="gallery-item"
+                    >
+                      <div className="h-auto flex items-center">
+                        {worksByCategory.image.length > 0 ? (
+                          <AnimatePresence mode="wait">
+                            <motion.div
+                              key={currentIndex}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                              transition={{ duration: 0.5 }}
+                              className="w-full"
+                            >
+                              <div 
+                                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer work-card aspect-square relative shadow-sm"
+                                onClick={() => worksByCategory.image[currentIndex % worksByCategory.image.length] && handleWorkClick(worksByCategory.image[currentIndex % worksByCategory.image.length])}
+                              >
+                                <div className="relative h-full overflow-hidden bg-gray-100">
+                                  {/* 로딩 스켈레톤 */}
+                                  {!loadedImages.has(worksByCategory.image[currentIndex % worksByCategory.image.length]?.thumbnail || '') && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"></div>
+                                  )}
+                                  
+                                  <Image
+                                    src={worksByCategory.image[currentIndex % worksByCategory.image.length]?.thumbnail || "/assets/miso/miso-no-idea.png"}
+                                    alt={worksByCategory.image[currentIndex % worksByCategory.image.length]?.title || "No Title"}
+                                    fill
+                                    className={`object-cover object-top group-hover:scale-105 transition-all duration-500 ${
+                                      loadedImages.has(worksByCategory.image[currentIndex % worksByCategory.image.length]?.thumbnail || '') 
+                                        ? 'opacity-100' 
+                                        : 'opacity-0'
+                                    }`}
+                                    priority={currentIndex < 3}
+                                    onLoad={() => {
+                                      const src = worksByCategory.image[currentIndex % worksByCategory.image.length]?.thumbnail
+                                      if (src) setLoadedImages(prev => new Set(prev).add(src))
+                                    }}
+                                  />
+                                  {/* 제목 태그 - 좌측 상단 */}
+                                  <div className="absolute top-3 left-3">
+                                    <div className="bg-black/80 backdrop-blur-md text-white px-3 py-2 rounded-lg">
+                                      <h5 className="font-bold text-sm">{worksByCategory.image[currentIndex % worksByCategory.image.length]?.title || "No Title"}</h5>
+                                    </div>
+                                  </div>
+
+                                  {/* 확대 오버레이 */}
+                                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                      <div className="w-10 h-10 bg-white/95 rounded-full flex items-center justify-center shadow-lg">
+                                        <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                        </svg>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* 카테고리 태그 - 좌측 하단 */}
+                                  <div className="absolute bottom-3 left-3">
+                                    <div className="bg-black/70 text-white text-xs px-3 py-2 rounded-full backdrop-blur-sm flex items-center gap-1.5">
+                                      <span>🎨</span>
+                                      <span className="font-medium">그림</span>
+                                    </div>
+                                  </div>
+
+                                  {/* 좋아요 태그 - 우측 하단 */}
+                                  <div className="absolute bottom-3 right-3">
+                                    <div className="bg-red-500/80 backdrop-blur-sm text-white px-3 py-1.5 rounded-full border border-red-400/50">
+                                      <div className="flex items-center gap-1.5 text-xs font-medium">
+                                        <span>❤️</span>
+                                        <span>{worksByCategory.image[currentIndex % worksByCategory.image.length]?.likes || 0}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </AnimatePresence>
+                        ) : (
+                          <div className="w-full aspect-square bg-gray-100 rounded-2xl flex items-center justify-center">
+                            <div className="text-center">
+                              <div className="text-3xl mb-2">🎨</div>
+                              <p className="text-sm text-gray-500">그림 작품을 기다리는 중...</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+
+                    {/* 음악 카테고리 */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.4 }}
+                      className="gallery-item"
+                    >
+                      <div className="h-auto flex items-center">
+                        {worksByCategory.music.length > 0 ? (
+                          <AnimatePresence mode="wait">
+                            <motion.div
+                              key={currentIndex}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                              transition={{ duration: 0.5 }}
+                              className="w-full"
+                            >
+                              <div 
+                                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer work-card aspect-square relative shadow-sm"
+                                onClick={() => worksByCategory.music[currentIndex % worksByCategory.music.length] && handleWorkClick(worksByCategory.music[currentIndex % worksByCategory.music.length])}
+                              >
+                                <div className="relative h-full overflow-hidden bg-gray-100">
+                                  {/* 로딩 스켈레톤 */}
+                                  {!loadedImages.has(worksByCategory.music[currentIndex % worksByCategory.music.length]?.thumbnail || 
+                                    (currentIndex % 2 === 0 ? "/assets/vinyl-record.png" : "/assets/vinyl-record2.png")) && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"></div>
+                                  )}
+                                  
+                                  <Image
+                                    src={worksByCategory.music[currentIndex % worksByCategory.music.length]?.thumbnail || 
+                                      (currentIndex % 2 === 0 ? "/assets/vinyl-record.png" : "/assets/vinyl-record2.png")}
+                                    alt={worksByCategory.music[currentIndex % worksByCategory.music.length]?.title || "No Title"}
+                                    fill
+                                    className={`object-cover object-top group-hover:scale-105 transition-all duration-500 ${
+                                      loadedImages.has(worksByCategory.music[currentIndex % worksByCategory.music.length]?.thumbnail || '') 
+                                        ? 'opacity-100' 
+                                        : 'opacity-0'
+                                    }`}
+                                    priority={currentIndex < 3}
+                                    onLoad={() => {
+                                      const src = worksByCategory.music[currentIndex % worksByCategory.music.length]?.thumbnail || 
+                                        (currentIndex % 2 === 0 ? "/assets/vinyl-record.png" : "/assets/vinyl-record2.png")
+                                      if (src) setLoadedImages(prev => new Set(prev).add(src))
+                                    }}
+                                  />
+                                  {/* 제목 태그 - 좌측 상단 */}
+                                  <div className="absolute top-3 left-3">
+                                    <div className="bg-black/80 backdrop-blur-md text-white px-3 py-2 rounded-lg">
+                                      <h5 className="font-bold text-sm">{worksByCategory.music[currentIndex % worksByCategory.music.length]?.title || "No Title"}</h5>
+                                    </div>
+                                  </div>
+
+                                  {/* 바로가기 아이콘 - 항상 표시 */}
+                                  <div className="absolute top-3 right-3">
+                                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                      </svg>
+                                    </div>
+                                  </div>
+
+                                  {/* 카테고리 태그 - 좌측 하단 */}
+                                  <div className="absolute bottom-3 left-3">
+                                    <div className="bg-black/70 text-white text-xs px-3 py-2 rounded-full backdrop-blur-sm flex items-center gap-1.5">
+                                      <span>🎵</span>
+                                      <span className="font-medium">음악</span>
+                                    </div>
+                                  </div>
+
+                                  {/* 좋아요 태그 - 우측 하단 */}
+                                  <div className="absolute bottom-3 right-3">
+                                    <div className="bg-red-500/80 backdrop-blur-sm text-white px-3 py-1.5 rounded-full border border-red-400/50">
+                                      <div className="flex items-center gap-1.5 text-xs font-medium">
+                                        <span>❤️</span>
+                                        <span>{worksByCategory.music[currentIndex % worksByCategory.music.length]?.likes || 0}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </AnimatePresence>
+                        ) : (
+                          <div className="w-full aspect-square bg-gray-100 rounded-2xl flex items-center justify-center">
+                            <div className="text-center">
+                              <div className="text-3xl mb-2">🎵</div>
+                              <p className="text-sm text-gray-500">음악 작품을 기다리는 중...</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
+
+                {/* 모바일 버전 - 1열 슬라이드 */}
+                {!isLoading && works.length > 0 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="md:hidden"
+                  >
+                    <Carousel 
+                      className="w-full"
+                      plugins={[Autoplay({ delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true })]}
+                    >
+                      <CarouselContent>
+                        {/* 모든 작품을 하나의 슬라이드로 합침 */}
+                        {[...worksByCategory.video, ...worksByCategory.webtoon, ...worksByCategory.image, ...worksByCategory.music].map((work, index) => (
+                          <CarouselItem key={work.id} className="basis-full pl-4">
+                            <motion.div 
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.4, delay: index * 0.05 }}
+                              className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer"
+                              onClick={() => handleWorkClick(work)}
+                                                          >
+                                <div className="relative aspect-square overflow-hidden bg-gray-100">
+                                  {/* 로딩 스켈레톤 */}
+                                  {!loadedImages.has(work.thumbnail || '') && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"></div>
+                                  )}
+                                  
+                                  {/* 동영상 자동재생을 위한 조건부 렌더링 */}
+                                  {work.type === 'video' && work.fileUrl?.includes('hailuoai.video') ? (
+                                  <iframe
+                                    src={work.fileUrl}
+                                    className="w-full h-full object-cover"
+                                    frameBorder="0"
+                                    allow="autoplay; encrypted-media"
+                                    allowFullScreen
+                                  />
+                                ) : (
+                                  <Image
+                                    src={work.thumbnail}
+                                    alt={work.title}
+                                    fill
+                                    className={`object-cover object-top group-hover:scale-105 transition-all duration-500 ${
+                                      loadedImages.has(work.thumbnail || '') 
+                                        ? 'opacity-100' 
+                                        : 'opacity-0'
+                                    }`}
+                                    unoptimized={work.thumbnail?.endsWith('.gif')}
+                                    priority={index < 5}
+                                    onLoad={() => {
+                                      if (work.thumbnail) setLoadedImages(prev => new Set(prev).add(work.thumbnail))
+                                    }}
+                                  />
+                                )}
+                                
+                                {/* 제목 태그 - 좌측 상단 */}
+                                <div className="absolute top-3 left-3">
+                                  <div className="bg-black/80 backdrop-blur-md text-white px-3 py-2 rounded-lg">
+                                    <h5 className="font-bold text-sm">{work.title}</h5>
+                                  </div>
+                                </div>
+
+                                {/* 타입별 상호작용 표시 */}
+                                {work.type === 'music' ? (
+                                  <div className="absolute top-3 right-3">
+                                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                      </svg>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                      <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center">
+                                        {work.type === 'video' && (
+                                          <div className="w-0 h-0 border-l-[8px] border-l-blue-600 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1"></div>
+                                        )}
+                                        {work.type === 'webtoon' && (
+                                          <div className="w-0 h-0 border-l-[8px] border-l-purple-600 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1"></div>
+                                        )}
+                                        {work.type === 'image' && (
+                                          <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                          </svg>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* 카테고리 태그 - 좌측 하단 */}
+                                <div className="absolute bottom-3 left-3">
+                                  <div className="bg-black/70 text-white text-xs px-3 py-2 rounded-full backdrop-blur-sm flex items-center gap-1.5">
+                                    {work.type === 'video' && (
+                                      <>
+                                        <span>🎬</span>
+                                        <span className="font-medium">영상</span>
+                                      </>
+                                    )}
+                                    {work.type === 'webtoon' && (
+                                      <>
+                                        <span>📚</span>
+                                        <span className="font-medium">웹툰</span>
+                                      </>
+                                    )}
+                                    {work.type === 'image' && (
+                                      <>
+                                        <span>🎨</span>
+                                        <span className="font-medium">그림</span>
+                                      </>
+                                    )}
+                                    {work.type === 'music' && (
+                                      <>
+                                        <span>🎵</span>
+                                        <span className="font-medium">음악</span>
+                                      </>
+                                    )}
+                                  </div>
+                                </div>
+
+                                {/* 좋아요 태그 - 우측 하단 */}
+                                <div className="absolute bottom-3 right-3">
+                                  <div className="bg-red-500/80 backdrop-blur-sm text-white px-3 py-1.5 rounded-full border border-red-400/50">
+                                    <div className="flex items-center gap-1.5 text-xs font-medium">
+                                      <span>❤️</span>
+                                      <span>{work.likes}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </motion.div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                    </Carousel>
+                  </motion.div>
+                )}
               </div>
             </div>
 
-            {/* 카테고리 그리드 - 애플 스타일 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* 참여 유도 섹션 */}
+            <div className="text-center mb-12 md:mb-16 mt-20 md:mt-24">
+              {/* 구분선 */}
+              <div className="w-24 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-auto mb-6"></div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="space-y-3"
+              >
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
+                  🚀 지금 바로 참여하세요!
+                </h3>
+                <p className="text-base md:text-lg text-gray-600 font-medium">
+                  원하는 분야를 선택하고 나만의 AI 작품을 만들어보세요
+                </p>
+              </motion.div>
+            </div>
+
+            {/* 카테고리 그리드 - 이벤트 출품작과 동일한 스타일 */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category)}
-                  className="group bg-white rounded-xl border border-gray-200/60 hover:border-gray-300/80 transition-all duration-300 ease-out hover:shadow-sm text-left overflow-hidden"
+                  className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer shadow-sm"
                 >
-                  {/* 반응형 레이아웃: 모바일 세로, PC 가로 */}
-                  <div className="flex flex-col md:flex-row">
-                    {/* 이미지 영역 */}
-                    <div className="relative h-48 md:h-auto md:w-48 bg-gray-50/50 flex items-center justify-center flex-shrink-0">
-                      <Image
-                        src={category.image || "/placeholder.svg"}
-                        alt={category.title}
-                        width={160}
-                        height={160}
-                        className={`w-36 h-36 md:w-40 md:h-40 object-contain group-hover:scale-105 transition-transform duration-500 ease-out ${
-                          category.image.includes("miso-protagonist") ||
-                          category.image.includes("miso-music") ||
-                          category.image.includes("miso-picaso")
-                            ? "rounded-2xl"
-                            : ""
-                        }`}
-                      />
-                    </div>
-
-                    {/* 텍스트 콘텐츠 영역 */}
-                    <div className="flex-1 flex flex-col">
-                      <div className="p-6 space-y-3 flex-1">
-                        {/* 메인 타이틀 */}
-                        <h3 className="text-xl font-semibold text-gray-900 leading-tight tracking-tight">
-                          {category.title}
-                        </h3>
-
-                        {/* 서브 타이틀 */}
-                        <p className="text-base font-medium text-gray-600 leading-snug">{category.subtitle}</p>
-
-                        {/* 설명 */}
-                        <p className="text-sm text-gray-500 leading-relaxed whitespace-pre-line pt-1">
-                          {category.description}
-                        </p>
-                      </div>
-
-                      {/* 하단 액션 영역 */}
-                      <div className="px-6 pb-6 mt-auto">
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium text-gray-400 group-hover:text-gray-600 transition-colors">
-                            참여하기
-                          </span>
-                          <div className="w-5 h-5 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-0.5 transition-all duration-200">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                            </svg>
-                          </div>
+                  <div className="relative h-48 overflow-hidden bg-gray-50/50 flex items-center justify-center">
+                    <Image
+                      src={category.image || "/placeholder.svg"}
+                      alt={category.title}
+                      width={120}
+                      height={120}
+                      className={`w-28 h-28 object-contain object-top group-hover:scale-105 transition-all duration-500 ${
+                        category.image.includes("miso-protagonist") ||
+                        category.image.includes("miso-music") ||
+                        category.image.includes("miso-picaso")
+                          ? "rounded-xl"
+                          : ""
+                      } ${
+                        loadedImages.has(category.image || '') 
+                          ? 'opacity-100' 
+                          : 'opacity-0'
+                      }`}
+                      priority
+                      onLoad={() => {
+                        if (category.image) setLoadedImages(prev => new Set(prev).add(category.image))
+                      }}
+                    />
+                    
+                    {/* 호버 오버레이 */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                          <div className="w-0 h-0 border-l-[6px] border-l-gray-600 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent ml-1"></div>
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  {/* 컴팩트한 텍스트 영역 */}
+                  <div className="p-4">
+                    <h3 className="font-bold text-base text-gray-900 mb-2 line-clamp-1">
+                      {category.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 font-medium mb-2 line-clamp-1">
+                      {category.subtitle}
+                    </p>
+                    <p className="text-xs text-gray-500 line-clamp-2 leading-relaxed">
+                      {category.description}
+                    </p>
                   </div>
                 </button>
               ))}
@@ -559,6 +1439,14 @@ export default function PlaiEventPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* 작품 상세 모달 */}
+      <WorkModal 
+        work={selectedWork}
+        isOpen={showWorkModal}
+        onClose={handleCloseWorkModal}
+      />
     </main>
   )
 }
+
