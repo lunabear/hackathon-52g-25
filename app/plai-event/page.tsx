@@ -228,7 +228,6 @@ export default function PlaiEventPage() {
 
   // 이미지 로딩 상태
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set())
-  const [preloadedIndexes, setPreloadedIndexes] = useState<Set<number>>(new Set())
 
   // 작품 클릭 핸들러
   const handleWorkClick = (work: WorkItem) => {
@@ -283,23 +282,17 @@ export default function PlaiEventPage() {
     }
 
     indexesToPreload.forEach(index => {
-      setPreloadedIndexes(prev => {
-        if (!prev.has(index)) {
-          categoriesToPreload.forEach(category => {
-            if (category.works.length > 0) {
-              const work = category.works[index % category.works.length]
-              if (work?.thumbnail) {
-                preloadImage(work.thumbnail)
-              } else if (category.name === 'music') {
-                // 음악 카테고리는 기본 이미지를 인덱스에 따라 번갈아가며 프리로딩
-                const vinylImage = index % 2 === 0 ? "/assets/vinyl-record.png" : "/assets/vinyl-record2.png"
-                preloadImage(vinylImage)
-              }
-            }
-          })
-          return new Set(prev).add(index)
+      categoriesToPreload.forEach(category => {
+        if (category.works.length > 0) {
+          const work = category.works[index % category.works.length]
+          if (work?.thumbnail) {
+            preloadImage(work.thumbnail)
+          } else if (category.name === 'music') {
+            // 음악 카테고리는 기본 이미지를 인덱스에 따라 번갈아가며 프리로딩
+            const vinylImage = index % 2 === 0 ? "/assets/vinyl-record.png" : "/assets/vinyl-record2.png"
+            preloadImage(vinylImage)
+          }
         }
-        return prev
       })
     })
   }, [works, preloadImage])
@@ -399,7 +392,7 @@ export default function PlaiEventPage() {
       }, 7000) // 4초에서 7초로 증가
       return () => clearInterval(timer)
     }
-  }, [works, preloadAdjacentImages])
+  }, [works, preloadAdjacentImages, currentIndex, worksByCategory.video.length, worksByCategory.webtoon.length, worksByCategory.image.length, worksByCategory.music.length])
 
   // 가이드 모달 열림/닫힘 시 채널톡 버튼 제어
   useEffect(() => {
