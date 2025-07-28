@@ -1260,11 +1260,11 @@ export default function PlaiEventPage() {
                 <div className="bg-blue-50 rounded-xl p-4 md:p-6 space-y-3">
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-1">참여기간</h4>
-                    <p className="text-gray-700 text-sm md:text-base">7월 21일(월) ~ 8월 3일(일)</p>
+                    <p className="text-gray-700 text-sm md:text-base">7월 21일(월) ~ 8월 6일(수)</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-1">수상작 발표</h4>
-                    <p className="text-gray-700 text-sm md:text-base">8월 8일(금)</p>
+                    <p className="text-gray-700 text-sm md:text-base">8월 11일(월)</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-2">당첨자 안내방법</h4>
