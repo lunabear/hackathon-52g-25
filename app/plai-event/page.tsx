@@ -132,6 +132,33 @@ export default function PlaiEventPage() {
               </div>
             </div>
 
+            {/* 이벤트 출품작 섹션 - 이벤트 가이드 버튼과 카테고리 그리드 사이로 이동 */}
+            <div className="max-w-5xl mx-auto mt-8 md:mt-12 mb-8 md:mb-12">
+              <div className="text-center mb-6">
+                <h3 className="text-lg md:text-xl font-semibold text-gray-700">이벤트 출품작</h3>
+              </div>
+
+              {/* 출품작 박스 - 세로 길이를 절반으로 줄임 */}
+              <div className="bg-white rounded-xl border border-gray-200/60 overflow-hidden shadow-sm">
+                <div className="h-48 md:h-64 bg-gray-50 flex items-center justify-center">
+                  <div className="text-center text-gray-400">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                    <p className="text-sm font-medium">이미지나 영상을 추가해주세요</p>
+                    <p className="text-xs mt-1">출품작 예시나 하이라이트 영상</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* 카테고리 그리드 - 애플 스타일 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {categories.map((category) => (
@@ -196,13 +223,13 @@ export default function PlaiEventPage() {
             </div>
 
             {/* 이벤트 출품작 섹션 */}
-            <div className="max-w-5xl mx-auto mt-12 md:mt-16">
+            {/* <div className="max-w-5xl mx-auto mt-12 md:mt-16">
               <div className="text-center mb-6">
                 <h3 className="text-lg md:text-xl font-semibold text-gray-700">이벤트 출품작</h3>
               </div>
 
               {/* 출품작 박스 - 영상만들기와 웹툰 그리기 박스 합친 크기 */}
-              <div className="bg-white rounded-xl border border-gray-200/60 overflow-hidden shadow-sm">
+            {/* <div className="bg-white rounded-xl border border-gray-200/60 overflow-hidden shadow-sm">
                 <div className="aspect-video bg-gray-50 flex items-center justify-center">
                   <div className="text-center text-gray-400">
                     <div className="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
@@ -220,7 +247,7 @@ export default function PlaiEventPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </PageTransition>
