@@ -495,7 +495,7 @@ export default function Hero() {
 
                 {/* 디스코드 소통채널 버튼 */}
                 <a
-                  href="https://discord.gg/JvSFSU3e"
+                  href="https://m.site.naver.com/1NCnd"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative w-64 lg:w-52"
