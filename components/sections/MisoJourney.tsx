@@ -268,49 +268,91 @@ export default function MisoJourney() {
 
         {/* 팟캐스트 섹션 - 프로젝트 톤앤매너 일치 */}
         <div
-          className="max-w-4xl mx-auto mt-16 md:mt-20 px-6"
+          className="max-w-6xl mx-auto mt-16 md:mt-20 px-6"
           style={{ fontFamily: "Pretendard Variable, Pretendard, -apple-system, sans-serif" }}
         >
-          <div className="text-center space-y-8 md:space-y-10">
-            {/* 제목 */}
+          {/* 제목 */}
+          <div className="text-center mb-12">
             <div className="max-w-3xl mx-auto">
               <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight text-gray-900 leading-tight">
-                어떤 문제를 풀어볼 수 있을지
-                <br />
-                아직{" "}
+                어떤 문제를 풀어볼 수 있을지 아직{" "}
                 <span className="bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">
                   감이 안잡히시나요?
                 </span>
               </h3>
               <div className="w-16 h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-400 mx-auto mt-4 rounded-full"></div>
             </div>
+          </div>
 
-            {/* 설명 */}
-            <div className="max-w-2xl mx-auto space-y-4">
-              <p className="text-base md:text-lg text-slate-600 leading-relaxed">
-                다양한 사례를 담아, GS계열사의 담당자와의{" "}
-                <span className="font-semibold text-emerald-600">가상 인터뷰</span>를 AI로 만들어봤어요!
-              </p>
-              <p className="text-base md:text-lg text-slate-700 font-medium leading-relaxed">
-                <span className="font-semibold text-emerald-600">제4회 GS그룹 해커톤- 스페셜 팟캐스트</span>를 통해,
-                <span className="font-bold text-emerald-600"> 나도 할 수 있다!</span>는 가능성을 상상해봐요
-              </p>
+          {/* 2열 그리드 레이아웃 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+            {/* 좌측: 팟캐스트 */}
+            <div className="flex flex-col h-full">
+              <div className="space-y-4 mb-6">
+                <p className="text-base md:text-lg text-slate-600 leading-relaxed">
+                  다양한 사례로 GS계열사 담당자와의 <span className="font-semibold text-emerald-600">가상 인터뷰</span>를 AI로 만들어봤어요!
+                </p>
+                <p className="text-base md:text-lg text-slate-700 font-medium leading-relaxed">
+                  <span className="font-semibold text-emerald-600">해커톤 스페셜 팟캐스트</span>를 통해 <span className="font-bold text-emerald-600">나도 할 수 있다!</span>는 가능성을 상상해봐요
+                </p>
+              </div>
+
+              {/* 이미지와 버튼 2열 배치 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center flex-grow">
+                {/* 팟캐스트 이미지 - 축소된 크기 */}
+                <div className="relative group">
+                  <div className="bg-transparent rounded-xl overflow-hidden">
+                    <Image
+                      src="/assets/miso/miso-podcast.png"
+                      alt="GS그룹 해커톤 스페셜 팟캐스트"
+                      width={400}
+                      height={267}
+                      className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                </div>
+
+                {/* CTA 버튼 */}
+                <div className="flex justify-center sm:justify-start items-center h-full">
+                  <a
+                    href="https://www.podbbang.com/channels/1793063"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-block bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:shadow-lg relative"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative z-10 flex items-center justify-center gap-3">
+                      <span className="text-xl">🎧</span>
+                      <span className="text-base tracking-wide">귀로 듣는 유즈케이스</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
 
-            {/* CTA 버튼 */}
-            <div className="pt-6">
-              <a
-                href="https://www.podbbang.com/channels/1793063"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-block bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:shadow-lg relative"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative z-10 flex items-center justify-center gap-3">
-                  <span className="text-xl">🎧</span>
-                  <span className="text-base tracking-wide">귀로 듣는 유즈케이스</span>
-                </div>
-              </a>
+            {/* 우측: 유튜브 영상 */}
+            <div className="flex flex-col h-full">
+              <div className="space-y-4 mb-6">
+                <p className="text-base md:text-lg text-slate-600 leading-relaxed">
+                  해커톤에 대한 내용이 더 궁금하신 분들을 위해 <span className="font-semibold text-emerald-600">특별히 준비</span>했어요!
+                </p>
+                <p className="text-base md:text-lg text-slate-700 font-medium leading-relaxed">
+                  7/29(화) 진행했던 <span className="font-semibold text-emerald-600">온라인 설명회 영상</span>을 통해, <span className="font-bold text-emerald-600">궁금증을 해결</span>해보세요
+                </p>
+              </div>
+
+              {/* 유튜브 영상 임베드 */}
+              <div className="aspect-video rounded-xl overflow-hidden shadow-lg flex-grow min-h-[200px] md:min-h-[250px]">
+                <iframe
+                  src="https://www.youtube.com/embed/6cfKrnFgcUc"
+                  title="제4회 GS그룹 해커톤 온라인 설명회"
+                  width="100%"
+                  height="100%"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full border-0"
+                />
+              </div>
             </div>
           </div>
         </div>
