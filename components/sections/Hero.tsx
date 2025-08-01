@@ -63,7 +63,7 @@ export default function Hero() {
   } | null>(null)
 
   // 신청자 수 데이터
-  const { count: participantCount, isLoading: isLoadingCount } = useParticipantCount()
+  const { count: participantCount, isLoading: isLoadingCount, shouldDisplay } = useParticipantCount()
 
   // 이벤트 모달 상태
   const [showEventModal, setShowEventModal] = useState(false)
@@ -397,7 +397,8 @@ export default function Hero() {
                 <span className="font-bold text-gray-900">PLAI Everywhere, PLAI Together!</span>
               </p>
               
-              {/* 갤러그 스타일 아케이드 카운터 */}
+              {/* 갤러그 스타일 아케이드 카운터 - 데이터가 있을 때만 표시 */}
+              {(!isLoadingCount && participantCount > 0 && shouldDisplay) && (
               <div className="flex justify-center mb-6">
                                 <div className="relative arcade-display px-6 py-3 bg-red-600 border-2 border-red-700 rounded-lg">
                   {/* 미세한 텍스처 배경 */}
@@ -446,6 +447,7 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
+              )}
               
                             {/* 클린한 빨간 배경 스타일 */}
               <style jsx>{`

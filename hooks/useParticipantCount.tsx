@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react"
 
 export function useParticipantCount() {
-  const [count, setCount] = useState(18745) // 기본값
+  const [count, setCount] = useState(0) // 기본값 제거
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [shouldDisplay, setShouldDisplay] = useState(false) // 현황판 노출 여부
 
   useEffect(() => {
     const fetchCount = async () => {
@@ -20,24 +21,29 @@ export function useParticipantCount() {
         }
         
         const data = await response.json()
-        console.log("Apps Script 응답 데이터:", data) // 디버깅용
         
-        // 데이터 구조에 따라 신청자 수 추출
+        // 데이터 구조에 따라 신청자 수 및 표시 여부 추출
         if (data.values && Array.isArray(data.values) && data.values.length > 0) {
-          // 첫 번째 행에서 숫자 찾기
+          
+          // 첫 번째 행에서 참가자 수 추출 (A1)
           const firstRow = data.values[0]
           if (Array.isArray(firstRow)) {
-            // 첫 번째 열에서 숫자 추출 (실제 데이터 위치)
             const participantCount = Number(firstRow[0])
             if (!isNaN(participantCount) && participantCount > 0) {
-              console.log("추출된 참가자 수:", participantCount) // 디버깅용
               setCount(participantCount)
-            } else {
-              console.warn("유효하지 않은 참가자 수:", firstRow[0])
             }
           }
-        } else {
-          console.warn("예상하지 못한 데이터 구조:", data)
+          
+          // 두 번째 행에서 표시 여부 추출 (A2)
+          if (data.values.length > 1) {
+            const secondRow = data.values[1]
+            if (Array.isArray(secondRow) && secondRow.length > 0) {
+              const displayFlag = secondRow[0]
+              // boolean 또는 문자열로 올 수 있음
+              const shouldShow = displayFlag === true || displayFlag === "TRUE" || displayFlag === "true"
+              setShouldDisplay(shouldShow)
+            }
+          }
         }
         
         setError(null)
@@ -59,5 +65,5 @@ export function useParticipantCount() {
     return () => clearInterval(interval)
   }, [])
 
-  return { count, isLoading, error }
+  return { count, isLoading, error, shouldDisplay }
 } 
