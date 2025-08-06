@@ -16,8 +16,8 @@ const schedules = [
   {
     name: "참여자 모집",
     startDate: new Date("2025-07-17T00:00:00+09:00"),
-    endDate: new Date("2025-08-06T23:59:59+09:00"),
-    label: "참여자 모집 마감까지",
+    endDate: new Date("2025-08-07T12:00:00+09:00"),
+    label: "8월 7일 정오까지",
   },
   {
     name: "확정자 발표",
@@ -67,6 +67,12 @@ export default function Hero() {
 
   // 이벤트 모달 상태
   const [showEventModal, setShowEventModal] = useState(false)
+  
+  // 참가 신청 마감 여부 확인
+  const isRegistrationClosed = new Date() > new Date("2025-08-07T12:00:00+09:00")
+  
+  // 마감 임박 팝업 상태
+  const [showDeadlinePopup, setShowDeadlinePopup] = useState(false)
 
   // 이벤트 모달 자동 표시 (첫 방문 시) - 비활성화됨
   // useEffect(() => {
@@ -87,6 +93,14 @@ export default function Hero() {
     setShowEventModal(false)
     localStorage.setItem("plai-event-modal-shown", "true")
   }
+  
+  // 마감 임박 팝업 표시 로직
+  useEffect(() => {
+    // 참가 신청 기간이면서 아직 마감되지 않았을 때만 표시
+    if (!isRegistrationClosed) {
+      setShowDeadlinePopup(true)
+    }
+  }, [isRegistrationClosed])
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -468,20 +482,22 @@ export default function Hero() {
             >
               {/* 모든 버튼을 한 줄로 배치 */}
               <div className="flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-4">
-                {/* 주요 CTA - 참가 신청 버튼 */}
-                <a
-                  href="https://form.typeform.com/to/GX5MGuZ9"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative w-64 lg:w-52"
-                >
-                  <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-300 ease-out group-hover:from-slate-800 group-hover:to-slate-700 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="relative z-10 text-center block text-sm lg:text-base tracking-wide whitespace-nowrap">
-                      참가 신청하기
-                    </span>
-                  </div>
-                </a>
+                {/* 주요 CTA - 참가 신청 버튼 (마감일 전까지만 표시) */}
+                {!isRegistrationClosed && (
+                  <a
+                    href="https://form.typeform.com/to/GX5MGuZ9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative w-64 lg:w-52"
+                  >
+                    <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-300 ease-out group-hover:from-slate-800 group-hover:to-slate-700 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <span className="relative z-10 text-center block text-sm lg:text-base tracking-wide whitespace-nowrap">
+                        참가 신청하기
+                      </span>
+                    </div>
+                  </a>
+                )}
 
                 {/* 사전 학습 가이드 버튼 - 조건부 렌더링 */}
                 {MENU_CONFIG.SHOW_GUIDE && (
@@ -504,7 +520,7 @@ export default function Hero() {
                 >
                   <div className="bg-white border-2 border-slate-200 text-slate-700 font-semibold py-4 px-6 rounded-2xl transition-all duration-300 ease-out group-hover:border-slate-300 group-hover:bg-slate-50 group-hover:shadow-2xl group-hover:-translate-y-1 group-active:translate-y-0 group-active:shadow-lg">
                     <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="relative z-10 text-center block text-sm lg:text-base tracking-wide whitespace-nowrap flex items-center justify-center gap-2">
+                    <span className="relative z-10 text-center flex items-center justify-center gap-2 text-sm lg:text-base tracking-wide whitespace-nowrap">
                       <svg className="w-4 h-4 lg:w-5 lg:h-5" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z" />
                       </svg>
@@ -550,6 +566,46 @@ export default function Hero() {
 
       {/* 이벤트 모달 */}
       <EventModal isOpen={showEventModal} onClose={handleCloseEventModal} onDontShowAgain={handleDontShowAgain} />
+      
+      {/* 마감 임박 팝업 */}
+      {showDeadlinePopup && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center px-4"
+        >
+          {/* 백드롭 */}
+          <div 
+            className="absolute inset-0 bg-black/20"
+            onClick={() => setShowDeadlinePopup(false)}
+          />
+          
+          {/* 팝업 컨텐츠 */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full"
+          >
+            {/* 콘텐츠 */}
+            <div className="text-center">
+              <div className="text-4xl mb-4">📣</div>
+              <h3 className="text-2xl font-bold mb-3 text-gray-900">마지막 알림!</h3>
+              <p className="text-lg font-bold mb-2 text-red-600">접수 마감 임박! (~8/7 정오까지)</p>
+              <p className="text-base text-gray-600 mb-8">놓치면 1년 기다려야 해요<br/>지금 바로 접수하세요!</p>
+              
+              {/* 확인 버튼 - 메인페이지 스타일과 동일 */}
+              <button
+                onClick={() => setShowDeadlinePopup(false)}
+                className="bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 ease-out hover:from-slate-800 hover:to-slate-700 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 active:shadow-lg"
+              >
+                확인했어요
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   )
 }

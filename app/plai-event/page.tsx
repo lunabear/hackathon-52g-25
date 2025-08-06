@@ -346,8 +346,8 @@ export default function PlaiEventPage() {
   // D-DAY 카운트다운 로직
   useEffect(() => {
     const calculateTimeLeft = () => {
-      // 8월 7일 00:00
-      const targetDate = new Date("2025-08-07T00:00:00+09:00")
+      // 8월 7일 정오
+      const targetDate = new Date("2025-08-07T12:00:00+09:00")
       const now = new Date()
       const difference = targetDate.getTime() - now.getTime()
 
@@ -1178,7 +1178,7 @@ export default function PlaiEventPage() {
                 <div className="bg-blue-50 rounded-2xl p-4 md:p-6 text-center">
                   <span className="text-2xl md:text-3xl mb-2 block">📅</span>
                   <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">참여 기간</h3>
-                  <p className="text-sm md:text-lg font-bold text-blue-700">7.21 ~ 8.6</p>
+                  <p className="text-sm md:text-lg font-bold text-blue-700">7.21 ~ 8.7 정오</p>
                 </div>
 
                 <div className="bg-purple-50 rounded-2xl p-4 md:p-6 text-center">
@@ -1260,7 +1260,7 @@ export default function PlaiEventPage() {
                 <div className="bg-blue-50 rounded-xl p-4 md:p-6 space-y-3">
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-1">참여기간</h4>
-                    <p className="text-gray-700 text-sm md:text-base">7월 21일(월) ~ 8월 6일(수)</p>
+                    <p className="text-gray-700 text-sm md:text-base">7월 21일(월) ~ 8월 7일(목) 정오</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-1">수상작 발표</h4>
