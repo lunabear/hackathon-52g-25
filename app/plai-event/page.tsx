@@ -217,6 +217,7 @@ const fetchGoogleSheetData = async (): Promise<WorkItem[]> => {
 export default function PlaiEventPage() {
   const [showGuideModal, setShowGuideModal] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<(typeof categories)[0] | null>(null)
+  const [showEventEndModal, setShowEventEndModal] = useState(false)
   
   // 동적 데이터 상태
   const [works, setWorks] = useState<WorkItem[]>([])
@@ -346,8 +347,8 @@ export default function PlaiEventPage() {
   // D-DAY 카운트다운 로직
   useEffect(() => {
     const calculateTimeLeft = () => {
-      // 8월 7일 정오
-      const targetDate = new Date("2025-08-07T12:00:00+09:00")
+      // 8월 6일 자정
+      const targetDate = new Date("2025-08-06T23:59:59+09:00")
       const now = new Date()
       const difference = targetDate.getTime() - now.getTime()
 
@@ -360,6 +361,12 @@ export default function PlaiEventPage() {
         setTimeLeft({ days, hours, minutes, seconds })
       } else {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        // 이벤트 종료 시 모달 표시 (localStorage로 한 번만 표시되도록 관리)
+        const hasShownEndModal = localStorage.getItem('plai-event-end-modal-shown')
+        if (!hasShownEndModal) {
+          setShowEventEndModal(true)
+          localStorage.setItem('plai-event-end-modal-shown', 'true')
+        }
       }
     }
 
@@ -439,6 +446,21 @@ export default function PlaiEventPage() {
     }
   }, [showWorkModal])
 
+  // 이벤트 종료 모달 열림/닫힘 시 채널톡 버튼 제어
+  useEffect(() => {
+    if (showEventEndModal) {
+      // 모달 열림 시 채널톡 버튼 숨기기
+      if (window.ChannelIO) {
+        window.ChannelIO("hideChannelButton")
+      }
+    } else {
+      // 모달 닫힘 시 채널톡 버튼 다시 보이기 (메인 페이지에서만)
+      if (window.ChannelIO && window.location.pathname === "/") {
+        window.ChannelIO("showChannelButton")
+      }
+    }
+  }, [showEventEndModal])
+
   return (
     <main
       className="min-h-screen relative"
@@ -489,24 +511,30 @@ export default function PlaiEventPage() {
 
             {/* 이벤트 출품작 섹션 - 3열 슬라이드로 고도화 */}
             <div className="max-w-7xl mx-auto mt-12 md:mt-16 mb-12 md:mb-16">
-              {/* D-DAY 카운트다운 */}
+              {/* D-DAY 카운트다운 / 이벤트 종료 안내 */}
               <div className="text-center mb-8">
                 <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl px-4 py-2 mb-6">
                   <span className="text-lg">⏰</span>
-                  <span className="text-sm font-medium text-red-600">이벤트 마감까지</span>
-                  <div className="flex items-center gap-1 text-sm font-black text-red-700">
-                    {timeLeft.days > 0 && (
-                      <>
-                        <span>{timeLeft.days}일</span>
+                  {timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0 ? (
+                    <>
+                      <span className="text-sm font-medium text-red-600">이벤트 마감까지</span>
+                      <div className="flex items-center gap-1 text-sm font-black text-red-700">
+                        {timeLeft.days > 0 && (
+                          <>
+                            <span>{timeLeft.days}일</span>
+                            <span className="text-red-400">:</span>
+                          </>
+                        )}
+                        <span>{String(timeLeft.hours).padStart(2, "0")}</span>
                         <span className="text-red-400">:</span>
-                      </>
-                    )}
-                    <span>{String(timeLeft.hours).padStart(2, "0")}</span>
-                    <span className="text-red-400">:</span>
-                    <span>{String(timeLeft.minutes).padStart(2, "0")}</span>
-                    <span className="text-red-400">:</span>
-                    <span>{String(timeLeft.seconds).padStart(2, "0")}</span>
-                  </div>
+                        <span>{String(timeLeft.minutes).padStart(2, "0")}</span>
+                        <span className="text-red-400">:</span>
+                        <span>{String(timeLeft.seconds).padStart(2, "0")}</span>
+                      </div>
+                    </>
+                  ) : (
+                    <span className="text-sm font-medium text-red-600">이벤트가 종료되었습니다</span>
+                  )}
                 </div>
                 
                 {/* 구분선 */}
@@ -1178,7 +1206,7 @@ export default function PlaiEventPage() {
                 <div className="bg-blue-50 rounded-2xl p-4 md:p-6 text-center">
                   <span className="text-2xl md:text-3xl mb-2 block">📅</span>
                   <h3 className="font-semibold text-gray-900 text-xs md:text-sm mb-1">참여 기간</h3>
-                  <p className="text-sm md:text-lg font-bold text-blue-700">7.21 ~ 8.7 정오</p>
+                  <p className="text-sm md:text-lg font-bold text-blue-700">7.21 ~ 8.6 자정</p>
                 </div>
 
                 <div className="bg-purple-50 rounded-2xl p-4 md:p-6 text-center">
@@ -1260,7 +1288,7 @@ export default function PlaiEventPage() {
                 <div className="bg-blue-50 rounded-xl p-4 md:p-6 space-y-3">
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-1">참여기간</h4>
-                    <p className="text-gray-700 text-sm md:text-base">7월 21일(월) ~ 8월 7일(목) 정오</p>
+                    <p className="text-gray-700 text-sm md:text-base">7월 21일(월) ~ 8월 6일(화) 자정</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 text-sm md:text-base mb-1">수상작 발표</h4>
@@ -1430,6 +1458,156 @@ export default function PlaiEventPage() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 이벤트 종료 모달 */}
+      <AnimatePresence>
+        {showEventEndModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          >
+            {/* 배경 오버레이 */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              onClick={() => setShowEventEndModal(false)}
+            />
+            
+            {/* 토스 스타일 모달 */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="relative bg-white rounded-[28px] w-full max-w-[420px] max-h-[90vh] shadow-[0_0_0_1px_rgba(0,0,0,0.05),0_16px_32px_rgba(0,0,0,0.12)] overflow-hidden flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* 헤더 */}
+              <div className="relative px-6 pt-6 pb-4 flex-shrink-0">
+                {/* 닫기 버튼 */}
+                <button
+                  onClick={() => setShowEventEndModal(false)}
+                  className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all duration-200"
+                >
+                  <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* 상단 콘텐츠 */}
+                <div className="flex items-center gap-4">
+                  {/* 좌측 미소 이미지 */}
+                  <div className="flex-shrink-0">
+                    <Image 
+                      src="/assets/miso/miso-event.png" 
+                      alt="Miso Event End" 
+                      width={120} 
+                      height={120}
+                      className="w-20 h-20 object-contain drop-shadow-sm"
+                    />
+                  </div>
+                
+                  {/* 우측 텍스트 */}
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-[18px] font-bold text-gray-900 leading-tight mb-1">
+                      아쉽지만, 이벤트가 종료되었어요! 😢
+                    </h2>
+                    <p className="text-sm text-gray-500 font-medium">
+                      참여해주신 모든 분께 감사드려요 🙌
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 메인 콘텐츠 */}
+              <div className="flex-1 px-6 pb-6 overflow-y-auto">
+                {/* 안내 메시지 */}
+                <div className="bg-blue-50 rounded-[20px] p-5 mb-6">
+                  <p className="text-center text-gray-700 font-medium">
+                    AI작품은 자유롭게 구경하실 수 있어요
+                  </p>
+                </div>
+
+                {/* 당첨자 발표 안내 */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-[20px] border border-amber-200">
+                    <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-lg">🗓</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-amber-800 mb-1">당첨자 발표: 8월 11일(월)</p>
+                      <p className="text-xs text-amber-700">이벤트 페이지에서 확인하실 수 있어요!</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 수상작 & 상품 안내 */}
+                <div className="mb-6">
+                  <h3 className="text-base font-bold text-gray-900 mb-3">🏆 수상작 & 상품 안내</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100">
+                      <span className="text-sm">🧠</span>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-gray-900">베스트 PLAI</span>
+                        <span className="text-xs text-gray-500 ml-2">— 애플워치 SE ⏰</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100">
+                      <span className="text-sm">🎥</span>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-gray-900">베스트 영상</span>
+                        <span className="text-xs text-gray-500 ml-2">— 애플워치 SE ⏰</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100">
+                      <span className="text-sm">📚</span>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-gray-900">베스트 만화</span>
+                        <span className="text-xs text-gray-500 ml-2">— 에어팟4 🎧</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100">
+                      <span className="text-sm">🎵</span>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-gray-900">베스트 노래</span>
+                        <span className="text-xs text-gray-500 ml-2">— 네스프레소 버츄오팝 ☕</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100">
+                      <span className="text-sm">🖼</span>
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-gray-900">베스트 이미지</span>
+                        <span className="text-xs text-gray-500 ml-2">— 네스프레소 버츄오팝 ☕</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA 버튼 */}
+                <div className="space-y-3 mb-4">
+                  <button
+                    onClick={() => setShowEventEndModal(false)}
+                    className="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold py-4 px-6 rounded-[16px] transition-all duration-200"
+                  >
+                    작품 구경하러 가기 🎨
+                  </button>
+                </div>
+
+                {/* 하단 메시지 */}
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 font-medium">다음 이벤트에서 또 만나요! 💙</p>
+                </div>
               </div>
             </motion.div>
           </motion.div>
