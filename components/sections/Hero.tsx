@@ -592,7 +592,7 @@ export default function Hero() {
             <div className="text-center">
               <div className="text-4xl mb-4">📣</div>
               <h3 className="text-2xl font-bold mb-3 text-gray-900">마지막 알림!</h3>
-              <p className="text-lg font-bold mb-2 text-red-600">접수 마감 임박! (~8/7 정오까지)</p>
+              <p className="text-lg font-bold mb-2 text-red-600">접수 마감 임박! (~8/7(목) 정오까지)</p>
               <p className="text-base text-gray-600 mb-8">놓치면 1년 기다려야 해요<br/>지금 바로 접수하세요!</p>
               
               {/* 확인 버튼 - 메인페이지 스타일과 동일 */}
