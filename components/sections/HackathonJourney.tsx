@@ -52,6 +52,7 @@ export default function HackathonJourney() {
               <div>
                 <p className="text-slate-700 font-bold text-xs md:text-sm mb-1">8.11(월)</p>
                 <p className="text-slate-500 text-xs">선발 결과 개별 안내</p>
+                <p className="text-red-500 font-semibold text-[9px] mt-1 whitespace-nowrap">8.13(수) 14:00 온라인 오리엔테이션</p>
               </div>
             </div>
           </div>
