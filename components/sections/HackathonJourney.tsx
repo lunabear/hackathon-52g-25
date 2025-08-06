@@ -32,7 +32,7 @@ export default function HackathonJourney() {
                 <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-3">참여자 모집</h4>
               </div>
               <div>
-                <p className="text-slate-700 font-bold text-xs md:text-sm mb-1">7.21(월) ~ 8.6(수)</p>
+                <p className="text-slate-700 font-bold text-xs md:text-sm mb-1">7.21(월) ~ 8.7(목) 정오</p>
                 <p className="text-slate-500 text-xs">신청 기간</p>
               </div>
             </div>
