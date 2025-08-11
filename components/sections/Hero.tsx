@@ -74,7 +74,7 @@ export default function Hero() {
   // 마감 임박 팝업 상태
   const [showDeadlinePopup, setShowDeadlinePopup] = useState(false)
 
-  // 이벤트 모달 자동 표시 (첫 방문 시) - 비활성화됨
+  // 이벤트 모달 자동 표시 - 비활성화됨 (plai-event 페이지에서만 표시)
   // useEffect(() => {
   //   const hasSeenModal = localStorage.getItem('plai-event-modal-shown')
   //   if (!hasSeenModal) {

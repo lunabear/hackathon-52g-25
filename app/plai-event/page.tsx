@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import WorkModal, { WorkItem } from "@/components/ui/WorkModal"
+import EventModal from "@/components/ui/EventModal"
 
 // ChannelIO 타입 정의
 declare global {
@@ -219,6 +220,9 @@ export default function PlaiEventPage() {
   const [selectedCategory, setSelectedCategory] = useState<(typeof categories)[0] | null>(null)
   const [showEventEndModal, setShowEventEndModal] = useState(false)
   
+  // 당첨자 발표 모달 상태
+  const [showWinnerModal, setShowWinnerModal] = useState(false)
+  
   // 동적 데이터 상태
   const [works, setWorks] = useState<WorkItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -308,6 +312,14 @@ export default function PlaiEventPage() {
     minutes: 0,
     seconds: 0,
   })
+
+  // 당첨자 발표 모달 자동 표시 (이미지 로딩과 무관하게 즉시)
+  useEffect(() => {
+    const hasSeenWinnerModal = localStorage.getItem('plai-event-winner-modal-shown')
+    if (!hasSeenWinnerModal) {
+      setShowWinnerModal(true)
+    }
+  }, [])
 
   // 구글 시트 데이터 로드
   useEffect(() => {
@@ -461,6 +473,31 @@ export default function PlaiEventPage() {
     }
   }, [showEventEndModal])
 
+  // 당첨자 모달 열림/닫힘 시 채널톡 버튼 제어
+  useEffect(() => {
+    if (showWinnerModal) {
+      // 모달 열림 시 채널톡 버튼 숨기기
+      if (window.ChannelIO) {
+        window.ChannelIO("hideChannelButton")
+      }
+    } else {
+      // 모달 닫힘 시 채널톡 버튼 다시 보이기 (메인 페이지에서만)
+      if (window.ChannelIO && window.location.pathname === "/") {
+        window.ChannelIO("showChannelButton")
+      }
+    }
+  }, [showWinnerModal])
+
+  // 당첨자 모달 핸들러들
+  const handleCloseWinnerModal = () => {
+    setShowWinnerModal(false)
+  }
+
+  const handleDontShowWinnerModalAgain = () => {
+    setShowWinnerModal(false)
+    localStorage.setItem('plai-event-winner-modal-shown', 'true')
+  }
+
   return (
     <main
       className="min-h-screen relative"
@@ -514,7 +551,7 @@ export default function PlaiEventPage() {
               {/* D-DAY 카운트다운 / 이벤트 종료 안내 */}
               <div className="text-center mb-8">
                 <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl px-4 py-2 mb-6">
-                  <span className="text-lg">⏰</span>
+                  <span className="text-lg">🎉</span>
                   {timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0 ? (
                     <>
                       <span className="text-sm font-medium text-red-600">이벤트 마감까지</span>
@@ -533,7 +570,22 @@ export default function PlaiEventPage() {
                       </div>
                     </>
                   ) : (
-                    <span className="text-sm font-medium text-red-600">이벤트가 종료되었습니다</span>
+                    <button
+                      type="button"
+                      onClick={() => setShowWinnerModal(true)}
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-amber-700 hover:text-amber-800 underline underline-offset-4 decoration-amber-300/70 hover:decoration-amber-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 rounded-sm px-0 py-0"
+                    >
+                      <span>당첨자 확인하기</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-4 h-4"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 2l2.42 6.63 7.02.61-5.24 4.54 1.6 6.97L12 17.77 6.2 20.75l1.6-6.97L2.56 9.24l7.02-.61L12 2z" />
+                      </svg>
+                    </button>
                   )}
                 </div>
                 
@@ -1560,14 +1612,14 @@ export default function PlaiEventPage() {
                       <span className="text-sm">🧠</span>
                       <div className="flex-1">
                         <span className="text-sm font-medium text-gray-900">베스트 PLAI</span>
-                        <span className="text-xs text-gray-500 ml-2">— 애플워치 SE ⏰</span>
+                        <span className="text-xs text-gray-500 ml-2">— 애플워치 SE 🎉</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100">
                       <span className="text-sm">🎥</span>
                       <div className="flex-1">
                         <span className="text-sm font-medium text-gray-900">베스트 영상</span>
-                        <span className="text-xs text-gray-500 ml-2">— 애플워치 SE ⏰</span>
+                        <span className="text-xs text-gray-500 ml-2">— 애플워치 SE 🎉</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100">
@@ -1619,6 +1671,13 @@ export default function PlaiEventPage() {
         work={selectedWork}
         isOpen={showWorkModal}
         onClose={handleCloseWorkModal}
+      />
+
+      {/* 당첨자 발표 모달 */}
+      <EventModal 
+        isOpen={showWinnerModal}
+        onClose={handleCloseWinnerModal}
+        onDontShowAgain={handleDontShowWinnerModalAgain}
       />
     </main>
   )
